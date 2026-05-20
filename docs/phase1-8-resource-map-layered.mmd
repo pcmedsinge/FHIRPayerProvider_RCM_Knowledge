@@ -1,0 +1,114 @@
+```mermaid
+flowchart LR
+
+  %% Phase nodes
+  P1[Phase 1]
+  P2[Phase 2]
+  P3[Phase 3]
+  P4[Phase 4]
+  P5[Phase 5]
+  P6[Phase 6]
+  P7[Phase 7]
+  P8[Phase 8]
+
+  %% Domain groups
+  subgraph D1[Clinical Core]
+    R1[Patient]
+    R2[Encounter]
+    R3[Condition]
+    R4[Procedure]
+    R5[MedicationRequest]
+    R6[Observation]
+    R7[AllergyIntolerance]
+    R8[DiagnosticReport]
+    R9[Immunization]
+  end
+
+  subgraph D2[Payer Financial]
+    R10[ExplanationOfBenefit]
+    R11[Coverage]
+    R12[Claim]
+    R13[InsurancePlan]
+    R14[MedicationKnowledge]
+    R15[Medication]
+  end
+
+  subgraph D3[Provider Directory]
+    R16[Practitioner]
+    R17[PractitionerRole]
+    R18[Organization]
+    R19[Location]
+    R20[HealthcareService]
+  end
+
+  subgraph D4[Workflow and Interop]
+    R21[ServiceRequest]
+    R22[Questionnaire]
+    R23[QuestionnaireResponse]
+    R24[Consent]
+    R25[Provenance]
+  end
+
+  %% Phase to resource edges
+  P1 --> R1
+  P1 --> R10
+  P1 --> R11
+  P1 --> R2
+  P1 --> R3
+  P1 --> R4
+  P1 --> R5
+  P1 --> R12
+  P1 --> R16
+  P1 --> R18
+  P1 --> R19
+
+  P2 --> R1
+  P2 --> R10
+  P2 --> R11
+
+  P3 --> R16
+  P3 --> R17
+  P3 --> R18
+  P3 --> R19
+  P3 --> R20
+
+  P4 --> R13
+  P4 --> R14
+  P4 --> R15
+  P4 --> R5
+
+  P5 --> R21
+  P5 --> R1
+  P5 --> R11
+  P5 --> R22
+
+  P6 --> R22
+  P6 --> R23
+  P6 --> R12
+  P6 -. implied .-> R21
+
+  P7 --> R24
+  P7 --> R25
+  P7 --> R10
+  P7 --> R2
+  P7 --> R3
+  P7 --> R5
+  P7 -. implied .-> R6
+  P7 -. implied .-> R7
+  P7 -. implied .-> R8
+  P7 -. implied .-> R9
+
+  P8 --> R1
+  P8 --> R10
+  P8 --> R11
+  P8 --> R2
+  P8 --> R3
+  P8 --> R4
+  P8 --> R5
+  P8 --> R6
+  P8 --> R7
+  P8 --> R8
+  P8 --> R9
+  P8 --> R16
+  P8 --> R18
+```

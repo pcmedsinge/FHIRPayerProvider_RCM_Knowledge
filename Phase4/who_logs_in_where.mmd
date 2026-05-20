@@ -1,0 +1,31 @@
+sequenceDiagram
+    autonumber
+    actor Clinician as Clinician (human user)
+    participant EHR as EHR App or Vendor UI
+    participant RCM as RCM or Auth Workqueue
+    participant Adapter as EHR-Payer Integration Adapter
+    participant PayerAuth as Payer OAuth Server
+    participant PayerAPI as Payer CRD, DTR, PAS APIs
+    participant Clear as Clearinghouse (optional)
+
+    Clinician->>EHR: Log in and open patient chart
+    EHR->>Adapter: Launch with patient and user context
+    Adapter->>PayerAuth: OAuth token request (system or user context)
+    PayerAuth-->>Adapter: Access token
+
+    Adapter->>PayerAPI: CRD or formulary check for selected order
+    PayerAPI-->>Adapter: Coverage requirements and cards
+    Adapter-->>EHR: Display PA and documentation requirements
+    EHR->>RCM: Create or update auth task
+
+    Clinician->>EHR: Complete DTR questionnaire inputs
+    EHR->>Adapter: Submit DTR response
+    Adapter->>PayerAPI: Submit PAS prior auth
+    PayerAPI-->>Adapter: Auth ID and status
+    Adapter-->>RCM: Update auth workqueue status
+
+    RCM->>Clear: Send claim transaction (optional path)
+    RCM->>PayerAPI: Send claim direct (alternate path)
+    Clear->>PayerAPI: Route or normalize claim (if used)
+    PayerAPI-->>RCM: Adjudication or remittance
+    RCM-->>EHR: Financial status feedback

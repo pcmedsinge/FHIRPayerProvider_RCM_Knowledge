@@ -1,0 +1,22 @@
+flowchart LR
+    A[Clinician in EHR places order] --> B[RCM/Auth worklist created]
+    B --> C[CRD check via CDS Hooks]
+    C --> D{PA or docs needed?}
+    D -- No --> E[Proceed to scheduling or fulfillment]
+    D -- Yes --> F[DTR questionnaire and clinical docs]
+    F --> G[PAS submit prior auth]
+    G --> H{Payer decision}
+    H -- Approved --> E
+    H -- Pended or more info --> F
+    H -- Denied --> I[Alternative plan, drug, or service]
+    I --> C
+
+    E --> J[Service delivered]
+    J --> K[Claim assembled in RCM]
+    K --> L[Send claim direct or via clearinghouse]
+    L --> M[Payer adjudication]
+    M --> N{Claim result}
+    N -- Paid --> O[Remittance posted]
+    N -- Denied --> P[Denial workqueue in RCM]
+    P --> Q[Correct, resubmit, or appeal]
+    Q --> L

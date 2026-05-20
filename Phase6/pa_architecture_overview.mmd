@@ -1,0 +1,82 @@
+graph TB
+    subgraph EHR["EHR System"]
+        UI["Clinician UI<br/>(Order Entry)"]
+        CDSUI["CDS Hooks<br/>UI Integration"]
+        EHRAPI["EHR FHIR API<br/>(localhost:8082)"]
+        EHRQUEUE["EHR Task Queue<br/>(PA tracking)"]
+    end
+    
+    subgraph P5["Phase 5: CRD Service<br/>(localhost:5250)"]
+        CDSCTRL["CDS Hooks<br/>Controller"]
+        CDSRULE["Coverage Rules<br/>Engine"]
+    end
+    
+    subgraph P6["Phase 6: Prior Auth API<br/>(localhost:5260)"]
+        DTRCTRL["DTR Controller<br/>(Questionnaire)"]
+        DTRENG["DTR Engine<br/>(Q generation)"]
+        PASCTRL["PAS Controller<br/>(Submit/Status)"]
+        PASENG["PAS Decision<br/>Engine"]
+        PASRULES["PA Decision<br/>Rules"]
+    end
+    
+    subgraph ASync["Async Processing Layer"]
+        QUEUE["Queue System<br/>(RabbitMQ/Queue)"]
+        WORKER["PA Worker<br/>(Async job)"]
+        SCHEDULER["Scheduler<br/>(status updates)"]
+    end
+    
+    subgraph Storage["Data Storage"]
+        HAPI["HAPI FHIR Server<br/>(localhost:8082)"]
+        PADB["PA Database<br/>(authId, status,<br/>decisions)"]
+        QRDB["Questionnaire<br/>Responses DB"]
+    end
+    
+    subgraph Payer["Payer Backend"]
+        UMQUEUE["UM Worklist<br/>(Human review)"]
+        UMSTAFF["Reviewer<br/>Tasks"]
+        NOTIFICATION["Notification<br/>Service"]
+    end
+    
+    %% EHR flow
+    UI -->|1. Select order| CDSUI
+    CDSUI -->|2. CDS Hooks| CDSCTRL
+    CDSCTRL --> CDSRULE
+    CDSRULE -->|3. Cards| CDSUI
+    
+    UI -->|4. Click Start PA| DTRCTRL
+    DTRENG -->|Fetch patient| HAPI
+    DTRENG -->|5. Questionnaire| UI
+    
+    UI -->|6. Submit response| DTRCTRL
+    DTRCTRL --> HAPI
+    DTRCTRL --> QRDB
+    
+    UI -->|7. Submit PA| PASCTRL
+    PASCTRL --> QUEUE
+    PASCTRL -->|8. authId + status| EHRQUEUE
+    EHRQUEUE -->|Poll/receive updates| UI
+    
+    %% Async processing
+    QUEUE --> WORKER
+    WORKER --> PASENG
+    PASENG --> PASRULES
+    PASRULES --> HAPI
+    WORKER --> PADB
+    
+    %% Manual review path
+    PASENG -->|If manual needed| UMQUEUE
+    UMQUEUE --> UMSTAFF
+    UMSTAFF -->|Decision| PADB
+    
+    %% Status updates
+    WORKER --> SCHEDULER
+    SCHEDULER --> NOTIFICATION
+    NOTIFICATION -->|Webhook| EHRAPI
+    EHRAPI -->|Status changed| EHRQUEUE
+    
+    style EHR fill:#e1f5ff
+    style P5 fill:#fff3e0
+    style P6 fill:#f3e5f5
+    style ASync fill:#fce4ec
+    style Storage fill:#e8f5e9
+    style Payer fill:#ffe0b2

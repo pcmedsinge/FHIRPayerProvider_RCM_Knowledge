@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: fhir-postgres
+    environment:
+      POSTGRES_DB: hapi_payer_provider
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  hapi-fhir:
+    image: hapiproject/hapi:latest
+    container_name: fhir-server-payer
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8082:8080"
+    environment:
+      # PostgreSQL configuration for persistent storage
+      - spring.datasource.url=jdbc:postgresql://postgres:5432/hapi_payer_provider
+      - spring.datasource.username=admin
+      - spring.datasource.password=admin
+      - spring.datasource.driverClassName=org.postgresql.Driver
+      - spring.jpa.properties.hibernate.dialect=ca.uhn.fhir.jpa.model.dialect.HapiFhirPostgres94Dialect
+      # Enable all FHIR versions, but we'll use R4
+      - hapi.fhir.fhir_version=R4
+      # Enable CORS for local development
+      - hapi.fhir.cors.allowed_origin=*
+      # Enable subscriptions and other features
+      - hapi.fhir.subscription.resthook_enabled=true
+      - hapi.fhir.allow_external_references=true
+      - hapi.fhir.enforce_referential_integrity_on_write=false
+      - hapi.fhir.enforce_referential_integrity_on_delete=false
+      # Enable bulk data export
+      - hapi.fhir.bulk_export_enabled=true
+      # Performance settings
+      - hapi.fhir.reuse_cached_search_results_millis=60000
+    volumes:
+      - hapi-data:/data/hapi
+    healthcheck:
+      test: ["CMD", "java", "-version"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+volumes:
+  hapi-data:
+    driver: local
+  postgres-data:
+    driver: local

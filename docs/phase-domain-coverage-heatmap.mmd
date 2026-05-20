@@ -1,0 +1,52 @@
+```mermaid
+flowchart TB
+
+  %% Phases
+  P1[Phase 1]
+  P2[Phase 2]
+  P3[Phase 3]
+  P4[Phase 4]
+  P5[Phase 5]
+  P6[Phase 6]
+  P7[Phase 7]
+  P8[Phase 8]
+
+  %% Domains
+  DC[Clinical Core]
+  DP[Payer Financial]
+  DD[Provider Directory]
+  DW[Workflow and Interop]
+
+  %% Coverage links
+  P1 --> DC
+  P1 --> DP
+  P1 --> DD
+
+  P2 --> DC
+  P2 --> DP
+
+  P3 --> DD
+
+  P4 --> DP
+
+  P5 --> DW
+  P5 --> DP
+  P5 --> DC
+
+  P6 --> DW
+  P6 --> DP
+
+  P7 --> DW
+  P7 --> DP
+  P7 --> DC
+
+  P8 --> DC
+  P8 --> DP
+  P8 --> DD
+
+  %% Legend as note nodes
+  L1[High coverage: 3+ domains]
+  L2[Focused coverage: 1 to 2 domains]
+
+  L1 --- L2
+```

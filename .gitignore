@@ -1,0 +1,39 @@
+## .NET / C# ##
+bin/
+obj/
+*.user
+*.suo
+.vs/
+*.cache
+publish/
+*.nupkg
+*.snupkg
+*.lock.json
+!packages.lock.json
+
+## Rider ##
+.idea/
+
+## VS Code ##
+.vscode/
+
+## Secrets / local settings ##
+appsettings.*.json
+!appsettings.json
+!appsettings.Development.json
+secrets.json
+*.pfx
+*.key
+
+## Logs ##
+*.log
+logs/
+
+## OS ##
+.DS_Store
+Thumbs.db
+
+## Synthea / generated data (large) ##
+Phase1/Data/output/
+Phase1/Setup/synthea/
+Phase1/Data/*.jar

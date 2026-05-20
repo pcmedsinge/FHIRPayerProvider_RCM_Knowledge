@@ -1,0 +1,48 @@
+{
+  "resourceType": "Bundle",
+  "type": "batch",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:patient-count",
+      "request": {
+        "method": "GET",
+        "url": "Patient?_summary=count"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:eob-count",
+      "request": {
+        "method": "GET",
+        "url": "ExplanationOfBenefit?_summary=count"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:encounter-count",
+      "request": {
+        "method": "GET",
+        "url": "Encounter?_summary=count"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:condition-count",
+      "request": {
+        "method": "GET",
+        "url": "Condition?_summary=count"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:procedure-count",
+      "request": {
+        "method": "GET",
+        "url": "Procedure?_summary=count"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:medication-count",
+      "request": {
+        "method": "GET",
+        "url": "MedicationRequest?_summary=count"
+      }
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+sequenceDiagram
+    participant Clinician
+    participant EHR
+    participant CRD as CRD Service<br/>(Phase 5)
+    participant DTR as DTR Service<br/>(Questionnaires)
+    participant PAS as PAS Service<br/>(Decision Engine)
+    participant PAQueue as PA Queue<br/>(Async)
+    participant Reviewer as Payer<br/>Reviewer
+    participant HAPI as HAPI FHIR<br/>Server
+
+    Clinician->>EHR: Select order (MRI Brain)
+    EHR->>CRD: order-select hook<br/>(CDS Hooks)
+    CRD->>HAPI: Fetch patient context<br/>(optional)
+    CRD->>EHR: Return cards<br/>(PA required, docs needed)
+    
+    Clinician->>EHR: Click "Start PA"
+    EHR->>DTR: GET /api/dtr/Questionnaire/<br/>by-service/70553
+    DTR->>EHR: Return Questionnaire
+    
+    Clinician->>EHR: Fill questionnaire
+    EHR->>DTR: POST /api/dtr/Questionnaire/response
+    DTR->>HAPI: Store QuestionnaireResponse
+    DTR->>EHR: Return responseId
+    
+    EHR->>PAS: POST /api/pas/PriorAuth/submit<br/>(with responseId, order details)
+    PAS->>PAQueue: Enqueue PA request
+    PAS->>EHR: Return authId + status=submitted
+    
+    Note over PAQueue: Async Processing
+    PAQueue->>PAS: Pick PA from queue
+    PAS->>HAPI: Fetch supporting resources
+    PAS->>PAS: Apply decision rules<br/>(auto-approve vs manual)
+    
+    alt Auto-Approve Path
+        PAS->>PAS: Status = approved
+    else Manual Review Path
+        PAS->>Reviewer: Task assignment<br/>(UM staff worklist)
+        Reviewer->>PAS: Review + decision
+        PAS->>HAPI: Store reviewer notes
+    end
+    
+    PAS->>EHR: Webhook/push notification<br/>status=approved
+    EHR->>Clinician: PA granted! Order can proceed
+    Clinician->>EHR: Sign order
+    
+    Note over EHR,CRD: Back to CRD for final check
+    EHR->>CRD: order-sign hook
+    CRD->>EHR: Return cards (PA resolved)
+    
+    Clinician->>EHR: Submit for execution
+    EHR->>HAPI: Create order in system
