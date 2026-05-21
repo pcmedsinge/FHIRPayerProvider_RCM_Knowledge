@@ -1870,6 +1870,45 @@ Medicaid uses **FPL (Federal Poverty Level)** as the threshold. In 2026: ~$15,06
 
 ---
 
+### Medicare Parts A / B / C / D — The Structure (Memorize Cold)
+
+Every Medicare interview question eventually touches the four parts. Know them cold.
+
+| Part | Name | What It Covers | Premium | Who Administers |
+|---|---|---|---|---|
+| **Part A** | Hospital Insurance | Inpatient hospital, skilled nursing facility (SNF), hospice, some home health | **$0** for most (need 40 quarters payroll tax) | CMS / Traditional Medicare |
+| **Part B** | Medical Insurance | Doctor visits, outpatient services, preventive care, durable medical equipment (DME), some home health | **~$185/month** (2026, income-adjusted via IRMAA for high earners) | CMS / Traditional Medicare |
+| **Part C** | Medicare Advantage (MA) | **Replaces** A + B + usually D. Private plan manages all care. Must cover all A/B benefits, often adds dental/vision/hearing | Varies — often $0 premium plans (payer subsidizes from CMS capitation) | **Private insurers** (Humana, UHC, Aetna, BCBS) under CMS contract |
+| **Part D** | Prescription Drug | Outpatient prescription drugs | Varies — standalone PDP or included in MA-PD plan | **Private PDPs** contracted with CMS |
+
+**The A+B vs C distinction** — this is a common interview confusion:
+- **Traditional Medicare (FFS)**: Parts A + B + standalone Part D. CMS pays providers directly on a fee-for-service basis. No prior auth. Member pays 20% coinsurance with no cap (hence Medigap).
+- **Medicare Advantage (Part C)**: Private insurer takes over — receives monthly capitation from CMS per member, manages ALL care under A+B+D. Can add prior auth, has networks, can have $0 premiums but more restrictions. This is the commercial payer world where your FHIR work lives.
+
+**Medigap (Medicare Supplement)**: Sold alongside Traditional Medicare A+B to cover the 20% coinsurance gap. Does NOT work with Medicare Advantage — members pick one or the other.
+
+**IRMAA** (Income-Related Monthly Adjustment Amount): Part B and Part D premiums increase for individuals earning over ~$106,000/year. A common gotcha — the "free" Medicare isn't truly free for high earners.
+
+---
+
+### Medicaid Program Types — FFS vs MCO vs Waiver
+
+Medicaid is not one program — it is a **collection of state programs** that share federal matching funds (FMAP). States choose how to deliver it.
+
+| Delivery Model | How It Works | States Using It | PM Relevance |
+|---|---|---|---|
+| **Fee-for-Service (FFS)** | State pays providers directly per service, like traditional Medicare. No managed care middleman. | Rare now — mostly rural areas or legacy states | Legacy EDI flows direct to state; no MCO layer |
+| **Managed Care Organization (MCO)** | State contracts with private MCOs (Centene, Molina, Anthem, UHC Community Plan) and pays capitated PMPM. MCO manages the member. | ~75% of all Medicaid members are in MCOs | Your FHIR mandates apply here — CMS-9115-F + CMS-0057-F cover Medicaid MCOs |
+| **Primary Care Case Management (PCCM)** | FFS but PCPs are assigned as gatekeepers and paid a small per-member-per-month care coordination fee | Some rural states as transition model | Hybrid — not full managed care |
+| **1115 Waiver** | CMS grants a state waiver to run a demonstration program with different rules (work requirements, expansion conditions, special populations) | Many states — e.g., Indiana, Arkansas, Tennessee | High regulatory complexity — rules differ significantly from standard Medicaid |
+| **HCBS Waiver (1915c)** | Home- and Community-Based Services — alternative to nursing home placement for elderly/disabled | All states have some form | LTC population, very complex care coordination, FHIR CarePlan is highly relevant |
+
+**Why MCO structure matters for your FHIR work**: When CMS-9115-F says "Medicaid payers must expose a Patient Access API," it means the **MCOs** (Centene's Sunshine Health, Molina Healthcare, Anthem's Medicaid plans, etc.) — not the state itself. The state operates the eligibility determination system; the MCO operates the claims and care management. Your Phase 2–7 work would be built and sold to these MCOs, not to state Medicaid agencies directly.
+
+**FMAP (Federal Medical Assistance Percentage)**: CMS reimburses states a percentage of their Medicaid costs. Ranges from 50% (wealthier states like CT, NJ) to ~83% (poorer states like MS, WV). ACA expansion states get a special 90% FMAP for the expansion population — this is what makes expansion financially attractive despite state politics.
+
+---
+
 # GAP 4 — HEDIS, CAHPS, Care Management, Utilization Management
 
 ## HEDIS (Healthcare Effectiveness Data and Information Set)
