@@ -1841,12 +1841,174 @@ Your Phase 8 BulkDataAPI implements the same FHIR Bulk Data IG (`$export` operat
 
 ## Care Management — The Four Buckets
 
-| Function | What It Does | Your Connection |
+> **Why it matters**: Care management is how a payer justifies its existence beyond just paying claims. For Medicare Advantage, care management quality directly drives Star Ratings, capitation bonuses, and member retention. Every bucket below has a financial return model behind it.
+
+| Bucket | What It Does | Who Does It | Platform / Tool | Financial Return |
+|---|---|---|---|---|
+| **Utilization Management (UM)** | Prior auth, concurrent review, retrospective review | UM nurses, Medical Directors | eviCore, AIM, InterQual/MCG rules | Prevents medically unnecessary spend |
+| **Case Management (CM)** | Intensive coordination for high-cost complex members | RN Case Managers (1:1 caseloads) | Jiva, Guiding Care, QNXT CM module | Prevents readmissions, reduces catastrophic episodes |
+| **Disease Management (DM)** | Structured programs for chronic conditions | DM coaches, pharmacists, nurses (telephonic) | Hinge Health, Omada, Livongo (now Teladoc) | Improves HEDIS measures, prevents complications |
+| **Population Health** | Risk stratification, proactive outreach, gap closure | Analytics team + care coordinators | Innovaccer, Arcadia, Health Catalyst | Star Ratings improvement, risk adjustment accuracy |
+
+---
+
+### Bucket 1 — Utilization Management (UM)
+
+**The core function**: UM controls what services get paid before, during, and after they occur. It is the primary cost-containment lever for a payer.
+
+**Three review types**:
+
+| Review Type | When It Happens | Who Initiates | Decision |
+|---|---|---|---|
+| **Pre-authorization (Pre-auth)** | Before service is rendered | Provider submits PA request | Approve / Deny / Pend for clinical review |
+| **Concurrent review** | During an inpatient stay (ongoing) | Payer UM nurse reviews daily | Approve continued days / Initiate discharge planning |
+| **Retrospective review** | After service is rendered | Triggered by claim submission | Pay / Deny / Downcode |
+
+**Medical necessity criteria engines**:
+- **InterQual** (Change Healthcare / Optum): evidence-based criteria sets used for inpatient admission, continued stay, procedure authorization. Widely used by commercial and MA plans.
+- **MCG (Milliman Care Guidelines)**: competing criteria set, used by some Blues plans and regional payers. Similar function — structured decision criteria for authorization.
+- **Payer-developed criteria**: some large payers (UHC, Aetna) develop their own criteria for certain service lines. These are filed with state DOIs and must be disclosed on request.
+
+**UM staffing model**:
+- **UM nurses**: front-line reviewers — apply criteria, make initial determinations, handle routine approvals
+- **Medical Director (MD)**: all denials must be reviewed and signed by a physician Medical Director — this is a CMS and state regulatory requirement, not optional
+- **Peer-to-peer (P2P) review**: when a provider disagrees with a UM denial, they can request a call with the payer's Medical Director to discuss clinical rationale — often results in overturn if the provider presents additional clinical context
+
+**CMS UM compliance requirements for MA**:
+- Cannot use proprietary criteria that are more restrictive than Traditional Medicare without clinical basis
+- Must offer expedited PA (72-hour decision) when standard timeline would risk member health
+- 2024 CMS Final Rule: AI/algorithms cannot be the sole basis for a coverage denial — a physician must review
+
+**Your connection**: Your CRD → DTR → PAS workflow is the modern digital implementation of UM. CRD is the pre-auth request, PAS is the submission, DTR is the criteria collection. You have built the technical infrastructure that replaces fax-based UM.
+
+---
+
+### Bucket 2 — Case Management (CM)
+
+**The core function**: Case management provides intensive, personalized care coordination for the highest-risk, highest-cost members. While DM covers populations (100s to 1000s of members per coordinator), CM is 1:1 — one RN case manager owns a relationship with a complex member.
+
+**Who gets case management**:
+
+| Trigger | Example | Why CM Activates |
 |---|---|---|
-| **Utilization Management (UM)** | Prior auth, concurrent review (during stay), retrospective review | **Your CRD → DTR → PAS work IS modern UM** |
-| **Case Management (CM)** | High-cost, complex members (transplant, NICU, cancer) | — |
-| **Disease Management (DM)** | Chronic condition programs (diabetes, CHF, COPD, asthma) | — |
-| **Population Health** | Risk stratification, outreach, gap closure | Bulk Data API supports this |
+| **High-cost diagnosis** | Organ transplant, cancer, NICU admission | These cases can run $500K–$2M+ — intensive coordination prevents complications |
+| **Multiple comorbidities** | CHF + CKD + Diabetes + Depression | Fragmented care → preventable hospitalizations |
+| **Frequent ER/inpatient** | 3+ ER visits in 6 months, 2+ hospitalizations/year | "Frequent flier" pattern signals unmanaged condition |
+| **Transition of care** | Discharged from SNF/hospital | 30-day post-discharge window has highest readmission risk |
+| **Social determinants (SDOH)** | Housing insecurity, food insecurity, no transportation | SDOH drives 30–40% of health outcomes — CM connects members to community resources |
+
+**What a case manager actually does**:
+- Conducts comprehensive assessment (telephonic or in-home)
+- Develops an individualized care plan (FHIR CarePlan resource)
+- Coordinates across all providers — PCP, specialist, hospital, home health
+- Monitors medication adherence, specialist follow-up, lab results
+- Removes barriers: arranges transportation, connects to social services, follows up on missed appointments
+- Documents everything in the CM platform (Jiva, Guiding Care)
+
+**Financial model**: A heavy CM program costs $500–$1,500 per member per year in coordinator time. If it prevents one $80,000 hospitalization, the ROI is 50:1. Case management is one of the highest-ROI investments a payer can make — but it requires identifying the right members (risk stratification) and reaching them (member engagement).
+
+**FHIR connection**: FHIR CarePlan resource is the standard container for a member's care management plan. Phase 2 MemberAccessAPI exposes CarePlan data — a member can see their care plan, upcoming tasks, and assigned case manager via the Patient Access API. This is a CMS interoperability requirement.
+
+---
+
+### Bucket 3 — Disease Management (DM)
+
+**The core function**: DM delivers structured, evidence-based programs to members with specific chronic conditions — at population scale. Unlike CM (1:1), DM uses standardized protocols delivered telephonically, digitally, or in-person to large cohorts.
+
+**Primary target conditions**:
+
+| Condition | Why DM Focus | Typical DM Interventions | HEDIS Measure Connection |
+|---|---|---|---|
+| **Diabetes (Type 2)** | Highest cost chronic condition — $16K+ per member/year | A1C monitoring coaching, foot care education, medication adherence | HbA1c Control (< 8%), Diabetes Eye Exam |
+| **Congestive Heart Failure (CHF)** | #1 cause of hospital readmissions | Daily weight monitoring, medication adherence, sodium restriction education | — |
+| **COPD / Asthma** | Preventable ER visits, medication non-adherence | Inhaler technique, trigger avoidance, action plan | — |
+| **Hypertension** | Silent — poor adherence leads to stroke, CKD | Blood pressure monitoring, medication education | Controlling High Blood Pressure (CBP) |
+| **Depression / Behavioral Health** | Comorbidity amplifier — worsens all other conditions | PHQ-9 screening, therapy referral, medication follow-up | Antidepressant Medication Management |
+| **Obesity** | Root driver of diabetes, CHF, hypertension | Weight loss programs, behavioral coaching | BMI assessment, weight counseling |
+
+**Digital health integration** (the modern DM landscape):
+- **Livongo (now Teladoc Health)**: connected glucose meters + real-time coaching for diabetes — sends data directly to DM platform
+- **Omada Health**: digital behavioral change program for diabetes prevention (CDC-recognized DPP)
+- **Hinge Health**: digital physical therapy for MSK (musculoskeletal) — addresses back pain, which is a top cost driver
+- Payers contract with these vendors, pay per enrolled member per month (PMPM), track outcomes via claims and biometric data
+
+**DM staffing model**: DM nurses/coaches carry 200–500 member caseloads (vs. 25–50 for case management). Outreach is telephonic + app-based. Enrollment is voluntary — member engagement rate (how many accept the program) is a key program KPI.
+
+**Financial model**: DM programs target 10–15% reduction in hospitalization and ER visits for the managed population. For a diabetes DM program, successful A1C control avoids complications (retinopathy, nephropathy, amputation) that cost $50K–$300K. Payers typically track medical cost trend for DM enrollees vs. a matched control group.
+
+---
+
+### Bucket 4 — Population Health Management
+
+**The core function**: Population health is the upstream function that feeds all three buckets above. It answers the question: *"Of our 500,000 members, which ones need UM oversight, CM enrollment, or DM outreach — and who is going to get expensive if we don't act now?"*
+
+**The core workflow**:
+
+```
+Data Ingestion
+├── Claims data (diagnoses, procedures, medications, costs)
+├── EHR / clinical data (FHIR Bulk Data — labs, vitals, conditions)
+├── Pharmacy data (PBM — medication adherence, fills, gaps)
+├── SDOH data (census, community surveys, address-based risk scores)
+└── Biometric data (wearables, connected devices — growing)
+        ↓
+Risk Stratification Engine
+├── HCC (Hierarchical Condition Category) risk scores — CMS model
+├── Proprietary payer risk models (gradient boosting, logistic regression)
+├── Episode-based risk (likelihood of hospitalization in next 12 months)
+└── SDOH risk layering
+        ↓
+Segmentation — assigns members to buckets:
+├── Rising risk → Disease Management outreach
+├── High risk → Case Management referral
+├── Imminent crisis → UM watchlist (concurrent review flag)
+└── Healthy → Preventive outreach (gap closure, wellness)
+        ↓
+Outreach & Engagement
+├── Care coordinator calls
+├── App / portal notifications
+├── PCP alerts (care gap notifications in EHR)
+└── Community health worker (CHW) programs
+        ↓
+Measure → HEDIS, Star Ratings, cost trend, readmission rate
+```
+
+**Platforms used**:
+- **Innovaccer**: Data activation platform — aggregates clinical + claims + SDOH, surfaces gaps in care, integrates with Epic/Cerner for PCP alerting
+- **Arcadia**: Analytics platform — strong HEDIS reporting, ACO management, risk stratification
+- **Health Catalyst**: Data Operating System (DOS) — ETL + analytics + care management workflow
+- **Lightbeam**: Population health for risk-bearing entities (ACOs, MA plans)
+
+**Gap closure — the HEDIS connection**: Population health platforms identify members who are *due* for preventive services (mammogram, colonoscopy, A1C test, diabetic eye exam) but haven't received them. These are HEDIS gaps. Closing them:
+1. Improves HEDIS measure rates → improves Star Ratings → triggers CMS Quality Bonus Payments (QBP)
+2. Improves risk adjustment accuracy (more diagnoses documented)
+3. Reduces downstream costs (preventive care is cheaper than treating complications)
+
+**FHIR / Bulk Data connection**: Phase 8 (Bulk Data API) is the infrastructure that makes population health work. Instead of payer analysts running SQL queries against a stale data warehouse, FHIR Bulk Data provides a standardized, near-real-time feed of clinical data from every EHR that the payer's members use. This is what enables meaningful risk stratification across a network.
+
+---
+
+### Care Management Economics — How It All Ties Together
+
+```
+Total Payer Medical Cost = (Claims Paid) + (Admin Cost) - (Care Mgmt Savings)
+
+Care Mgmt Savings decomposed:
+├── UM savings:           Prevented medically unnecessary services
+├── CM savings:           Prevented readmissions, prevented complications
+├── DM savings:           Reduced hospitalizations, reduced ER visits
+└── Population Health:    Earlier intervention → lower-acuity treatment
+```
+
+**MA Quality Bonus Payments (QBP)**: Plans rated 4+ Stars receive a 5% bonus on their capitation rate from CMS. Plans rated 5 Stars receive a 5% bonus PLUS the right to enroll members year-round (instead of only during AEP). For a plan with 200,000 members at $1,200 PMPM, 5% = **$144M/year in bonus payments**. This is why care management is not a cost center — it is a direct revenue driver.
+
+---
+
+### PM Interview Answer — Care Management
+
+> *"Care management has four buckets: UM prevents unnecessary services through prior auth and clinical review criteria; case management provides intensive 1:1 coordination for the 2–3% of members who drive 30% of costs; disease management delivers structured chronic condition programs at scale using evidence-based protocols and digital tools like Livongo and Omada; and population health is the upstream analytics layer that identifies which members belong in each program. For Medicare Advantage, all four connect directly to Star Ratings — and Stars determine whether a plan gets CMS quality bonus payments, which can be worth hundreds of millions of dollars annually. That financial linkage is why care management is the highest-ROI investment a payer can make."*
+
+---
 
 ## Utilization Management Deep Dive (Your Sweet Spot)
 
@@ -2814,18 +2976,321 @@ FHIR gets all the attention. But inside hospitals, **HL7 v2 is still the dominan
 
 Pharmacy claims and e-prescribing use a completely different standard from the 837/835 world. Most PM candidates don't know this.
 
-**NCPDP D.0 (pharmacy claims)**:
-- The pharmacy equivalent of the 837 — but sent to the PBM, not the medical payer
-- Pharmacist submits at point of dispensing, PBM responds in real-time (< 3 seconds) with: copay amount, coverage status, step therapy flags, quantity limits
-- This is why the pharmacist can tell you your copay immediately while you wait
+> **Key framing**: Medical claims go payer → CAPS (Facets). Pharmacy claims go pharmacy → PBM. These are entirely separate adjudication systems, separate standards, separate payment flows. The only place they connect is in the health plan's data warehouse (for HEDIS, risk adjustment, and member 360 views).
 
-**NCPDP SCRIPT (e-prescribing)**:
-- Used for electronic prescriptions — doctor sends `NewRx` message from EHR to pharmacy
-- `RxChangeRequest` — pharmacy requests change (e.g., substitution approval, prior auth needed)
-- `CancelRx` — cancel a prescription
-- Mandated by CMS for Medicare Part D prescribers
+---
 
-**NDC (National Drug Code)**: The drug identifier used in pharmacy claims — 11-digit code identifying manufacturer, product, and package size. Different from RxNorm (the FHIR standard code for drugs). Mapping NDC ↔ RxNorm is a common data engineering problem.
+### PBM Claim Submission — How It Actually Works at the Pharmacy Counter
+
+**The routing identifiers** (what's on the back of every insurance card):
+
+| Field | What It Is | Example |
+|---|---|---|
+| **BIN** (Bank Identification Number) | 6-digit number that routes the claim to the right PBM's network | 610591 = OptumRx |
+| **PCN** (Processor Control Number) | Sub-routes within the PBM to the right plan/program | ADJADJ, 9999, varies |
+| **Group** | Identifies the employer group or health plan within the PBM | ACMECORP01 |
+| **Member ID** | Member's ID within the PBM — may differ from the medical plan ID | Same or different |
+
+When a pharmacist types these into their dispensing system (e.g., QS/1, PioneerRx, Rx30), the claim routes through the **pharmacy switch** (Relay Health / Change Healthcare, Emdeon, SureScripts) to the correct PBM.
+
+**Full point-of-sale transaction flow**:
+
+```
+Patient drops off prescription at pharmacy counter
+        ↓
+Pharmacist enters prescription into dispensing system
+(NDC code, quantity, days supply, prescriber NPI, DAW code)
+        ↓
+Dispensing system formats NCPDP D.0 claim transaction
+(BIN + PCN routes it to the correct PBM)
+        ↓
+Claim transmitted via pharmacy switch (Change Healthcare / RelayHealth)
+to PBM adjudication engine — OptumRx / CVS Caremark / Express Scripts
+        ↓
+PBM runs real-time adjudication (< 3 seconds):
+├── Eligibility check: Is this member active? Correct group/plan?
+├── Formulary check: Is this NDC on the formulary? What tier?
+├── Benefit check: What is the member's copay / coinsurance?
+│   Applies deductible, out-of-pocket accumulator
+├── Clinical edits:
+│   ├── Step therapy: Did member try required generic first?
+│   ├── Quantity limit: Is requested quantity within plan limit?
+│   ├── DAW edit: Brand requested — is generic required?
+│   ├── Refill too soon: Days supply not exhausted yet?
+│   ├── Drug-drug interaction check: Flag or reject?
+│   └── Drug-age edit: Age-inappropriate drug for member?
+├── Prior auth check: Is a PA on file for this drug/member/prescriber?
+└── Coordination of benefits: Is there another payer?
+        ↓
+PBM returns response to pharmacy dispensing system (< 3 seconds):
+├── PAID response:
+│   ├── Patient pay amount (copay) = $15.00
+│   ├── Ingredient cost paid = $42.50 (AWP-based)
+│   ├── Dispensing fee = $1.50
+│   └── Authorization number (pharmacy must retain)
+└── REJECTED response:
+    ├── Reject code (e.g., 75 = Prior auth required)
+    ├── Reject message (e.g., "Step therapy — try metformin first")
+    └── Pharmacy shows member the reject reason
+        ↓
+If PAID: Pharmacist dispenses drug, member pays copay
+If REJECTED: Pharmacist counsels member on next steps
+(call doctor for PA, try generic, contact plan)
+```
+
+---
+
+### Key NCPDP D.0 Fields (What Goes in the Claim)
+
+| Field | Description | Example |
+|---|---|---|
+| **NDC** | National Drug Code — 11 digits (5-4-2): manufacturer + product + package | 00071-0155-23 (Lipitor 10mg 90-count) |
+| **Quantity Dispensed** | Units dispensed (tablets, mL, grams) | 90 (tablets) |
+| **Days Supply** | How many days the dispensed quantity covers | 30 |
+| **DAW Code** | Dispense As Written — 0=no brand required, 1=prescriber specifies brand, 7=brand dispensed per member request | 0 |
+| **Compound Code** | 1=not compound, 2=compound | 1 |
+| **Fill Number** | 0=new prescription, 1–99=refill number | 0 |
+| **Prescriber NPI** | NPI of the prescribing physician | 1234567890 |
+| **Pharmacy NPI** | NPI of the dispensing pharmacy | 0987654321 |
+| **Date of Service** | Date drug was dispensed | 20260521 |
+| **Ingredient Cost Submitted** | What pharmacy is charging for the drug | $45.00 |
+| **Dispensing Fee Submitted** | Pharmacy's dispensing fee | $2.00 |
+| **Usual and Customary (U&C)** | Pharmacy's cash price — PBM pays lesser of calculated amount or U&C | $38.00 |
+
+---
+
+### Drug Pricing — How the PBM Calculates What to Pay the Pharmacy
+
+**Pricing formulas** (pharmacies are reimbursed based on one of these):
+
+| Pricing Method | Formula | Who Uses It |
+|---|---|---|
+| **AWP-based** | AWP (Average Wholesale Price) minus a discount % | Legacy — most common in commercial |
+| **WAC-based** | Wholesale Acquisition Cost (manufacturer list price) ± % | Specialty drugs |
+| **MAC pricing** | Maximum Allowable Cost — PBM sets its own price for generics, below AWP | Generics — very common |
+| **Usual and Customary** | Pharmacy's own cash price — PBM pays the lesser of MAC or U&C | Ties to price transparency |
+
+**AWP** is a published benchmark price — NOT the actual acquisition cost. It's an industry fiction that serves as a starting point for negotiations. A pharmacy that buys generic metformin for $0.02/tablet may be reimbursed at $0.15/tablet (AWP minus 80%) — or be subject to a MAC of $0.05/tablet.
+
+**MAC (Maximum Allowable Cost)**: For generic drugs, the PBM sets its own maximum reimbursement price — the MAC list. Pharmacies that can source the generic below MAC profit; those that cannot may lose money. MAC pricing is a major source of pharmacy-PBM disputes and state regulatory attention.
+
+---
+
+### Reject Codes — What Happens When a Claim Fails
+
+| Reject Code | Meaning | Resolution |
+|---|---|---|
+| **07** | M/I (Missing/Invalid) member ID | Pharmacist verifies ID, re-submits |
+| **14** | M/I date of birth | Eligibility mismatch |
+| **25** | Missing or invalid prescriber ID | NPI not on file with PBM |
+| **40** | Inactive/invalid member | Not enrolled, or benefit not yet active |
+| **41** | No coverage for this drug | Drug not on formulary |
+| **70** | NDC not covered | Non-formulary drug |
+| **75** | Prior authorization required | Pharmacist calls doctor to initiate PA |
+| **76** | Plan limitations exceeded | Quantity limit or days supply limit reached |
+| **79** | Refill too soon | Days supply not used up (adherence enforcement) |
+| **88** | DUR (Drug Utilization Review) reject | Drug interaction, age edit, dose limit |
+
+---
+
+### Pharmacy Prior Authorization — Different from Medical PA
+
+Drug PA through the PBM is a separate process from the medical prior auth you built in PAS:
+
+```
+PBM rejects claim: Reject Code 75 "Prior Authorization Required"
+        ↓
+Pharmacist calls doctor's office — "Your patient needs a PA for Humira"
+        ↓
+Doctor's staff submits PA request to PBM
+(via CoverMyMeds, manual fax, or PA portal)
+        ↓
+PBM clinical team reviews against formulary criteria
+(step therapy completion? diagnosis code? specialty drug criteria?)
+        ↓
+Approve → PA number issued, pharmacy re-submits claim with PA number
+Deny → Doctor can appeal, or prescribe alternative
+```
+
+**CoverMyMeds** (acquired by McKesson): The dominant electronic PA platform for pharmacy. Connects prescribers, pharmacies, and PBMs to automate the PA workflow. ~75% of electronic pharmacy PAs in the US flow through CoverMyMeds.
+
+**Key difference from medical PA**: Medical PA goes through the health plan's UM platform (your CRD/PAS). Drug PA goes through the PBM's system. If a patient has both a medical condition and a drug that needs PA, they are two separate workflows, often with different criteria and timelines.
+
+---
+
+### PBM Remittance — How the Money Flows
+
+**Critical distinction**: PBM remittance is NOT an 835 transaction. There are two separate payment flows in the pharmacy world:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  FLOW 1: PBM → Pharmacy  (pharmacy reimbursement)               │
+│  PBM pays pharmacy for dispensed drugs + dispensing fees        │
+│  Frequency: typically weekly (vs. monthly for medical)          │
+│  Format: PBM-proprietary remittance report (PDF or 835-like)   │
+│  Amount: Ingredient cost reimbursement + dispensing fee         │
+│          minus DIR fees (see below)                             │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│  FLOW 2: Health Plan → PBM  (plan funding)                      │
+│  Health plan pays PBM for adjudicated claims                    │
+│  Frequency: daily or weekly funding wire                        │
+│  Format: PBM financial reconciliation report                    │
+│  Reconciliation: monthly capitation vs. actual claims paid      │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│  FLOW 3: Manufacturer → PBM → Health Plan  (rebates)           │
+│  Drug manufacturers pay rebates to PBM for formulary placement  │
+│  PBM passes portion to health plan (% varies by contract)      │
+│  Frequency: quarterly                                           │
+│  This is the most opaque and controversial money flow in PBM    │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+### DIR Fees — The Most Controversial Pharmacy Payment Issue
+
+**DIR = Direct and Indirect Remuneration**. Created under Medicare Part D rules, DIR fees are retroactive adjustments the PBM applies to pharmacy reimbursements — sometimes months after the claim was paid.
+
+**How it works**:
+
+```
+January: Pharmacy dispenses drug, PBM pays $45.00 ingredient cost
+        ↓
+        ... time passes ...
+        ↓
+April: PBM calculates pharmacy's performance score
+(medication adherence, star ratings contribution, generic dispensing rate)
+        ↓
+PBM claws back a DIR fee based on performance score:
+Low performer → DIR clawback of $8.00 per claim
+High performer → DIR clawback of $2.00 per claim
+        ↓
+Pharmacy's net reimbursement for that January claim: $37.00–$43.00
+(they didn't know this in January)
+```
+
+**Why it's controversial**:
+- Pharmacies cannot price DIR fees into their business model because they're retroactive and variable
+- Small independent pharmacies especially harmed — they don't have the scale to negotiate lower DIR fees
+- CMS attempted to eliminate retroactive DIR fees for Medicare Part D effective 2024 (point-of-sale DIR reform), requiring DIR to be reflected at time of dispensing
+- This is a politically and financially significant policy area — it has forced several major pharmacy chains to close locations
+
+**PM implication**: If a payer-side PM is evaluating their PBM contract, DIR pass-through to the plan vs. retention by the PBM is a major financial negotiation point. Some PBMs retain most DIR; some pass through 80%+.
+
+---
+
+### Rebate Flow — The Other Hidden Money
+
+**Drug manufacturer rebates**: Manufacturers pay the PBM to place their drug on a preferred tier (lower copay = more utilization = more revenue for manufacturer).
+
+```
+Manufacturer (e.g., AstraZeneca) negotiates with PBM
+"Put Crestor on Tier 2 preferred, and we'll pay you $X per claim"
+        ↓
+PBM places Crestor on Tier 2 (member pays $15 copay)
+Generic rosuvastatin on Tier 1 (member pays $5 copay)
+Brand atorvastatin (Lipitor) on Tier 3 (member pays $45 copay)
+        ↓
+Member fills Crestor (brand preferred)
+Manufacturer pays PBM $18 rebate per claim
+PBM passes $12 to the health plan (contract-dependent)
+PBM retains $6 as "rebate spread"
+        ↓
+Health plan uses rebate revenue to offset drug spend
+```
+
+**Spread pricing** (a related controversy): PBM charges the health plan $45 for a generic drug that it reimburses the pharmacy $35 — keeping $10 as "spread." This practice is now banned in Medicaid in many states and heavily scrutinized in commercial markets.
+
+**Formulary placement implications for PM**: When a payer's formulary team moves a drug from Tier 2 to Tier 3, it's not just a clinical decision — it's a negotiation with the manufacturer about rebate terms. PMs managing formulary change projects need to understand this financial dynamic.
+
+---
+
+### NCPDP SCRIPT — E-Prescribing Standard
+
+Used for electronic prescriptions — a completely different transaction from point-of-sale D.0 claims:
+
+| Message Type | Direction | Purpose |
+|---|---|---|
+| **NewRx** | Prescriber → Pharmacy | New prescription sent electronically |
+| **RxChangeRequest** | Pharmacy → Prescriber | Request to change drug (PA needed, substitution, clarification) |
+| **RxChangeResponse** | Prescriber → Pharmacy | Approve or deny the change request |
+| **CancelRx** | Prescriber → Pharmacy | Cancel a prescription before dispensing |
+| **CancelRxResponse** | Pharmacy → Prescriber | Confirm cancellation (or reject if already dispensed) |
+| **RxFill** | Pharmacy → Prescriber | Notify prescriber that Rx was filled (for controlled substances) |
+| **RefillRequest** | Pharmacy → Prescriber | Request a new prescription for a refill |
+
+**Mandated by CMS** for all Medicare Part D controlled substance prescriptions. Most states also mandate electronic prescribing for controlled substances (EPCS) under state law.
+
+**SureScripts**: The dominant network for NCPDP SCRIPT routing — connects ~90% of US prescribers to ~90% of US pharmacies. When a doctor clicks "Send to Pharmacy" in Epic, the NewRx message routes through SureScripts.
+
+---
+
+### NDC — National Drug Code
+
+**11-digit structure**: `NNNNN-NNNN-NN` (5-4-2 format)
+
+| Segment | Digits | Identifies |
+|---|---|---|
+| **Labeler code** | 5 | Manufacturer or distributor (FDA-assigned) |
+| **Product code** | 4 | Drug, strength, and dosage form |
+| **Package code** | 2 | Package size and type |
+
+**Example**: `00071-0155-23` = Pfizer (00071) / Lipitor 10mg tablet (0155) / 90-count bottle (23)
+
+**NDC vs. RxNorm**: NDC is manufacturer-specific — generic atorvastatin from Mylan has a different NDC than the same drug from Teva. RxNorm is the FHIR-standard drug code that normalizes across manufacturers and maps to clinical concepts. Mapping NDC → RxNorm is a common ETL task in payer data pipelines (the FHIR MedicationRequest uses RxNorm; the pharmacy claim uses NDC).
+
+**NDC-11 billing format**: Some systems use 10-digit NDC on the bottle but 11-digit in claims (zero-padding). A common data quality issue.
+
+---
+
+### Complete PBM Ecosystem — How Everything Connects
+
+```
+Doctor (EHR)  ──NCPDP SCRIPT NewRx──►  Pharmacy (dispensing system)
+                                                │
+                              NCPDP D.0 claim via pharmacy switch
+                                                │
+                                                ▼
+                            Pharmacy Switch (Change Healthcare / RelayHealth)
+                                                │
+                                  Routes by BIN/PCN to correct PBM
+                                                │
+                                                ▼
+                             PBM Adjudication Engine
+                    (OptumRx / CVS Caremark / Express Scripts)
+                             │                  │
+                Eligibility  │      Formulary    │    Clinical edits
+                (member file)│      (formulary DB)│   (step therapy, QL, PA)
+                             │                  │
+                             └──────────────────┘
+                                       │
+                          Paid / Rejected response → Pharmacy
+                                       │
+                            ┌──────────┴──────────┐
+                     Money Flow                Data Flow
+                            │                    │
+            ┌───────────────┘                    └──────────────┐
+            │                                                   │
+   PBM pays pharmacy weekly                    PBM sends claim data to
+   (ingredient cost + dispense fee             health plan (daily file)
+    minus DIR fees)                                    │
+            │                                          ▼
+   Manufacturer pays PBM rebates          Health plan data warehouse
+   quarterly (based on utilization)       (HEDIS, risk adjustment,
+            │                              medication adherence tracking,
+   PBM passes portion of rebates          care management triggers)
+   to health plan per contract
+```
+
+---
+
+### PM Interview Answer — PBM Claim Submission and Remittance
+
+> *"Pharmacy claims don't flow through the medical adjudication system at all — they use a completely separate standard called NCPDP D.0, routed through a pharmacy switch to the PBM based on the BIN and PCN on the member's ID card. The pharmacist gets a real-time response in under 3 seconds with the exact patient copay and any clinical edits — step therapy flags, quantity limits, prior auth requirements. That real-time loop is fundamentally different from medical claims, which are batch-processed. On the remittance side, there are actually three separate money flows: the PBM paying the pharmacy weekly for dispensed drugs, the health plan funding the PBM, and drug manufacturers paying rebates to the PBM quarterly for formulary placement — a portion of which flows back to the plan. The rebate economics and DIR fee structures are where most of the financial complexity and controversy in pharmacy benefits lives, and it's increasingly under CMS and congressional scrutiny."*
 
 ---
 
