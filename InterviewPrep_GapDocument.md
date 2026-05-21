@@ -1806,6 +1806,68 @@ Your Phase 8 BulkDataAPI implements the same FHIR Bulk Data IG (`$export` operat
 
 > "A Dual Eligible is a person who qualifies for both Medicare and Medicaid simultaneously — typically elderly or disabled individuals with very low income. Medicare is their primary coverage, Medicaid fills in the gaps — copays, deductibles, services Medicare doesn't cover like long-term care. The complexity comes from coordination: two separate programs, two separate benefit structures, two separate eligibility and enrollment systems. There are D-SNPs — Dual-Eligible Special Needs Plans — which are MA plans specifically designed to coordinate Medicare and Medicaid for these members. From a data perspective, their records live in both CMS systems and state Medicaid MMIS systems. Getting a complete clinical picture requires exchanging data across both — which is exactly the problem FHIR PDex and TEFCA are designed to solve. Dual eligibles also tend to be the sickest, most complex members with the highest cost, so managing their care well has enormous financial impact."
 
+**7. "What's the difference between Medicare and Medicaid?"**
+
+> "Medicare and Medicaid are both government health programs administered by CMS, but they serve completely different populations, are funded differently, and operate through different mechanisms. Medicare is a federal program for people 65 and older, or younger people with certain disabilities or end-stage renal disease. It doesn't consider income — you qualify based on age or disability, not how much money you have. Medicaid is income-based — it covers people below certain income thresholds, primarily low-income adults, children, pregnant women, and people with disabilities. The funding difference is equally important: Medicare is funded entirely by the federal government through payroll taxes and premiums. Medicaid is jointly funded — the federal government pays a percentage called FMAP (Federal Medical Assistance Percentage), which varies by state, and states fund the rest. That shared funding means states have significant flexibility in how they run Medicaid — eligibility rules, covered services, and payment rates all vary by state. Medicare is much more nationally uniform. On the delivery side, traditional Medicare is administered directly by CMS through regional MACs — Medicare Administrative Contractors — and has a national fee schedule. Medicaid is administered by each state, most of which contract with private managed care organizations — Centene, Molina, Anthem — to run Managed Medicaid. From a payer IT perspective, Medicare Advantage works like a commercial payer: prior auth, network management, HEDIS, Star Ratings. Medicaid MCOs also work like commercial payers but with state-specific rules, lower reimbursement rates, and populations that tend to have more social determinants of health complexity."
+
+| Dimension | Medicare | Medicaid |
+|---|---|---|
+| **Who qualifies** | Age 65+, or disabled under 65, or ESRD | Low income — adults, children, pregnant women, disabled |
+| **Income test** | No — age/disability based | Yes — income and asset limits |
+| **Funded by** | Federal government (payroll tax + premiums) | Federal (FMAP) + state (shared funding) |
+| **Administered by** | CMS (FFS via MACs) or private MA plans | Each state — most use MCOs (Managed Medicaid) |
+| **Uniformity** | National standard (FFS) | State-by-state variation |
+| **Private plan option** | Part C = Medicare Advantage | Managed Medicaid MCOs (Centene, Molina, Anthem) |
+| **Drug coverage** | Part D (separate) | Included in Medicaid benefit (state-managed) |
+| **Prior auth (payer)** | FFS: limited / MA: full prior auth | MCO: full prior auth, state-specific rules |
+| **Timely filing** | FFS: 1 year (strict) / MA: plan-set | MCO: varies by state |
+| **Claims system** | MACs (FFS) / MA plan CAPS | State MMIS (FFS) / MCO CAPS |
+| **FHIR mandate scope** | MA plans — CMS-9115-F and CMS-0057-F | Medicaid MCOs — same mandates apply |
+| **Star Ratings** | Yes — drives QBP bonuses | No (HEDIS tracked but no Star/QBP equivalent) |
+| **Dual eligible** | Primary payer | Secondary — fills in Medicare gaps |
+
+**8. "Can you explain what Medicare and Medicaid are?"**
+
+> "Medicare and Medicaid are both federal health programs but they serve entirely different populations and work very differently. Medicare is an entitlement program — you earn it. You qualify at 65 if you've paid Medicare payroll taxes for at least 10 years, or at any age if you have a qualifying disability, end-stage renal disease, or ALS. Income doesn't matter at all — a billionaire turns 65 and gets Medicare the same as anyone else. It has four parts: Part A covers hospital stays and is premium-free for most people; Part B covers physician and outpatient services and has a monthly premium; Part C is Medicare Advantage — the private plan option where CMS pays a private insurer like Humana or UHC a monthly capitated amount to manage the member's care; and Part D covers prescription drugs.
+>
+> Medicaid is completely different — it's a needs-based program funded jointly by the federal government and each state. You qualify based on income, not age or work history. The ACA expanded Medicaid in most states to cover all adults earning up to 138% of the Federal Poverty Level — about $20,800 a year for an individual in 2026. Children, pregnant women, and people with disabilities qualify at higher income thresholds. About 10 states haven't expanded, so in those states coverage can be much more restricted.
+>
+> The key structural difference is who runs it: Medicare is nationally uniform — the same rules everywhere, administered by CMS through regional contractors called MACs. Medicaid is administered by each state, most of which contract with private managed care organizations like Centene, Molina, and Anthem to run Managed Medicaid. That means every state has different rules, different covered benefits, and different payment rates — which is a major complexity for any PM working on Medicaid IT.
+>
+> Where they intersect is dual eligibles — about 12 million people who qualify for both. Medicare is primary, Medicaid wraps around it to cover what Medicare doesn't — copays, deductibles, and long-term care like nursing homes. These members are the most complex and highest-cost population in the country. From a FHIR perspective, both programs are in scope for CMS mandates — MA plans and Medicaid MCOs both must implement FHIR Patient Access APIs and FHIR prior authorization APIs by 2027 under CMS-9115-F and CMS-0057-F."
+
+### Medicare Eligibility — Detail
+
+| Qualifying Path | Who | How |
+|---|---|---|
+| **Age 65+, standard** | Anyone who paid Medicare payroll taxes 40+ quarters (10 years) | Part A free; Part B ~$185/month premium |
+| **Age 65+, fewer quarters** | Fewer than 40 quarters paid | Can buy into Part A ($278–$506/month in 2026) |
+| **Disability under 65** | Receives SSDI (Social Security Disability Insurance) | Must receive SSDI for **24 months** before Medicare activates — the coverage gap |
+| **ESRD (any age)** | End-Stage Renal Disease requiring dialysis or transplant | Eligible immediately — no waiting period |
+| **ALS (any age)** | Amyotrophic Lateral Sclerosis (Lou Gehrig's disease) | Eligible immediately — no 24-month wait, unique exception |
+
+**The 24-month SSDI wait** is one of the most criticized gaps in US healthcare — someone becomes permanently disabled at 40 and has to wait 2 years for Medicare coverage. They often fall back on Medicaid during that gap if income-eligible.
+
+### Medicaid Eligibility — Detail
+
+Medicaid uses **FPL (Federal Poverty Level)** as the threshold. In 2026: ~$15,060/year for an individual, ~$31,200 for a family of 4.
+
+| Population Group | Income Threshold | Notes |
+|---|---|---|
+| **Adults (ACA expansion states)** | Up to **138% FPL** (~$20,780/year individual) | Expanded by ACA 2010 — ~40 states |
+| **Adults (non-expansion states)** | Very narrow — often only parents with dependent children | TX, FL, and ~8 others have not expanded |
+| **Children** | Up to 133–200% FPL (varies by state) | CHIP extends to higher income in some states (up to 300% FPL) |
+| **Pregnant women** | Up to 133–200% FPL | Coverage extends 12 months postpartum (ARP 2021) |
+| **Elderly / disabled (SSI recipients)** | SSI income limits (~$967/month individual in 2026) | SSI recipients are **automatically** enrolled in Medicaid in most states |
+| **Medically needy / spend-down** | Higher income but high medical bills | Some states allow "spending down" to qualify |
+
+**ACA Medicaid expansion** (2010): The single biggest change to Medicaid — extended coverage to non-disabled, non-pregnant, childless adults for the first time. States that didn't expand have a **coverage gap**: people earning too much for pre-ACA Medicaid but too little for ACA marketplace subsidies (subsidies start at 100% FPL).
+
+### The One-Line Mnemonics
+
+> **Medicare** = *"Medi-CARE for those who EARNED it"* — age/disability, paid into it through work  
+> **Medicaid** = *"Medi-CAID for those who need AID"* — income-based, welfare program
+
 ---
 
 # GAP 4 — HEDIS, CAHPS, Care Management, Utilization Management
