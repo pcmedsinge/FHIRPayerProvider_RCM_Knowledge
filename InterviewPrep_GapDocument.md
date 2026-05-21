@@ -2294,14 +2294,331 @@ Your Phase 2 EOB work is the **read-only, member-facing display** of a claim tha
 
 EDI (Electronic Data Interchange) is a **standardized message format** defined by X12 (ANSI-accredited standards body). It is a strict positional/delimited text format — not XML, not JSON, not REST. Completely human-unreadable without a parser.
 
-A raw 837 looks like:
+HIPAA mandated specific X12 versions for each transaction type. Every payer and clearinghouse in the US is legally required to accept them.
+
+---
+
+### EDI Syntax — Reading a Raw File
+
+**Three delimiters** control the entire format. They are defined in the ISA header itself (positions 104, 105, 106):
+
+| Delimiter | Character (typical) | Purpose |
+|---|---|---|
+| **Element separator** | `*` (asterisk) | Separates fields within a segment |
+| **Sub-element separator** | `:` (colon) | Separates components within a field |
+| **Segment terminator** | `~` (tilde) | Ends a segment (like a newline) |
+
+These are not fixed characters — the sender defines them in the ISA segment, and the receiver must read them from there. Most implementations use `*`, `:`, `~` but any character can be used.
+
+**Segment structure**:
 ```
-ISA*00*          *00*          *ZZ*SENDER         *ZZ*RECEIVER       *260101*1200*...~
-GS*HC*SENDER*RECEIVER*20260101*1200*1*X*005010X222A2~
-ST*837*0001*005010X222A2~
+SEGMENT_ID * ELEMENT1 * ELEMENT2 * ELEMENT3 ~ 
+```
+Every segment starts with a 2–3 character identifier and ends with `~`.
+
+---
+
+### The Three-Layer Envelope Structure
+
+Every X12 EDI file has three nested envelope layers:
+
+```
+ISA ... IEA          ← Interchange Envelope (outermost)
+  GS ... GE          ← Functional Group (groups transactions by type)
+    ST ... SE        ← Transaction Set (the actual document — one 837, one 835, etc.)
+    ST ... SE        ← (another transaction set)
+  GE
+  GS ... GE          ← (another functional group if needed)
+ISA ... IEA
 ```
 
-HIPAA mandated specific X12 versions for each transaction type. Every payer and clearinghouse in the US is legally required to accept them.
+One ISA/IEA file can contain multiple GS/GE groups, each containing multiple ST/SE transaction sets. A batch clearinghouse file may have hundreds of 837 claims in one ISA envelope.
+
+---
+
+### ISA Segment — The Interchange Envelope Header
+
+The ISA segment is always exactly 106 characters (fixed-width, not delimited for positions 1–103). It identifies sender, receiver, and the file itself.
+
+```
+ISA*00*          *00*          *ZZ*SENDER123456789*ZZ*RECEIVER12345*260521*1430*^*00501*000000001*0*P*:~
+```
+
+| Position | Field | Example Value | Meaning |
+|---|---|---|---|
+| ISA01 | Auth info qualifier | `00` | No auth info (00 = not used) |
+| ISA02 | Auth info | 10 spaces | Filler when 00 |
+| ISA03 | Security info qualifier | `00` | No security info |
+| ISA04 | Security info | 10 spaces | Filler |
+| ISA05 | Sender ID qualifier | `ZZ` | Mutually defined (most common) |
+| ISA06 | Sender ID | `SENDER123456789` | Sender's ID (15 chars, right-padded) |
+| ISA07 | Receiver ID qualifier | `ZZ` | Mutually defined |
+| ISA08 | Receiver ID | `RECEIVER12345` | Payer or clearinghouse ID |
+| ISA09 | Date | `260521` | YYMMDD — date the file was created |
+| ISA10 | Time | `1430` | HHMM |
+| ISA11 | Repetition separator | `^` | Character used for repeating elements |
+| ISA12 | Version | `00501` | X12 version 5010 |
+| ISA13 | Interchange control number | `000000001` | Unique file ID — must match IEA |
+| ISA14 | Ack requested | `0` | 0=no TA1 requested, 1=TA1 requested |
+| ISA15 | Usage indicator | `P` | P=Production, T=Test |
+| ISA16 | Sub-element separator | `:` | Defines the sub-element delimiter |
+
+**IEA** closes the envelope:
+```
+IEA*1*000000001~
+```
+- IEA01 = number of functional groups in this interchange (must match actual count)
+- IEA02 = must match ISA13
+
+---
+
+### GS/GE — Functional Group
+
+Groups transactions of the same type. One GS/GE per transaction type per file (or multiple if different versions).
+
+```
+GS*HC*SENDERID*RECEIVERID*20260521*1430*1*X*005010X222A2~
+```
+
+| Field | Example | Meaning |
+|---|---|---|
+| GS01 | `HC` | Functional ID — HC = Health Care Claim (837) |
+| GS02 | `SENDERID` | Application sender ID |
+| GS03 | `RECEIVERID` | Application receiver ID |
+| GS04 | `20260521` | Date — CCYYMMDD |
+| GS05 | `1430` | Time — HHMM |
+| GS06 | `1` | Group control number |
+| GS07 | `X` | Responsible agency — X = ANSI X12 |
+| GS08 | `005010X222A2` | Version/release + implementation guide ID |
+
+**Common GS01 functional IDs**:
+
+| GS01 | Transaction Type |
+|---|---|
+| `HC` | Health Care Claim (837) |
+| `HB` | Health Care Eligibility (270/271) |
+| `HR` | Health Care Claim Payment (835) |
+| `BE` | Benefit Enrollment (834) |
+| `FA` | Functional Acknowledgement (999) |
+
+**GE** closes the group:
+```
+GE*1*1~
+```
+GE01 = number of transaction sets, GE02 = must match GS06.
+
+---
+
+### ST/SE — Transaction Set
+
+The actual document. Starts with ST, ends with SE.
+
+```
+ST*837*0001*005010X222A2~
+...claim data...
+SE*47*0001~
+```
+
+| Field | Example | Meaning |
+|---|---|---|
+| ST01 | `837` | Transaction set identifier code |
+| ST02 | `0001` | Transaction set control number (unique within group) |
+| ST03 | `005010X222A2` | Implementation guide version |
+
+SE01 = number of segments in the transaction set (including ST and SE)  
+SE02 = must match ST02
+
+**Transaction set IDs**:
+
+| ST01 | Document |
+|---|---|
+| `837` | Health Care Claim |
+| `835` | Health Care Claim Payment/Advice |
+| `270` | Eligibility/Benefit Inquiry |
+| `271` | Eligibility/Benefit Response |
+| `834` | Benefit Enrollment |
+| `276` | Claim Status Request |
+| `277` | Claim Status Response |
+| `999` | Implementation Acknowledgement |
+
+---
+
+### Loops — How EDI Organizes Repeating Data
+
+EDI uses **loops** to group related segments that repeat. A loop is just a named group of segments — it has no opening/closing tag (unlike XML). You know a loop starts when you see its first segment appear.
+
+**837 loop structure (simplified)**:
+
+```
+ST*837...                          ← Transaction start
+BHT*...                            ← Beginning of Hierarchical Transaction
+  Loop 1000A — Submitter
+    NM1*41*...                     ← Submitter name (provider billing system)
+    PER*IC*...                     ← Contact info
+  Loop 1000B — Receiver
+    NM1*40*...                     ← Receiver name (payer)
+  Loop 2000A — Billing Provider Hierarchical Level
+    HL*1**20*1~                    ← Hierarchical Level
+    PRV*BI*PXC*207Q00000X~         ← Provider info
+    Loop 2010AA — Billing Provider Name
+      NM1*85*2*GENERAL HOSPITAL*...*XX*1234567890~
+      N3*123 MAIN ST~
+      N4*BOSTON*MA*02101~
+      REF*EI*123456789~            ← Tax ID
+  Loop 2000B — Subscriber Hierarchical Level
+    HL*2*1*22*1~
+    SBR*P*18*...                   ← Subscriber info (P=primary)
+    Loop 2010BA — Subscriber Name
+      NM1*IL*1*SMITH*JOHN***MI*ABC123456~   ← Member ID
+      N3, N4...                    ← Address
+    Loop 2010BB — Payer Name
+      NM1*PR*2*AETNA...            ← Payer
+  Loop 2000C — Patient Hierarchical Level (if different from subscriber)
+    HL*3*2*23*0~
+    PAT*19~                        ← Patient relationship code
+  Loop 2300 — Claim Information
+    CLM*CLAIM001*1500.00**11:B:1*Y*A*Y*I~   ← Claim details
+    DTP*434*RD8*20260515-20260515~  ← Service date
+    REF*EA*AUTH12345~               ← Prior auth number
+    HI*ABK:Z8711~                   ← Diagnosis codes (ICD-10)
+    Loop 2310B — Rendering Provider
+      NM1*82*1*JONES*MARY***XX*9876543210~
+    Loop 2400 — Service Line
+      LX*1~                         ← Line counter
+      SV1*HC:99213*150.00*UN*1***1~ ← Procedure (CPT 99213), $150, 1 unit
+      DTP*472*D8*20260515~          ← Service date
+      Loop 2430 — Line Adjudication (if secondary)
+SE*47*0001~
+```
+
+---
+
+### Key Segments — 837 Professional (837P)
+
+| Segment | Purpose | Key Fields |
+|---|---|---|
+| **BHT** | Beginning of Hierarchical Transaction | BHT06: 00 (original claim) or 18 (resubmission) |
+| **NM1** | Name | NM101: entity code; NM108: ID qualifier; NM109: ID |
+| **HL** | Hierarchical Level | HL03: level code (20=billing, 22=subscriber, 23=patient) |
+| **SBR** | Subscriber Info | SBR01: P=primary, S=secondary; SBR09: claim filing indicator |
+| **CLM** | Claim Information | CLM01: claim ID; CLM02: total billed amount; CLM05: place of service; CLM11: release of info |
+| **DTP** | Date/Time | DTP01: qualifier (434=service, 431=onset); DTP02: format; DTP03: date |
+| **HI** | Health Care Information Codes | HI01-1: code qualifier (ABK=principal ICD-10); HI01-2: diagnosis code |
+| **SV1** | Professional Service | SV101: CPT/HCPCS code; SV102: charge amount; SV104: units |
+| **REF** | Reference ID | REF01: qualifier (EA=auth number, 9F=referral, D9=claim number) |
+| **PRV** | Provider Info | PRV01: role (BI=billing, RF=referring, PE=performing); PRV03: taxonomy code |
+| **NM1 *85*** | Billing Provider | Entity code 85 |
+| **NM1 *82*** | Rendering Provider | Entity code 82 |
+| **NM1 *IL*** | Insured/Subscriber | Entity code IL |
+| **NM1 *PR*** | Payer | Entity code PR |
+
+---
+
+### Key Segments — 835 Remittance
+
+```
+ST*835*0001*005010X221A1~
+BPR*I*1250.00*C*ACH*CCP*01*021000021*DA*123456789*...*20260522~
+TRN*1*835000001*1234567890~
+  Loop 1000A — Payer
+    N1*PR*AETNA HEALTH PLANS~
+  Loop 1000B — Payee (Provider)
+    N1*PE*GENERAL HOSPITAL*XX*1234567890~
+  Loop 2000 — Header Number (one per claim)
+    LX*1~
+    Loop 2100 — Claim Payment Info
+      CLP*CLAIM001*1*1500.00*1250.00*0*MC*PAY12345**11~
+      NM1*QC*1*SMITH*JOHN~        ← Patient name
+      NM1*74*1*JONES*MARY~        ← Corrected patient name (if applicable)
+      Loop 2110 — Service Payment Info
+        SVC*HC:99213*150.00*130.00*1~    ← CPT, billed, paid, units
+        DTM*472*20260515~                ← Service date
+        CAS*CO*42*20.00~                 ← Adjustment: contractual (CO), reason 42, $20
+        CAS*PR*1*5.00~                   ← Patient responsibility (PR), deductible
+SE*28*0001~
+```
+
+| Segment | Purpose | Key Fields |
+|---|---|---|
+| **BPR** | Financial Information | BPR02: payment amount; BPR04: payment method (ACH/CHK); BPR16: payment date |
+| **TRN** | Trace Number | TRN02: check/EFT number; TRN03: payer ID |
+| **CLP** | Claim Payment | CLP01: claim ID from 837; CLP02: status (1=paid, 2=adjusted, 3=denied, 4=denied); CLP03: billed; CLP04: paid; CLP08: payer claim number |
+| **SVC** | Service Payment | SVC01: CPT code; SVC02: billed; SVC03: paid; SVC04: units |
+| **CAS** | Claim Adjustment | CAS01: group code; CAS02: CARC (reason code); CAS03: adjustment amount |
+| **DTM** | Date | DTM01: qualifier (472=service date, 050=received date) |
+
+**CAS adjustment group codes** (critical for denial management):
+
+| Group Code | Meaning | Who "Owns" This Adjustment |
+|---|---|---|
+| **CO** | Contractual Obligation | Payer adjusts per contract — provider cannot bill member |
+| **PR** | Patient Responsibility | Member owes this (deductible, copay, coinsurance) |
+| **OA** | Other Adjustment | Catch-all (COB adjustments, capitation adjustments) |
+| **PI** | Payer Initiated | Payer error correction |
+| **CR** | Correction/Reversal | Used in adjustment transactions |
+
+---
+
+### Reading a Real Denial on an 835
+
+```
+CLP*CLAIM001*2*1500.00*0.00*0.00*MC*PAYERCLM456**11~
+CAS*CO*4*1500.00~
+```
+
+Translation:
+- `CLP02 = 2` → claim status = **denied**
+- `CLP03 = 1500.00` → billed amount
+- `CLP04 = 0.00` → paid amount (nothing)
+- `CAS*CO*4*1500.00` → Contractual adjustment, **CARC 4** ("Service not covered by plan"), $1,500 adjusted — provider cannot bill member for this
+
+```
+CLP*CLAIM002*1*500.00*400.00*100.00*MC*PAYERCLM789**11~
+CAS*CO*42*100.00~
+CAS*PR*1*75.00~
+CAS*PR*2*25.00~
+```
+
+Translation:
+- `CLP02 = 1` → paid
+- Billed $500, paid $400, patient responsibility $100
+- `CO*42` → contractual write-off (not medically necessary per contract — $100)
+- `PR*1` → patient deductible ($75)
+- `PR*2` → patient coinsurance ($25)
+
+---
+
+### 999 — Acknowledgement Transaction
+
+The 999 (formerly 997) is how the payer/clearinghouse acknowledges receipt and format validity:
+
+```
+ST*999*0001~
+AK1*HC*1~            ← Functional group ack: HC (claim), GS06 control number
+AK2*837*0001~        ← Transaction set ack: 837, ST02 control number
+AK5*A~               ← Transaction set accepted (A=Accepted, R=Rejected, E=Accepted with errors)
+AK9*A*1*1*1~         ← Group accepted: 1 received, 1 accepted, 1 included
+SE*6*0001~
+```
+
+AK5 values: **A** = Accepted, **E** = Accepted with errors, **R** = Rejected — **R** means the entire transaction set was rejected and must be resubmitted. This is distinct from a claim denial — a 999 rejection means the EDI format was wrong, not that the claim was denied on clinical/coverage grounds.
+
+---
+
+### Common EDI Gotchas (Real-World PM Knowledge)
+
+| Issue | What Happens | How to Fix |
+|---|---|---|
+| **Wrong ISA15** | File sent with T (test) flag to production | Payer ignores the file — nothing is processed |
+| **ISA13 not unique** | Duplicate interchange control number | Payer may reject as duplicate file |
+| **Loop out of order** | Segments in wrong sequence | 999 R (rejected) — must fix and resubmit |
+| **Companion guide violation** | Optional field payer requires is missing | 999 E (accepted with errors) or claim pends |
+| **NPI not in payer system** | Rendering provider NPI unknown to payer | Claim denied — "provider not credentialed" |
+| **Stale auth number in REF*EA** | Auth expired, claim submitted after auth end date | Medical necessity denial |
+| **Wrong place of service code** | CLM05 says 11 (office) but should be 22 (outpatient hospital) | Claim denied — wrong benefit category applied |
+| **Diagnosis pointer mismatch** | SV1 diagnosis pointer references HI position that doesn't exist | Claim rejected or pended |
+
+---
 
 ### Is EDI Truly Interoperable?
 
