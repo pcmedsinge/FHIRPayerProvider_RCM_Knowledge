@@ -1,3 +1,276 @@
+
+
+---
+
+# TABLE OF CONTENTS
+
+## SECTION 0 — Orientation & How to Use
+
+  - How to Use This Document
+  - The Master Workflow Sequence — Read This First
+    - FHIR Role at Each Step — Where Your Workspace Connects
+    - AI / Agentic AI / MCP Role at Each Step — Detailed Use Cases & Tech Stack
+  - Bridge to Your Existing Strengths
+
+## SECTION 1 — US Healthcare Industry Overview
+
+  - The $4.5 Trillion Industry — Size and Breakdown
+  - The Seven Major Verticals
+    - Vertical 1 — Government & Regulators
+    - Vertical 2 — Payers (Health Insurers)
+    - Vertical 3 — Providers
+    - Vertical 4 — Pharmacy & PBM
+    - Vertical 5 — Employers & Benefits Ecosystem
+    - Vertical 6 — Health IT & Technology
+    - Vertical 7 — IT Consulting & Services (Where You Work)
+  - How the Money Flows — The Full Picture
+  - Interview-Ready Answer — "Tell Me About the US Healthcare Industry"
+  - Interview-Ready Answer — "What Are the Verticals Within a Payer Organization?"
+  - The Full Business Organization — From Sales to Delivery
+    - How a Healthcare IT Consulting Firm Is Organized (Infosys / TCS / Cognizant / Accenture Model)
+    - How a Payer Sells Its Products — The Commercial Side of Insurance
+    - The Complete "Verticals Including Sales" Answer Framework
+    - Model Interview Answer — "Tell Me About the US Healthcare Business and Its Verticals Including Sales"
+
+## SECTION 2 — Foundational Concepts (EDI / FHIR / TEFCA / Adjudication)
+
+  - Adjudication — A Ground-Level Explanation
+    - The Analogy
+    - The Five Stages of Adjudication (In Plain English)
+    - Why "Auto-Adjudication" Is the Goal
+    - Where Your FHIR Work Connects
+  - EOB — Where Your Workspace Fits in the Claims World
+  - EDI — What It Is and How It Actually Works
+    - EDI Syntax — Reading a Raw File
+    - The Three-Layer Envelope Structure
+    - ISA Segment — The Interchange Envelope Header
+    - GS/GE — Functional Group
+    - ST/SE — Transaction Set
+    - Loops — How EDI Organizes Repeating Data
+    - Key Segments — 837 Professional (837P)
+    - Key Segments — 835 Remittance
+    - Reading a Real Denial on an 835
+    - 999 — Acknowledgement Transaction
+    - Common EDI Gotchas (Real-World PM Knowledge)
+    - Is EDI Truly Interoperable?
+    - Where Clearinghouses Are (and Aren't) Involved
+  - EDI vs FHIR — They Are NOT Competing, They Are Complementary
+    - The Mental Model
+  - Where TEFCA Sits
+  - The Complete Four-Layer Picture
+  - Enrollment — The Full Landscape (Not Just Employers)
+    - Three Distinct Roles in Group Insurance
+    - When There Is No Employer
+    - Interview-Ready Answer on Enrollment
+  - Interview-Ready Answer on EDI vs FHIR vs TEFCA
+
+## SECTION 3 — GAP 1: Claims Management & Adjudication Lifecycle
+
+  - The End-to-End Flow (Memorize)
+  - Acknowledgement & Fallback Mechanism in 837 Workflow
+    - Three Levels of Acknowledgement
+    - Fallback / Error Handling
+    - Who Monitors This?
+  - Who Is the Payer? (Not Always Who You Think)
+    - Who Actually Writes the Check?
+    - The Two Models — How They Actually Work
+    - Why Large Employers Choose Self-Funded
+    - Scale of Self-Funding
+    - The 835 Remittance — Precise Answer
+  - The Clearinghouse — More Than Just a Forwarder
+  - What FHIR Handles in This Workflow (2026)
+  - HCC Codes in the Claims Workflow
+    - RAPS and EDPS — What They Are
+    - Why Risk Adjustment Only Applies to Certain Programs
+  - Who Does the Laborious Provider-Side Work?
+    - At a Large Hospital / Health System
+    - At a Small Practice (1-5 Doctors)
+    - The Key Roles
+  - How AI Helps in 2026 — Claims Workflow
+  - Vendor Landscape — Expanded
+    - Core Admin Processing Systems (CAPS)
+    - What Does TriZetto Facets Actually Do? (Not Just Claims)
+  - Healthcare Payer Systems — Deep Dive
+    - The Full Payer Technology Ecosystem
+    - Legacy vs. Modern Payer Architecture
+    - The Surrounding Systems — What Connects to CAPS
+    - How It All Connects — The Data Flow
+    - The FHIR Layer — Where Your Work Sits
+    - Interview One-Liners — Payer Systems
+    - Clearinghouses
+    - Clinical Editing / Claims Audit Engines
+    - RCM Outsourcing Companies (Provider Side)
+    - How RCM Outsourcing Vendors Actually Work — They Are NOT Clearinghouses
+  - IT Services Companies (Infosys, Cognizant, TCS, Wipro, Accenture) — Their Role in the Ecosystem
+    - Role 1: IT Services / System Integrator (Most Common)
+    - Role 2: RCM Outsourcing (Provider Side)
+    - Role 3: Payer Operations BPO (Business Process Outsourcing)
+    - Role 4: Consulting / Advisory (Most Relevant to Your Interview)
+    - The Same Company, Multiple Relationships
+    - Why This Matters for Your Interview
+  - Denial Management — Why It's a Major Cost Center
+    - The Numbers
+    - The Denial Lifecycle
+    - Common Denial Categories
+    - Why Payers Are Also a Cost Center Here
+    - The PM Opportunity
+  - Who Decides Prior Authorization Criteria?
+    - The Layered Decision Stack
+    - Who Controls What
+    - CQL — How Criteria Become Machine-Executable in FHIR
+    - The Provider Pushback — Why PA Lists Are Shrinking
+    - Interview One-Liner
+  - Automation in the Clearinghouse → Payer Flow
+  - The Concept of "Pend" — Explained
+    - Why a Claim Gets Pended
+    - Pend vs Deny — The Key Difference
+    - Why Pend Rate Matters to a PM
+  - Accounts Receivable (AR) — The Financial Layer on Top of Claims
+    - Where AR Opens and Closes
+    - Key AR Metrics
+    - AR Aging in Practice
+    - How AR Connects to Everything Else in Gap 1
+    - The RCM Team's Job in One Sentence
+    - AR on the Payer Side
+  - Key Terms — With Explanations
+  - Interview Questions — With Model Answers
+
+## SECTION 4 — GAP 2: Enrollment & Eligibility
+
+  - The Flow
+  - Key Concepts
+  - Enrollment Channels
+  - Life Event Scenarios — What Actually Happens
+    - Scenario 1: Employee Changes Employer
+    - Scenario 2: Employee Moves to a Different Insurance (Same Employer, Different Plan)
+  - Clarification: "Payers Run Reconciliations With Employers" — Who Are These Two Entities?
+  - Eligibility (270/271) — Deep Dive
+    - What Is Eligibility Verification?
+    - What 271 Returns (Key Fields)
+    - Real-Time vs Batch Eligibility
+    - Who Actually Performs the Eligibility Check?
+    - Step Therapy — Does It Come Into Eligibility?
+    - Why Eligibility Errors Are So Costly
+  - Pain Points — Expanded
+  - FHIR Role in 2026 for Enrollment & Eligibility
+  - AI Role in 2026 for Enrollment & Eligibility
+  - Interview Questions — With Model Answers
+
+## SECTION 5 — GAP 3: Medicare / Medicaid (Medicare Advantage Focus)
+
+  - Medicare Structure (Memorize Cold)
+  - How Medicare Advantage Makes Money (Critical to Understand)
+  - Star Ratings (You MUST Know This)
+  - Key Calendar (Operational Beats)
+  - Risk Adjustment Mechanics
+  - Medicaid Basics
+  - Remittance Workflow — Is It Different for Medicare and Medicaid?
+    - Medicare FFS (Traditional Medicare)
+    - Medicare Advantage (Part C)
+    - Medicaid (Managed Medicaid)
+    - Summary Table — Remittance Differences
+  - FHIR Role in 2026 — Medicare/Medicaid Specific
+    - CDS Hooks — Your CRDService Directly Serves This
+    - BCDA and Bulk Data — Your Phase 8 Connection
+  - AI Role in 2026 — Medicare/Medicaid
+  - Interview Questions — With Model Answers
+    - Medicare Eligibility — Detail
+    - Medicaid Eligibility — Detail
+    - The One-Line Mnemonics
+    - Medicare Parts A / B / C / D — The Structure (Memorize Cold)
+    - Medicaid Program Types — FFS vs MCO vs Waiver
+
+## SECTION 6 — GAP 4: HEDIS, CAHPS, Care Management & Utilization Management
+
+  - HEDIS (Healthcare Effectiveness Data and Information Set)
+  - Data Collection Methods
+  - Why HEDIS Matters
+  - CAHPS (Consumer Assessment of Healthcare Providers and Systems)
+  - Care Management — The Four Buckets
+    - Bucket 1 — Utilization Management (UM)
+    - Bucket 2 — Case Management (CM)
+    - Bucket 3 — Disease Management (DM)
+    - Bucket 4 — Population Health Management
+    - Care Management Economics — How It All Ties Together
+    - PM Interview Answer — Care Management
+  - Utilization Management Deep Dive (Your Sweet Spot)
+  - Grievances & Appeals (G&A) — How It Actually Works
+    - Grievance vs Appeal — The Core Distinction
+    - Grievance Workflow
+    - Appeal Workflow (Clinical / Coverage Appeals)
+    - Why Appeal Overturn Rates Matter
+    - Key Timelines (Memorize for MA)
+  - FHIR Role in 2026 — HEDIS / Care Management / UM
+    - The CRD → DTR → PAS Chain — Your Full UM Workflow
+  - AI Role in 2026 — HEDIS / Care Management / UM
+  - Interview Questions — With Model Answers
+
+## SECTION 7 — Cross-Cutting: Regulatory Awareness
+
+  - Likely Interview Questions
+
+## SECTION 8 — Technical Architecture & Systems (PM Deep Dive)
+
+  - Real-Time Architecture Patterns in Healthcare Payer Systems
+    - The Core Problem
+    - Pattern 1 — Real-Time Eligibility (270/271 or FHIR Coverage)
+    - Pattern 2 — CDS Hooks / CRD (Real-Time PA Determination at Point of Order)
+  - Rules Engines Deep Dive — What Actually Runs the Decision Logic
+    - The Four Engines You Will Encounter
+    - Engine 1 — Drools (Most Common in Payer Systems)
+    - Engine 2 — IBM ODM (Operational Decision Manager)
+    - Engine 3 — Optum ClaimCheck / CES (Clinical Editing System)
+    - Engine 4 — CQL (Clinical Quality Language) — The FHIR-Native Approach
+    - Comparison Table — All Four Side by Side
+    - Greenfield Alternative — No Separate Rules Engine
+    - PM Interview Answer — Rules Engines
+    - Pattern 3 — PAS Submission (Two Modes)
+    - Pattern 4 — Claims Adjudication (Internal Payer Event Pipeline)
+    - Pattern 5 — Benefit Accumulator (Deductible / OOP Tracking)
+    - The Integration Layer — MuleSoft Dominates
+    - Two Paths — Legacy Modernization vs. Greenfield
+    - Greenfield / Cloud-Native Stack (What New Payers Actually Build)
+    - Real-World Examples
+    - Why Large Incumbents Stay on Facets Longer Than You'd Expect
+    - The PM Interview Answer
+  - HL7 v2 — The OTHER Messaging Standard (Most People Forget This)
+  - NCPDP — The Pharmacy Standard (Not EDI X12)
+    - PBM Claim Submission — How It Actually Works at the Pharmacy Counter
+    - Key NCPDP D.0 Fields (What Goes in the Claim)
+    - Drug Pricing — How the PBM Calculates What to Pay the Pharmacy
+    - Reject Codes — What Happens When a Claim Fails
+    - Pharmacy Prior Authorization — Different from Medical PA
+    - PBM Remittance — How the Money Flows
+    - DIR Fees — The Most Controversial Pharmacy Payment Issue
+    - Rebate Flow — The Other Hidden Money
+    - NCPDP SCRIPT — E-Prescribing Standard
+    - NDC — National Drug Code
+    - Complete PBM Ecosystem — How Everything Connects
+    - PM Interview Answer — PBM Claim Submission and Remittance
+  - SMART on FHIR — How Authorization Works
+  - Code Systems Landscape — What Lives Where
+  - FHIR Server Options — Where Your Data Lives
+  - ONC Certification, Inferno & USCDI — The Compliance Layer
+  - Provider Data Systems — NPI, NPPES, PECOS, CAQH
+  - HIPAA Technical Safeguards — What PM Must Know
+  - Data Exchange Methods — How Files Actually Move
+  - Summary — Technology Stack Cheat Sheet
+
+## SECTION 9 — PM Framing Talking Points
+
+
+## SECTION 10 — Quiz Mode
+
+
+## SECTION 11 — 48-Hour Prep Schedule
+
+
+---
+
+---
+
+> **SECTION 0 — Orientation & How to Use**
+
 # Payer/Provider PM — Gap Document & Study Reference
 
 **Purpose**: Single reference doc covering the 4 business-domain gaps not deeply covered in the FHIR workspace. Use this as the starting point for quiz sessions and a quick-reference before the interview.
@@ -327,19 +600,19 @@ Decision returned to Epic inline — no portal, no fax, no phone call
 
 #### Quick Tech Stack Reference
 
-| AI Technique | Healthcare Application | Example Vendors/Tools |
-|---|---|---|
-| **XGBoost / LightGBM** | Denial prediction, PA approval scoring, risk stratification | Waystar, Cohere Health, Optum |
-| **NLP (spaCy, Comprehend Medical)** | HCC capture, CDI, PA documentation extraction | AWS, Google, Ciox/IOD |
-| **LLM (GPT-4, Claude, Llama)** | EOB explanation, appeal drafting, DTR auto-population | Azure OpenAI, AWS Bedrock |
-| **Ambient ASR + LLM** | Medical coding from clinical encounter audio | Nuance DAX, AWS HealthScribe, Suki |
-| **Graph Neural Networks** | Fraud network detection | Cotiviti, SAS |
-| **LSTM / time-series** | Temporal billing anomaly detection | Optum Payment Integrity |
-| **Isolation Forest** | Statistical outlier fraud flags | SAS, Cotiviti |
-| **RAG (Retrieval Augmented Generation)** | Appeal letters, clinical review summaries | Azure OpenAI + FHIR as vector store |
-| **Agentic AI (tool-use)** | Prior auth end-to-end, AR monitoring, eligibility orchestration | Your fhir-mcp-suite, LangChain, AutoGen |
-| **CQL + rules engine (Drools)** | PA criteria evaluation in CRD | Your CRDService Phase 5 |
-| **FHIR Subscription** | Push notifications for async PA status | Your PriorAuthAPI Phase 6 |
+| AI Technique                             | Healthcare Application                                          | Example Vendors/Tools                   |
+| ---------------------------------------- | --------------------------------------------------------------- | --------------------------------------- |
+| **XGBoost / LightGBM**                   | Denial prediction, PA approval scoring, risk stratification     | Waystar, Cohere Health, Optum           |
+| **NLP (spaCy, Comprehend Medical)**      | HCC capture, CDI, PA documentation extraction                   | AWS, Google, Ciox/IOD                   |
+| **LLM (GPT-4, Claude, Llama)**           | EOB explanation, appeal drafting, DTR auto-population           | Azure OpenAI, AWS Bedrock               |
+| **Ambient ASR + LLM**                    | Medical coding from clinical encounter audio                    | Nuance DAX, AWS HealthScribe, Suki      |
+| **Graph Neural Networks**                | Fraud network detection                                         | Cotiviti, SAS                           |
+| **LSTM / time-series**                   | Temporal billing anomaly detection                              | Optum Payment Integrity                 |
+| **Isolation Forest**                     | Statistical outlier fraud flags                                 | SAS, Cotiviti                           |
+| **RAG (Retrieval Augmented Generation)** | Appeal letters, clinical review summaries                       | Azure OpenAI + FHIR as vector store     |
+| **Agentic AI (tool-use)**                | Prior auth end-to-end, AR monitoring, eligibility orchestration | Your fhir-mcp-suite, LangChain, AutoGen |
+| **CQL + rules engine (Drools)**          | PA criteria evaluation in CRD                                   | Your CRDService Phase 5                 |
+| **FHIR Subscription**                    | Push notifications for async PA status                          | Your PriorAuthAPI Phase 6               |
 
 #### The MCP Layer — Why It Matters
 
@@ -370,15 +643,20 @@ This is the **agentic AI pattern** applied to the payer-provider workflow — th
 
 Always connect a gap back to what you've already built. Cheat sheet of connections:
 
-| Gap Domain | Your Existing Work That Connects |
-|---|---|
-| Claims adjudication | CARIN Blue Button / EOB API — the member-facing surface of adjudicated claims |
-| Enrollment | Coverage resource, Member Access API — depends on enrollment being right |
-| Medicare Advantage | Bulk Data API (BCDA is literally CMS for MA plans), risk adjustment, Star Ratings tie to HEDIS |
-| HEDIS / Care Mgmt / UM | **Your entire CRD → DTR → PAS workflow IS modern Utilization Management** |
-| AI on top of mandates | `fhir-mcp-suite`, `fhir-mapping--agent` — applied AI on CMS-mandated FHIR APIs |
+| Gap Domain             | Your Existing Work That Connects                                                               |
+| ---------------------- | ---------------------------------------------------------------------------------------------- |
+| Claims adjudication    | CARIN Blue Button / EOB API — the member-facing surface of adjudicated claims                  |
+| Enrollment             | Coverage resource, Member Access API — depends on enrollment being right                       |
+| Medicare Advantage     | Bulk Data API (BCDA is literally CMS for MA plans), risk adjustment, Star Ratings tie to HEDIS |
+| HEDIS / Care Mgmt / UM | **Your entire CRD → DTR → PAS workflow IS modern Utilization Management**                      |
+| AI on top of mandates  | `fhir-mcp-suite`, `fhir-mapping--agent` — applied AI on CMS-mandated FHIR APIs                 |
 
 ---
+
+
+---
+
+> **SECTION 1 — US Healthcare Industry Overview**
 
 # US HEALTHCARE INDUSTRY OVERVIEW — The Big Picture
 
@@ -392,25 +670,25 @@ US healthcare is the **largest industry in the world** by spend — roughly **$4
 
 **Where the money goes** (National Health Expenditures, CMS data):
 
-| Category | Share | ~$ Amount |
-|---|---|---|
-| Hospital care | 31% | ~$1.4T |
-| Physician & clinical services | 20% | ~$900B |
-| Prescription drugs (retail) | 9% | ~$400B |
-| Nursing & continuing care | 5% | ~$225B |
-| Home health | 4% | ~$180B |
-| Government admin + net health insurance (admin + profit) | 7% | ~$315B |
-| Other (dental, vision, devices, public health, research) | 24% | ~$1.1T |
+| Category                                                 | Share | ~$ Amount |
+| -------------------------------------------------------- | ----- | --------- |
+| Hospital care                                            | 31%   | ~$1.4T    |
+| Physician & clinical services                            | 20%   | ~$900B    |
+| Prescription drugs (retail)                              | 9%    | ~$400B    |
+| Nursing & continuing care                                | 5%    | ~$225B    |
+| Home health                                              | 4%    | ~$180B    |
+| Government admin + net health insurance (admin + profit) | 7%    | ~$315B    |
+| Other (dental, vision, devices, public health, research) | 24%   | ~$1.1T    |
 
 **Payer mix** — who actually pays the bills:
 
-| Payer | Share |
-|---|---|
-| Federal government (Medicare, Medicaid federal share, VA, CHIP) | ~36% |
-| State & local government (Medicaid state share, state employees) | ~17% |
-| Private health insurance (employer + individual) | ~28% |
-| Out-of-pocket (member cost-sharing) | ~11% |
-| Other (philanthropy, workers comp, auto insurance) | ~8% |
+| Payer                                                            | Share |
+| ---------------------------------------------------------------- | ----- |
+| Federal government (Medicare, Medicaid federal share, VA, CHIP)  | ~36%  |
+| State & local government (Medicaid state share, state employees) | ~17%  |
+| Private health insurance (employer + individual)                 | ~28%  |
+| Out-of-pocket (member cost-sharing)                              | ~11%  |
+| Other (philanthropy, workers comp, auto insurance)               | ~8%   |
 
 > **The key insight**: Government is the **largest payer** in US healthcare — over half of all spending is public money. This is why CMS rules carry so much weight, and why your FHIR work is mandated rather than optional.
 
@@ -446,14 +724,14 @@ US healthcare is the **largest industry in the world** by spend — roughly **$4
 
 **Role**: Set the rules, fund programs, and are themselves the largest payer.
 
-| Entity | Role |
-|---|---|
-| **CMS** (Centers for Medicare & Medicaid Services) | Runs Medicare, co-funds Medicaid, regulates MA plans and Medicaid MCOs. Issues FHIR mandates. Largest single payer in the world. |
-| **ONC** (Office of the National Coordinator for Health IT) | Drives health IT policy — authored the 21st Century Cures Act rules, anti-information blocking, USCDI data standards |
-| **FDA** | Regulates drugs, devices, and increasingly digital health / AI tools |
-| **State Departments of Insurance (DOI)** | Regulate commercial payers at state level — solvency, plan approval, complaint handling |
-| **State Medicaid Agencies** | Design and run each state's Medicaid program under federal guidelines. Contract with MCOs. |
-| **CDC / NIH** | Public health and research — influence what conditions and interventions get covered |
+| Entity                                                     | Role                                                                                                                             |
+| ---------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| **CMS** (Centers for Medicare & Medicaid Services)         | Runs Medicare, co-funds Medicaid, regulates MA plans and Medicaid MCOs. Issues FHIR mandates. Largest single payer in the world. |
+| **ONC** (Office of the National Coordinator for Health IT) | Drives health IT policy — authored the 21st Century Cures Act rules, anti-information blocking, USCDI data standards             |
+| **FDA**                                                    | Regulates drugs, devices, and increasingly digital health / AI tools                                                             |
+| **State Departments of Insurance (DOI)**                   | Regulate commercial payers at state level — solvency, plan approval, complaint handling                                          |
+| **State Medicaid Agencies**                                | Design and run each state's Medicaid program under federal guidelines. Contract with MCOs.                                       |
+| **CDC / NIH**                                              | Public health and research — influence what conditions and interventions get covered                                             |
 
 **Why it matters for your work**: Every API you built exists because of a CMS rule. CMS-9115-F mandated your Patient Access API, Provider Directory API, and Payer-to-Payer API. CMS-0057-F mandated your Prior Auth API. Government isn't just a payer — it is the regulatory engine that creates the entire market for payer IT transformation.
 
@@ -465,40 +743,40 @@ US healthcare is the **largest industry in the world** by spend — roughly **$4
 
 **Market segments**:
 
-| Segment | Description | Key Players |
-|---|---|---|
-| **Commercial / Employer-Sponsored Insurance (ESI)** | Largest segment — ~160M Americans covered through employers. Fully-insured (payer bears risk) or self-insured (employer bears risk, payer is TPA) | UHC, Aetna/CVS, Cigna, Elevance (Anthem), BCBS |
-| **Medicare Advantage (Part C)** | Private plans managing Medicare benefits. ~33M members. CMS pays capitation PMPM. Where your FHIR mandates apply. | Humana, UHC, Aetna, BCBS, Elevance |
-| **Medicaid Managed Care (MCOs)** | States contract with MCOs to manage Medicaid population. ~80M members in MCOs. | Centene (largest), Molina, Elevance, UHC Community, Aetna Better Health |
-| **Individual / ACA Marketplace** | Plans sold to individuals on HealthCare.gov or state exchanges. ~20M enrolled. | BCBS plans, Molina, Ambetter (Centene), Oscar Health |
-| **Medicare Part D (PDPs)** | Standalone prescription drug plans. Run alongside Traditional Medicare. | UHC AARP, Humana, Wellcare (Centene), SilverScript (CVS) |
-| **Medigap / Medicare Supplement** | Sold alongside Traditional Medicare to cover 20% coinsurance gap. | AARP/UHC, Mutual of Omaha, Cigna |
+| Segment                                             | Description                                                                                                                                       | Key Players                                                             |
+| --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| **Commercial / Employer-Sponsored Insurance (ESI)** | Largest segment — ~160M Americans covered through employers. Fully-insured (payer bears risk) or self-insured (employer bears risk, payer is TPA) | UHC, Aetna/CVS, Cigna, Elevance (Anthem), BCBS                          |
+| **Medicare Advantage (Part C)**                     | Private plans managing Medicare benefits. ~33M members. CMS pays capitation PMPM. Where your FHIR mandates apply.                                 | Humana, UHC, Aetna, BCBS, Elevance                                      |
+| **Medicaid Managed Care (MCOs)**                    | States contract with MCOs to manage Medicaid population. ~80M members in MCOs.                                                                    | Centene (largest), Molina, Elevance, UHC Community, Aetna Better Health |
+| **Individual / ACA Marketplace**                    | Plans sold to individuals on HealthCare.gov or state exchanges. ~20M enrolled.                                                                    | BCBS plans, Molina, Ambetter (Centene), Oscar Health                    |
+| **Medicare Part D (PDPs)**                          | Standalone prescription drug plans. Run alongside Traditional Medicare.                                                                           | UHC AARP, Humana, Wellcare (Centene), SilverScript (CVS)                |
+| **Medigap / Medicare Supplement**                   | Sold alongside Traditional Medicare to cover 20% coinsurance gap.                                                                                 | AARP/UHC, Mutual of Omaha, Cigna                                        |
 
 **The Big 6 payer conglomerates** (controlling ~80% of insured lives):
 
-| Company | Segments | IT Subsidiary |
-|---|---|---|
-| **UnitedHealth Group** | Commercial, MA, Medicaid MCO, PDP | **Optum** (IT, analytics, PBM, care delivery) |
-| **CVS Health** | Commercial, MA, Medicaid MCO, PDP | **Aetna** (insurance arm), CVS Caremark (PBM) |
-| **Cigna** | Commercial, PDP | **Evernorth** (Express Scripts PBM, care services) |
-| **Elevance Health (Anthem)** | Commercial, MA, Medicaid MCO | **Carelon** (technology/analytics arm) |
-| **Humana** | MA-heavy, PDP, some commercial | CenterWell (care delivery) |
-| **Centene** | Medicaid MCO-heavy, MA, ACA exchange | WellCare (acquired), multiple state-branded plans |
+| Company                      | Segments                             | IT Subsidiary                                      |
+| ---------------------------- | ------------------------------------ | -------------------------------------------------- |
+| **UnitedHealth Group**       | Commercial, MA, Medicaid MCO, PDP    | **Optum** (IT, analytics, PBM, care delivery)      |
+| **CVS Health**               | Commercial, MA, Medicaid MCO, PDP    | **Aetna** (insurance arm), CVS Caremark (PBM)      |
+| **Cigna**                    | Commercial, PDP                      | **Evernorth** (Express Scripts PBM, care services) |
+| **Elevance Health (Anthem)** | Commercial, MA, Medicaid MCO         | **Carelon** (technology/analytics arm)             |
+| **Humana**                   | MA-heavy, PDP, some commercial       | CenterWell (care delivery)                         |
+| **Centene**                  | Medicaid MCO-heavy, MA, ACA exchange | WellCare (acquired), multiple state-branded plans  |
 
 **Payer internal functions** (the "verticals within a payer"):
 
-| Function | What It Does |
-|---|---|
-| **Enrollment / Membership** | Member onboarding, ID card issuance, 834 processing, eligibility management |
-| **Claims Operations** | 837 intake, adjudication, 835 remittance, appeals, fraud/waste/abuse |
-| **Utilization Management (UM)** | Prior auth, concurrent review, retrospective review |
-| **Care Management** | Case management, disease management, population health |
+| Function                         | What It Does                                                                  |
+| -------------------------------- | ----------------------------------------------------------------------------- |
+| **Enrollment / Membership**      | Member onboarding, ID card issuance, 834 processing, eligibility management   |
+| **Claims Operations**            | 837 intake, adjudication, 835 remittance, appeals, fraud/waste/abuse          |
+| **Utilization Management (UM)**  | Prior auth, concurrent review, retrospective review                           |
+| **Care Management**              | Case management, disease management, population health                        |
 | **Provider Relations / Network** | Provider contracting, credentialing, network maintenance, 270/271 eligibility |
-| **Member Services** | Call center, grievances, appeals, CAHPS |
-| **Finance / Actuarial** | Premium pricing, risk adjustment, MLR management |
-| **Compliance & Regulatory** | CMS audit readiness, state DOI filings, HIPAA, Star Ratings |
-| **Health IT / Digital** | Core admin systems (Facets/QNXT), FHIR APIs, data warehouse, analytics |
-| **Sales & Marketing** | Employer group sales, broker relations, AEP individual marketing |
+| **Member Services**              | Call center, grievances, appeals, CAHPS                                       |
+| **Finance / Actuarial**          | Premium pricing, risk adjustment, MLR management                              |
+| **Compliance & Regulatory**      | CMS audit readiness, state DOI filings, HIPAA, Star Ratings                   |
+| **Health IT / Digital**          | Core admin systems (Facets/QNXT), FHIR APIs, data warehouse, analytics        |
+| **Sales & Marketing**            | Employer group sales, broker relations, AEP individual marketing              |
 
 ---
 
@@ -506,19 +784,19 @@ US healthcare is the **largest industry in the world** by spend — roughly **$4
 
 **Role**: Deliver care. Receive payments from payers. Increasingly consolidating into large systems.
 
-| Provider Type | Description | Examples |
-|---|---|---|
-| **Health Systems / IDNs** | Integrated Delivery Networks — own hospitals, physician groups, outpatient centers. Billion-dollar enterprises. | HCA Healthcare, CommonSpirit, Ascension, Providence, Mayo Clinic, Cleveland Clinic |
-| **Academic Medical Centers (AMCs)** | Hospital + medical school + research. Highest-acuity care, teaching hospitals. | Johns Hopkins, Mass General Brigham, UCSF Health |
-| **Community Hospitals** | Non-academic acute care hospitals serving local populations | ~4,000 community hospitals across US |
-| **Physician Groups / Medical Groups** | Independent or employed physician practices. Private equity-backed groups growing rapidly. | USACS (EM), TeamHealth, Envision (EM/hospitalist), One Medical (Amazon) |
-| **Ambulatory Surgery Centers (ASCs)** | Outpatient surgical facilities. Growing rapidly as payers push care out of hospital. | AmSurg, USPI (Tenet) |
-| **Post-Acute Care** | SNFs (skilled nursing), LTACHs (long-term acute), IRFs (inpatient rehab), home health, hospice | Kindred, Genesis, Amedisys, LHC Group |
-| **Behavioral Health** | Specialty mental health and SUD (substance use disorder) providers | Acadia Healthcare, Universal Health Services (UHS), Talkiatry |
-| **Federally Qualified Health Centers (FQHCs)** | Safety-net clinics serving uninsured / underinsured. CMS pays enhanced rates. | ~1,400 FQHCs nationwide |
-| **Labs / Diagnostics** | Reference labs processing hundreds of millions of tests per year | Quest Diagnostics, LabCorp |
-| **Radiology / Imaging** | Outpatient imaging centers plus hospital radiology | RadNet, Envision Radiology |
-| **Telehealth** | Virtual care delivery — exploded post-COVID | Teladoc Health (Livongo), MDLive, Amazon Clinic, Wheel |
+| Provider Type                                  | Description                                                                                                     | Examples                                                                           |
+| ---------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| **Health Systems / IDNs**                      | Integrated Delivery Networks — own hospitals, physician groups, outpatient centers. Billion-dollar enterprises. | HCA Healthcare, CommonSpirit, Ascension, Providence, Mayo Clinic, Cleveland Clinic |
+| **Academic Medical Centers (AMCs)**            | Hospital + medical school + research. Highest-acuity care, teaching hospitals.                                  | Johns Hopkins, Mass General Brigham, UCSF Health                                   |
+| **Community Hospitals**                        | Non-academic acute care hospitals serving local populations                                                     | ~4,000 community hospitals across US                                               |
+| **Physician Groups / Medical Groups**          | Independent or employed physician practices. Private equity-backed groups growing rapidly.                      | USACS (EM), TeamHealth, Envision (EM/hospitalist), One Medical (Amazon)            |
+| **Ambulatory Surgery Centers (ASCs)**          | Outpatient surgical facilities. Growing rapidly as payers push care out of hospital.                            | AmSurg, USPI (Tenet)                                                               |
+| **Post-Acute Care**                            | SNFs (skilled nursing), LTACHs (long-term acute), IRFs (inpatient rehab), home health, hospice                  | Kindred, Genesis, Amedisys, LHC Group                                              |
+| **Behavioral Health**                          | Specialty mental health and SUD (substance use disorder) providers                                              | Acadia Healthcare, Universal Health Services (UHS), Talkiatry                      |
+| **Federally Qualified Health Centers (FQHCs)** | Safety-net clinics serving uninsured / underinsured. CMS pays enhanced rates.                                   | ~1,400 FQHCs nationwide                                                            |
+| **Labs / Diagnostics**                         | Reference labs processing hundreds of millions of tests per year                                                | Quest Diagnostics, LabCorp                                                         |
+| **Radiology / Imaging**                        | Outpatient imaging centers plus hospital radiology                                                              | RadNet, Envision Radiology                                                         |
+| **Telehealth**                                 | Virtual care delivery — exploded post-COVID                                                                     | Teladoc Health (Livongo), MDLive, Amazon Clinic, Wheel                             |
 
 **Provider internal functions relevant to payer IT**:
 - **Revenue Cycle Management (RCM)**: charge capture → coding → claim submission → denial management → posting → collections
@@ -532,15 +810,15 @@ US healthcare is the **largest industry in the world** by spend — roughly **$4
 
 **Role**: Manage the drug benefit — routing prescriptions, adjudicating pharmacy claims, contracting with manufacturers, managing formularies.
 
-| Sub-segment | Description | Players |
-|---|---|---|
-| **PBMs (Pharmacy Benefit Managers)** | The middleman between payers and pharmacies. Process pharmacy claims, negotiate rebates, manage formularies. Three PBMs control ~80% of the market. | CVS Caremark, Express Scripts (Cigna/Evernorth), OptumRx (UHG) |
-| **Retail Pharmacy chains** | Where members fill most prescriptions | CVS (~10K stores), Walgreens, Rite Aid (bankrupt 2024), Walmart, Kroger |
-| **Specialty Pharmacy** | High-cost biologics, oncology drugs, infusions — requires special handling, patient support programs | Accredo (Express Scripts), CVS Specialty, Walgreens Specialty |
-| **Mail-order Pharmacy** | 90-day supply by mail — lower cost, higher adherence for maintenance meds | Caremark Mail, Express Scripts Mail, OptumRx Mail |
-| **Drug Manufacturers (Pharma)** | Negotiate rebates with PBMs, fund DTC advertising, fund PAP programs | Pfizer, Merck, AbbVie, Lilly, J&J, Novartis, BMS |
-| **Medical Device manufacturers** | Devices, implants, DME (durable medical equipment) | Medtronic, Abbott, Stryker, Zimmer Biomet, BD |
-| **Wholesale Distributors** | Move drugs from manufacturer to pharmacy | McKesson, Cardinal Health, AmerisourceBergen (now Cencora) |
+| Sub-segment                          | Description                                                                                                                                         | Players                                                                 |
+| ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| **PBMs (Pharmacy Benefit Managers)** | The middleman between payers and pharmacies. Process pharmacy claims, negotiate rebates, manage formularies. Three PBMs control ~80% of the market. | CVS Caremark, Express Scripts (Cigna/Evernorth), OptumRx (UHG)          |
+| **Retail Pharmacy chains**           | Where members fill most prescriptions                                                                                                               | CVS (~10K stores), Walgreens, Rite Aid (bankrupt 2024), Walmart, Kroger |
+| **Specialty Pharmacy**               | High-cost biologics, oncology drugs, infusions — requires special handling, patient support programs                                                | Accredo (Express Scripts), CVS Specialty, Walgreens Specialty           |
+| **Mail-order Pharmacy**              | 90-day supply by mail — lower cost, higher adherence for maintenance meds                                                                           | Caremark Mail, Express Scripts Mail, OptumRx Mail                       |
+| **Drug Manufacturers (Pharma)**      | Negotiate rebates with PBMs, fund DTC advertising, fund PAP programs                                                                                | Pfizer, Merck, AbbVie, Lilly, J&J, Novartis, BMS                        |
+| **Medical Device manufacturers**     | Devices, implants, DME (durable medical equipment)                                                                                                  | Medtronic, Abbott, Stryker, Zimmer Biomet, BD                           |
+| **Wholesale Distributors**           | Move drugs from manufacturer to pharmacy                                                                                                            | McKesson, Cardinal Health, AmerisourceBergen (now Cencora)              |
 
 ---
 
@@ -548,15 +826,15 @@ US healthcare is the **largest industry in the world** by spend — roughly **$4
 
 **Role**: Largest purchaser of commercial health insurance. ~160M Americans get coverage through their employer.
 
-| Entity | Role |
-|---|---|
-| **Large self-insured employers** | Bear their own insurance risk, hire a TPA to process claims (e.g., Boeing uses Premera as TPA) |
-| **Fully-insured employers** | Pay premiums to an insurer, shift all risk to the insurer. Mostly small/mid employers. |
-| **TPAs (Third-Party Administrators)** | Process claims for self-insured employers. Handle enrollment, ID cards, 835 remittance. | Meritain (Aetna), HealthSmart, Allied Benefit Systems |
-| **Brokers / Independent Agents** | Sell employer and individual insurance. Earn commissions. Small employers and individual market. |
-| **Benefits Consultants / Advisors** | Large employer consultants that design benefit programs, evaluate carriers, manage RFPs | Mercer, Aon, Willis Towers Watson (WTW), Gallagher |
-| **Stop-Loss Insurers** | Provide catastrophic reinsurance for self-insured employers (covers claims over $500K–$1M threshold) | Sun Life, HM Life, Tokio Marine |
-| **HSA/FSA Administrators** | Manage member health spending accounts | HealthEquity, WEX Health, Optum Bank |
+| Entity                                | Role                                                                                                 |                                                       |
+| ------------------------------------- | ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| **Large self-insured employers**      | Bear their own insurance risk, hire a TPA to process claims (e.g., Boeing uses Premera as TPA)       |                                                       |
+| **Fully-insured employers**           | Pay premiums to an insurer, shift all risk to the insurer. Mostly small/mid employers.               |                                                       |
+| **TPAs (Third-Party Administrators)** | Process claims for self-insured employers. Handle enrollment, ID cards, 835 remittance.              | Meritain (Aetna), HealthSmart, Allied Benefit Systems |
+| **Brokers / Independent Agents**      | Sell employer and individual insurance. Earn commissions. Small employers and individual market.     |                                                       |
+| **Benefits Consultants / Advisors**   | Large employer consultants that design benefit programs, evaluate carriers, manage RFPs              | Mercer, Aon, Willis Towers Watson (WTW), Gallagher    |
+| **Stop-Loss Insurers**                | Provide catastrophic reinsurance for self-insured employers (covers claims over $500K–$1M threshold) | Sun Life, HM Life, Tokio Marine                       |
+| **HSA/FSA Administrators**            | Manage member health spending accounts                                                               | HealthEquity, WEX Health, Optum Bank                  |
 
 ---
 
@@ -564,18 +842,18 @@ US healthcare is the **largest industry in the world** by spend — roughly **$4
 
 **Role**: Build and run the software that the other five verticals depend on.
 
-| Sub-segment | What They Build | Key Players |
-|---|---|---|
-| **EHR Vendors** | Electronic Health Records — the provider's system of record for clinical data | Epic (~35% acute market), Oracle Cerner (~25%), Meditech, Allscripts/Veradigm |
-| **Payer Core Admin Systems** | Claims adjudication, enrollment, benefits configuration | TriZetto Facets (Cognizant), QNXT (TriZetto), AMISYS (DXC), Diamond |
-| **FHIR Platforms** | FHIR server infrastructure for CMS-mandated APIs | HAPI FHIR (open source), Smile CDR, Azure Health Data Services, AWS HealthLake |
-| **Clearinghouses** | EDI translation, routing, claim scrubbing between providers and payers | Optum/Change Healthcare, Availity, Waystar (formerly ZirMed + RelayHealth) |
-| **RCM Vendors** | Automate revenue cycle for providers | R1 RCM, Nthrive, Conifer Health (Tenet), Parallon (HCA) |
-| **Population Health / Analytics** | Aggregate clinical + claims + SDOH; surface care gaps; risk stratification | Innovaccer, Arcadia, Health Catalyst, Lightbeam, Privia |
-| **Interoperability / HIE** | Health Information Exchanges — regional and national | CommonWell, Carequality, Kno2, eHealth Exchange, CRISP, KONZA (TEFCA QHINs) |
-| **Care Management Platforms** | UM workflows, CM case tracking, DM outreach | Jiva (Cognizant), Guiding Care (Cotiviti), EXL Exl Health, Casenet |
-| **AI / ML Health** | Clinical NLP, predictive analytics, generative AI for clinical documentation | Nuance (Microsoft), Abridge, Suki, Iodine Software, Optum Analytics |
-| **Telehealth / Digital Health** | Virtual care and connected devices | Teladoc, Livongo, Omada, Hinge Health, Transcarent |
+| Sub-segment                       | What They Build                                                               | Key Players                                                                    |
+| --------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| **EHR Vendors**                   | Electronic Health Records — the provider's system of record for clinical data | Epic (~35% acute market), Oracle Cerner (~25%), Meditech, Allscripts/Veradigm  |
+| **Payer Core Admin Systems**      | Claims adjudication, enrollment, benefits configuration                       | TriZetto Facets (Cognizant), QNXT (TriZetto), AMISYS (DXC), Diamond            |
+| **FHIR Platforms**                | FHIR server infrastructure for CMS-mandated APIs                              | HAPI FHIR (open source), Smile CDR, Azure Health Data Services, AWS HealthLake |
+| **Clearinghouses**                | EDI translation, routing, claim scrubbing between providers and payers        | Optum/Change Healthcare, Availity, Waystar (formerly ZirMed + RelayHealth)     |
+| **RCM Vendors**                   | Automate revenue cycle for providers                                          | R1 RCM, Nthrive, Conifer Health (Tenet), Parallon (HCA)                        |
+| **Population Health / Analytics** | Aggregate clinical + claims + SDOH; surface care gaps; risk stratification    | Innovaccer, Arcadia, Health Catalyst, Lightbeam, Privia                        |
+| **Interoperability / HIE**        | Health Information Exchanges — regional and national                          | CommonWell, Carequality, Kno2, eHealth Exchange, CRISP, KONZA (TEFCA QHINs)    |
+| **Care Management Platforms**     | UM workflows, CM case tracking, DM outreach                                   | Jiva (Cognizant), Guiding Care (Cotiviti), EXL Exl Health, Casenet             |
+| **AI / ML Health**                | Clinical NLP, predictive analytics, generative AI for clinical documentation  | Nuance (Microsoft), Abridge, Suki, Iodine Software, Optum Analytics            |
+| **Telehealth / Digital Health**   | Virtual care and connected devices                                            | Teladoc, Livongo, Omada, Hinge Health, Transcarent                             |
 
 ---
 
@@ -583,32 +861,32 @@ US healthcare is the **largest industry in the world** by spend — roughly **$4
 
 **Role**: Implement, integrate, and manage the technology that payers, providers, and pharma companies run their businesses on.
 
-| Firm | Healthcare Focus | What They Actually Do |
-|---|---|---|
-| **Cognizant / TriZetto** | Payer-focused — owns TriZetto (Facets/QNXT) | Payer system implementation, claims ops, FHIR APIs |
-| **Infosys (BPM, BPO)** | Payer + provider | Claims processing, RCM, FHIR implementation, analytics |
-| **TCS** | Payer + provider | Core admin, testing, BPO, digital transformation |
-| **Accenture** | All segments | Strategy + IT — large EHR implementations, payer transformation |
-| **Wipro** | Payer + pharma | Claims IT, regulatory, analytics |
-| **Deloitte** | All segments — strategy + tech | Digital health, regulatory advisory, EHR advisory |
-| **IBM / IBM Consulting** | Payer + provider | AI (Watson Health divested), ODM, hybrid cloud |
-| **Optum** (UHG subsidiary) | Payer + provider + analytics | Often competes with the above — conflict of interest with payers |
+| Firm                       | Healthcare Focus                            | What They Actually Do                                            |
+| -------------------------- | ------------------------------------------- | ---------------------------------------------------------------- |
+| **Cognizant / TriZetto**   | Payer-focused — owns TriZetto (Facets/QNXT) | Payer system implementation, claims ops, FHIR APIs               |
+| **Infosys (BPM, BPO)**     | Payer + provider                            | Claims processing, RCM, FHIR implementation, analytics           |
+| **TCS**                    | Payer + provider                            | Core admin, testing, BPO, digital transformation                 |
+| **Accenture**              | All segments                                | Strategy + IT — large EHR implementations, payer transformation  |
+| **Wipro**                  | Payer + pharma                              | Claims IT, regulatory, analytics                                 |
+| **Deloitte**               | All segments — strategy + tech              | Digital health, regulatory advisory, EHR advisory                |
+| **IBM / IBM Consulting**   | Payer + provider                            | AI (Watson Health divested), ODM, hybrid cloud                   |
+| **Optum** (UHG subsidiary) | Payer + provider + analytics                | Often competes with the above — conflict of interest with payers |
 
 **Practice areas within a healthcare IT consulting firm**:
 
-| Practice | What It Covers |
-|---|---|
-| **Payer Technology** | Core admin (Facets/QNXT), enrollment, claims, benefit configuration |
-| **Interoperability / FHIR** | CMS-mandated APIs, Da Vinci IGs, TEFCA connectivity — **your work** |
-| **Revenue Cycle Management (RCM)** | Provider billing, coding, denial management, AR |
-| **Analytics & Data** | Data warehouse, population health, HEDIS, risk adjustment, AI/ML |
-| **Care Management** | UM, CM, DM platform implementation (Jiva, Guiding Care) |
-| **Compliance & Regulatory** | HIPAA, CMS audits, state DOI, accreditation (NCQA, URAC) |
-| **Digital / Consumer** | Member portals, mobile apps, CARIN BB EOB, chatbots |
-| **Sales / Business Development (BD)** | Hunting new clients, expanding existing accounts |
-| **Account Management** | Owning the client relationship once a contract is signed, identifying expansion opportunities |
-| **Pre-sales / Solution Architecture** | Technical sales — responding to RFPs, designing solutions, demos |
-| **Delivery / PMO** | Project management, governance, program delivery |
+| Practice                              | What It Covers                                                                                |
+| ------------------------------------- | --------------------------------------------------------------------------------------------- |
+| **Payer Technology**                  | Core admin (Facets/QNXT), enrollment, claims, benefit configuration                           |
+| **Interoperability / FHIR**           | CMS-mandated APIs, Da Vinci IGs, TEFCA connectivity — **your work**                           |
+| **Revenue Cycle Management (RCM)**    | Provider billing, coding, denial management, AR                                               |
+| **Analytics & Data**                  | Data warehouse, population health, HEDIS, risk adjustment, AI/ML                              |
+| **Care Management**                   | UM, CM, DM platform implementation (Jiva, Guiding Care)                                       |
+| **Compliance & Regulatory**           | HIPAA, CMS audits, state DOI, accreditation (NCQA, URAC)                                      |
+| **Digital / Consumer**                | Member portals, mobile apps, CARIN BB EOB, chatbots                                           |
+| **Sales / Business Development (BD)** | Hunting new clients, expanding existing accounts                                              |
+| **Account Management**                | Owning the client relationship once a contract is signed, identifying expansion opportunities |
+| **Pre-sales / Solution Architecture** | Technical sales — responding to RFPs, designing solutions, demos                              |
+| **Delivery / PMO**                    | Project management, governance, program delivery                                              |
 
 ---
 
@@ -677,28 +955,28 @@ A firm like Infosys BPM or Cognizant TriZetto has three interlocking structures:
 
 #### Axis 1 — Industry Verticals (The Client Segments)
 
-| Vertical | Who the Clients Are | Typical Engagements |
-|---|---|---|
-| **Payer / Health Plan** | UHC, Aetna, Humana, BCBS, Centene, Molina | Core admin (Facets/QNXT) implementation, claims ops BPO, FHIR APIs, care management platforms, Star Ratings analytics |
-| **Provider / Health System** | HCA, Ascension, CommonSpirit, Epic-based IDNs | EHR implementation/optimization, RCM, coding/CDI, patient portal, FHIR APIs (21st Century Cures compliance) |
-| **Pharma & Life Sciences (P&LS)** | Pfizer, Merck, AbbVie, Lilly | Clinical trials IT, pharmacovigilance, regulatory submissions, HCP engagement platforms, real-world evidence analytics |
-| **Government Health** | CMS, VA, state Medicaid agencies, TRICARE | Medicaid system modernization (MMIS), CMS data contracts (BCDA), VA EHR (Oracle Cerner deployment), eligibility systems |
-| **Retail Health / Consumer** | CVS Health, Walgreens, Amazon Health | Pharmacy IT, consumer health apps, telehealth platforms |
+| Vertical                          | Who the Clients Are                           | Typical Engagements                                                                                                     |
+| --------------------------------- | --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| **Payer / Health Plan**           | UHC, Aetna, Humana, BCBS, Centene, Molina     | Core admin (Facets/QNXT) implementation, claims ops BPO, FHIR APIs, care management platforms, Star Ratings analytics   |
+| **Provider / Health System**      | HCA, Ascension, CommonSpirit, Epic-based IDNs | EHR implementation/optimization, RCM, coding/CDI, patient portal, FHIR APIs (21st Century Cures compliance)             |
+| **Pharma & Life Sciences (P&LS)** | Pfizer, Merck, AbbVie, Lilly                  | Clinical trials IT, pharmacovigilance, regulatory submissions, HCP engagement platforms, real-world evidence analytics  |
+| **Government Health**             | CMS, VA, state Medicaid agencies, TRICARE     | Medicaid system modernization (MMIS), CMS data contracts (BCDA), VA EHR (Oracle Cerner deployment), eligibility systems |
+| **Retail Health / Consumer**      | CVS Health, Walgreens, Amazon Health          | Pharmacy IT, consumer health apps, telehealth platforms                                                                 |
 
 Each vertical has a dedicated **Vertical Head** (VP / Managing Director level) who owns the P&L for that segment.
 
 #### Axis 2 — Horizontal Practice Areas (Capabilities That Serve All Verticals)
 
-| Practice | What It Does | Example Projects |
-|---|---|---|
-| **Payer Technology** | Core admin system impl/maintenance (Facets, QNXT, AMISYS, HealthEdge) | Facets upgrade, benefit config, enrollment build |
-| **Interoperability / FHIR** | CMS-mandated APIs, Da Vinci IGs, TEFCA, HL7 v2 → FHIR migration | Patient Access API, Prior Auth API, Payer-to-Payer |
-| **Revenue Cycle Management (RCM)** | Provider billing, coding, denial management, AR follow-up | 837/835 workflow optimization, denial root cause analysis |
-| **Analytics & Data** | Data warehouse, HEDIS, risk adjustment, AI/ML models | Star Ratings analytics, HCC recapture program, predictive readmission |
-| **Care Management / UM** | Care management platform impl (Jiva, Guiding Care, Casenet), UM workflows | CRD/DTR/PAS implementation, care gap closure program |
-| **Digital / Consumer Experience** | Member portals, mobile apps, chatbots, CARIN BB EOB | Member self-service portal, EOB display, grievance portal |
-| **Compliance & Regulatory** | HIPAA, CMS audits, NCQA accreditation, state DOI | Annual CMS compliance readiness, NCQA HEDIS submission |
-| **Cloud & Infrastructure** | Azure/AWS healthcare cloud, FHIR platform hosting | Azure Health Data Services setup, HAPI FHIR deployment |
+| Practice                           | What It Does                                                              | Example Projects                                                      |
+| ---------------------------------- | ------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| **Payer Technology**               | Core admin system impl/maintenance (Facets, QNXT, AMISYS, HealthEdge)     | Facets upgrade, benefit config, enrollment build                      |
+| **Interoperability / FHIR**        | CMS-mandated APIs, Da Vinci IGs, TEFCA, HL7 v2 → FHIR migration           | Patient Access API, Prior Auth API, Payer-to-Payer                    |
+| **Revenue Cycle Management (RCM)** | Provider billing, coding, denial management, AR follow-up                 | 837/835 workflow optimization, denial root cause analysis             |
+| **Analytics & Data**               | Data warehouse, HEDIS, risk adjustment, AI/ML models                      | Star Ratings analytics, HCC recapture program, predictive readmission |
+| **Care Management / UM**           | Care management platform impl (Jiva, Guiding Care, Casenet), UM workflows | CRD/DTR/PAS implementation, care gap closure program                  |
+| **Digital / Consumer Experience**  | Member portals, mobile apps, chatbots, CARIN BB EOB                       | Member self-service portal, EOB display, grievance portal             |
+| **Compliance & Regulatory**        | HIPAA, CMS audits, NCQA accreditation, state DOI                          | Annual CMS compliance readiness, NCQA HEDIS submission                |
+| **Cloud & Infrastructure**         | Azure/AWS healthcare cloud, FHIR platform hosting                         | Azure Health Data Services setup, HAPI FHIR deployment                |
 
 Practices are led by **Practice Heads / CoE Leads** who own the intellectual property, solution assets, and technical talent. They don't own client revenue directly — but they support every vertical's deals.
 
@@ -785,14 +1063,14 @@ Not client-facing directly, but critical:
 
 The "sales" side of a payer is also called the **Commercial / Distribution function**. It is how the payer gets members enrolled.
 
-| Sales Channel | Target Buyer | How It Works | Key Players |
-|---|---|---|---|
-| **Employer Group Sales (Large)** | Self-insured employers >1,000 employees | Direct sales reps + benefits consultants (Mercer, Aon, WTW). RFP process. Multi-year contracts. | Dedicated employer sales team, competitive intelligence team |
-| **Employer Group Sales (Small/Mid)** | Employers 2–999 employees | Brokers and General Agents (GAs) — payer pays commission. Employer picks from broker-presented options. | Independent brokers, regional GAs, broker portals (Vericred) |
-| **Individual / ACA Marketplace** | Self-employed, uninsured individuals | HealthCare.gov or state exchanges (CoveredCA, NY State of Health). SEPs, AEP. | Online enrollment, navigator network, broker-assisted enrollment |
-| **Medicare Advantage (AEP)** | Medicare-eligible individuals (65+) | Annual Enrollment Period (Oct 15 – Dec 7). TV ads, direct mail, broker referrals, DSNP for low-income. | Broker channel + direct-to-consumer advertising (heavy TV spend) |
-| **Medicaid MCO Sales** | State governments | State RFP / procurement process. Multi-year contracts. Not consumer-facing. | Government affairs team, Medicaid compliance team, state-specific relationships |
-| **Direct-to-Consumer (DTC)** | Medicare / Individual market individuals | Humana, UHC spend heavily on TV, digital, mail. 1-800 numbers and web enrollment. | Marketing, call center, digital enrollment team |
+| Sales Channel                        | Target Buyer                             | How It Works                                                                                            | Key Players                                                                     |
+| ------------------------------------ | ---------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| **Employer Group Sales (Large)**     | Self-insured employers >1,000 employees  | Direct sales reps + benefits consultants (Mercer, Aon, WTW). RFP process. Multi-year contracts.         | Dedicated employer sales team, competitive intelligence team                    |
+| **Employer Group Sales (Small/Mid)** | Employers 2–999 employees                | Brokers and General Agents (GAs) — payer pays commission. Employer picks from broker-presented options. | Independent brokers, regional GAs, broker portals (Vericred)                    |
+| **Individual / ACA Marketplace**     | Self-employed, uninsured individuals     | HealthCare.gov or state exchanges (CoveredCA, NY State of Health). SEPs, AEP.                           | Online enrollment, navigator network, broker-assisted enrollment                |
+| **Medicare Advantage (AEP)**         | Medicare-eligible individuals (65+)      | Annual Enrollment Period (Oct 15 – Dec 7). TV ads, direct mail, broker referrals, DSNP for low-income.  | Broker channel + direct-to-consumer advertising (heavy TV spend)                |
+| **Medicaid MCO Sales**               | State governments                        | State RFP / procurement process. Multi-year contracts. Not consumer-facing.                             | Government affairs team, Medicaid compliance team, state-specific relationships |
+| **Direct-to-Consumer (DTC)**         | Medicare / Individual market individuals | Humana, UHC spend heavily on TV, digital, mail. 1-800 numbers and web enrollment.                       | Marketing, call center, digital enrollment team                                 |
 
 **The distribution stack for employer market:**
 
@@ -857,6 +1135,602 @@ LEVEL 4 — HOW PAYERS SPECIFICALLY SELL TO THEIR CUSTOMERS
 
 ---
 
+
+---
+
+> **SECTION 2 — Foundational Concepts (EDI / FHIR / TEFCA / Adjudication)**
+
+# FOUNDATIONAL CONCEPTS — EDI, FHIR, TEFCA, EOB & Enrollment
+
+---
+
+## Adjudication — A Ground-Level Explanation
+
+Adjudication is one of those words that sounds complex but describes something very logical. Here is the simplest possible version:
+
+> **Adjudication = the process of deciding whether to pay a claim, how much to pay, and why.**
+
+That's it. Everything else is detail about HOW that decision is made.
+
+### The Analogy
+
+Imagine you submit an expense report at work. Your finance team:
+1. Checks that you're actually an employee (eligibility)
+2. Checks that the expense is within policy (clinical/coding edits)
+3. Checks the amount is reasonable (pricing/fee schedule)
+4. Applies your reimbursement cap (benefit application)
+5. Approves, partially approves, or rejects (adjudication decision)
+6. Sends you the money with a breakdown (remittance/835)
+
+A health insurance claim is exactly this — just with 1,000 policy rules running simultaneously, automated.
+
+### The Five Stages of Adjudication (In Plain English)
+
+```
+Stage 1 — INTAKE
+"Did we receive this claim correctly? Is it a valid format?"
+Clearinghouse already ran format checks; now payer ingests it.
+        ↓
+Stage 2 — ELIGIBILITY
+"Was this member actually covered on the date of service?"
+Payer queries enrollment system. If not active → deny immediately.
+        ↓
+Stage 3 — EDITS (Clinical + Coding)
+"Are the codes valid? Do they make medical sense together?"
+Does ICD-10 diagnosis support the CPT procedure? Is this a covered service?
+National Correct Coding Initiative (NCCI) bundling rules applied.
+        ↓
+Stage 4 — PRICING
+"What is the correct payment amount?"
+Apply contracted fee schedule for this provider.
+For inpatient: use DRG (one flat payment for the whole stay).
+        ↓
+Stage 5 — BENEFIT APPLICATION
+"What does the member owe vs what do we pay?"
+Apply deductible (how much member has left), copay, coinsurance.
+Paid amount = Allowed amount minus member cost-sharing.
+        ↓
+DECISION → Pay / Deny / Pend
+835 remittance sent to provider with decision + CARC codes
+```
+
+### Why "Auto-Adjudication" Is the Goal
+
+All 5 stages above can run **fully automatically for a clean claim** — no human involved. That is auto-adjudication. The target is 85%+ of claims processed this way.
+
+The 15% that fall out go into a **pend queue** — a human reviewer looks at them. This is expensive. The entire IT agenda for payer claims operations is: reduce that 15% by making the rules smarter, the data cleaner, and the edge cases fewer.
+
+### Where Your FHIR Work Connects
+- **Before adjudication**: CRD/DTR/PAS ensures prior auth is in place so claims don't fail at Stage 3
+- **After adjudication**: CARIN BB EOB exposes the adjudicated result to the member via FHIR
+- **During data prep for adjudication**: FHIR Coverage resource ensures eligibility data is accurate for Stage 2
+
+---
+
+## EOB — Where Your Workspace Fits in the Claims World
+
+Your Phase 2 EOB work is the **read-only, member-facing display** of a claim that was already adjudicated by a legacy system. It is NOT the claims processing system itself.
+
+```
+837 (Provider submits) → [Adjudication Engine: Facets/QNXT] → 835 (Remittance to Provider)
+                                        ↓
+                              Adjudicated claim data stored
+                                        ↓
+                              FHIR EOB Resource  ← This is what you built in Phase 2
+                                        ↓
+                         Member reads it via CARIN BB Member Access API
+```
+
+**Key distinction**: Your EOB shows the member what happened AFTER adjudication was done by the legacy system. The 837/835 EDI transactions happen completely upstream of your FHIR layer.
+
+---
+
+## EDI — What It Is and How It Actually Works
+
+EDI (Electronic Data Interchange) is a **standardized message format** defined by X12 (ANSI-accredited standards body). It is a strict positional/delimited text format — not XML, not JSON, not REST. Completely human-unreadable without a parser.
+
+HIPAA mandated specific X12 versions for each transaction type. Every payer and clearinghouse in the US is legally required to accept them.
+
+---
+
+### EDI Syntax — Reading a Raw File
+
+**Three delimiters** control the entire format. They are defined in the ISA header itself (positions 104, 105, 106):
+
+| Delimiter                 | Character (typical) | Purpose                             |
+| ------------------------- | ------------------- | ----------------------------------- |
+| **Element separator**     | `*` (asterisk)      | Separates fields within a segment   |
+| **Sub-element separator** | `:` (colon)         | Separates components within a field |
+| **Segment terminator**    | `~` (tilde)         | Ends a segment (like a newline)     |
+
+These are not fixed characters — the sender defines them in the ISA segment, and the receiver must read them from there. Most implementations use `*`, `:`, `~` but any character can be used.
+
+**Segment structure**:
+```
+SEGMENT_ID * ELEMENT1 * ELEMENT2 * ELEMENT3 ~ 
+```
+Every segment starts with a 2–3 character identifier and ends with `~`.
+
+---
+
+### The Three-Layer Envelope Structure
+
+Every X12 EDI file has three nested envelope layers:
+
+```
+ISA ... IEA          ← Interchange Envelope (outermost)
+  GS ... GE          ← Functional Group (groups transactions by type)
+    ST ... SE        ← Transaction Set (the actual document — one 837, one 835, etc.)
+    ST ... SE        ← (another transaction set)
+  GE
+  GS ... GE          ← (another functional group if needed)
+ISA ... IEA
+```
+
+One ISA/IEA file can contain multiple GS/GE groups, each containing multiple ST/SE transaction sets. A batch clearinghouse file may have hundreds of 837 claims in one ISA envelope.
+
+---
+
+### ISA Segment — The Interchange Envelope Header
+
+The ISA segment is always exactly 106 characters (fixed-width, not delimited for positions 1–103). It identifies sender, receiver, and the file itself.
+
+```
+ISA*00*          *00*          *ZZ*SENDER123456789*ZZ*RECEIVER12345*260521*1430*^*00501*000000001*0*P*:~
+```
+
+| Position | Field                      | Example Value     | Meaning                               |
+| -------- | -------------------------- | ----------------- | ------------------------------------- |
+| ISA01    | Auth info qualifier        | `00`              | No auth info (00 = not used)          |
+| ISA02    | Auth info                  | 10 spaces         | Filler when 00                        |
+| ISA03    | Security info qualifier    | `00`              | No security info                      |
+| ISA04    | Security info              | 10 spaces         | Filler                                |
+| ISA05    | Sender ID qualifier        | `ZZ`              | Mutually defined (most common)        |
+| ISA06    | Sender ID                  | `SENDER123456789` | Sender's ID (15 chars, right-padded)  |
+| ISA07    | Receiver ID qualifier      | `ZZ`              | Mutually defined                      |
+| ISA08    | Receiver ID                | `RECEIVER12345`   | Payer or clearinghouse ID             |
+| ISA09    | Date                       | `260521`          | YYMMDD — date the file was created    |
+| ISA10    | Time                       | `1430`            | HHMM                                  |
+| ISA11    | Repetition separator       | `^`               | Character used for repeating elements |
+| ISA12    | Version                    | `00501`           | X12 version 5010                      |
+| ISA13    | Interchange control number | `000000001`       | Unique file ID — must match IEA       |
+| ISA14    | Ack requested              | `0`               | 0=no TA1 requested, 1=TA1 requested   |
+| ISA15    | Usage indicator            | `P`               | P=Production, T=Test                  |
+| ISA16    | Sub-element separator      | `:`               | Defines the sub-element delimiter     |
+
+**IEA** closes the envelope:
+```
+IEA*1*000000001~
+```
+- IEA01 = number of functional groups in this interchange (must match actual count)
+- IEA02 = must match ISA13
+
+---
+
+### GS/GE — Functional Group
+
+Groups transactions of the same type. One GS/GE per transaction type per file (or multiple if different versions).
+
+```
+GS*HC*SENDERID*RECEIVERID*20260521*1430*1*X*005010X222A2~
+```
+
+| Field | Example        | Meaning                                      |
+| ----- | -------------- | -------------------------------------------- |
+| GS01  | `HC`           | Functional ID — HC = Health Care Claim (837) |
+| GS02  | `SENDERID`     | Application sender ID                        |
+| GS03  | `RECEIVERID`   | Application receiver ID                      |
+| GS04  | `20260521`     | Date — CCYYMMDD                              |
+| GS05  | `1430`         | Time — HHMM                                  |
+| GS06  | `1`            | Group control number                         |
+| GS07  | `X`            | Responsible agency — X = ANSI X12            |
+| GS08  | `005010X222A2` | Version/release + implementation guide ID    |
+
+**Common GS01 functional IDs**:
+
+| GS01 | Transaction Type                  |
+| ---- | --------------------------------- |
+| `HC` | Health Care Claim (837)           |
+| `HB` | Health Care Eligibility (270/271) |
+| `HR` | Health Care Claim Payment (835)   |
+| `BE` | Benefit Enrollment (834)          |
+| `FA` | Functional Acknowledgement (999)  |
+
+**GE** closes the group:
+```
+GE*1*1~
+```
+GE01 = number of transaction sets, GE02 = must match GS06.
+
+---
+
+### ST/SE — Transaction Set
+
+The actual document. Starts with ST, ends with SE.
+
+```
+ST*837*0001*005010X222A2~
+...claim data...
+SE*47*0001~
+```
+
+| Field | Example        | Meaning                                              |
+| ----- | -------------- | ---------------------------------------------------- |
+| ST01  | `837`          | Transaction set identifier code                      |
+| ST02  | `0001`         | Transaction set control number (unique within group) |
+| ST03  | `005010X222A2` | Implementation guide version                         |
+
+SE01 = number of segments in the transaction set (including ST and SE)  
+SE02 = must match ST02
+
+**Transaction set IDs**:
+
+| ST01  | Document                         |
+| ----- | -------------------------------- |
+| `837` | Health Care Claim                |
+| `835` | Health Care Claim Payment/Advice |
+| `270` | Eligibility/Benefit Inquiry      |
+| `271` | Eligibility/Benefit Response     |
+| `834` | Benefit Enrollment               |
+| `276` | Claim Status Request             |
+| `277` | Claim Status Response            |
+| `999` | Implementation Acknowledgement   |
+
+---
+
+### Loops — How EDI Organizes Repeating Data
+
+EDI uses **loops** to group related segments that repeat. A loop is just a named group of segments — it has no opening/closing tag (unlike XML). You know a loop starts when you see its first segment appear.
+
+**837 loop structure (simplified)**:
+
+```
+ST*837...                          ← Transaction start
+BHT*...                            ← Beginning of Hierarchical Transaction
+  Loop 1000A — Submitter
+    NM1*41*...                     ← Submitter name (provider billing system)
+    PER*IC*...                     ← Contact info
+  Loop 1000B — Receiver
+    NM1*40*...                     ← Receiver name (payer)
+  Loop 2000A — Billing Provider Hierarchical Level
+    HL*1**20*1~                    ← Hierarchical Level
+    PRV*BI*PXC*207Q00000X~         ← Provider info
+    Loop 2010AA — Billing Provider Name
+      NM1*85*2*GENERAL HOSPITAL*...*XX*1234567890~
+      N3*123 MAIN ST~
+      N4*BOSTON*MA*02101~
+      REF*EI*123456789~            ← Tax ID
+  Loop 2000B — Subscriber Hierarchical Level
+    HL*2*1*22*1~
+    SBR*P*18*...                   ← Subscriber info (P=primary)
+    Loop 2010BA — Subscriber Name
+      NM1*IL*1*SMITH*JOHN***MI*ABC123456~   ← Member ID
+      N3, N4...                    ← Address
+    Loop 2010BB — Payer Name
+      NM1*PR*2*AETNA...            ← Payer
+  Loop 2000C — Patient Hierarchical Level (if different from subscriber)
+    HL*3*2*23*0~
+    PAT*19~                        ← Patient relationship code
+  Loop 2300 — Claim Information
+    CLM*CLAIM001*1500.00**11:B:1*Y*A*Y*I~   ← Claim details
+    DTP*434*RD8*20260515-20260515~  ← Service date
+    REF*EA*AUTH12345~               ← Prior auth number
+    HI*ABK:Z8711~                   ← Diagnosis codes (ICD-10)
+    Loop 2310B — Rendering Provider
+      NM1*82*1*JONES*MARY***XX*9876543210~
+    Loop 2400 — Service Line
+      LX*1~                         ← Line counter
+      SV1*HC:99213*150.00*UN*1***1~ ← Procedure (CPT 99213), $150, 1 unit
+      DTP*472*D8*20260515~          ← Service date
+      Loop 2430 — Line Adjudication (if secondary)
+SE*47*0001~
+```
+
+---
+
+### Key Segments — 837 Professional (837P)
+
+| Segment      | Purpose                               | Key Fields                                                                                   |
+| ------------ | ------------------------------------- | -------------------------------------------------------------------------------------------- |
+| **BHT**      | Beginning of Hierarchical Transaction | BHT06: 00 (original claim) or 18 (resubmission)                                              |
+| **NM1**      | Name                                  | NM101: entity code; NM108: ID qualifier; NM109: ID                                           |
+| **HL**       | Hierarchical Level                    | HL03: level code (20=billing, 22=subscriber, 23=patient)                                     |
+| **SBR**      | Subscriber Info                       | SBR01: P=primary, S=secondary; SBR09: claim filing indicator                                 |
+| **CLM**      | Claim Information                     | CLM01: claim ID; CLM02: total billed amount; CLM05: place of service; CLM11: release of info |
+| **DTP**      | Date/Time                             | DTP01: qualifier (434=service, 431=onset); DTP02: format; DTP03: date                        |
+| **HI**       | Health Care Information Codes         | HI01-1: code qualifier (ABK=principal ICD-10); HI01-2: diagnosis code                        |
+| **SV1**      | Professional Service                  | SV101: CPT/HCPCS code; SV102: charge amount; SV104: units                                    |
+| **REF**      | Reference ID                          | REF01: qualifier (EA=auth number, 9F=referral, D9=claim number)                              |
+| **PRV**      | Provider Info                         | PRV01: role (BI=billing, RF=referring, PE=performing); PRV03: taxonomy code                  |
+| **NM1 *85*** | Billing Provider                      | Entity code 85                                                                               |
+| **NM1 *82*** | Rendering Provider                    | Entity code 82                                                                               |
+| **NM1 *IL*** | Insured/Subscriber                    | Entity code IL                                                                               |
+| **NM1 *PR*** | Payer                                 | Entity code PR                                                                               |
+
+---
+
+### Key Segments — 835 Remittance
+
+```
+ST*835*0001*005010X221A1~
+BPR*I*1250.00*C*ACH*CCP*01*021000021*DA*123456789*...*20260522~
+TRN*1*835000001*1234567890~
+  Loop 1000A — Payer
+    N1*PR*AETNA HEALTH PLANS~
+  Loop 1000B — Payee (Provider)
+    N1*PE*GENERAL HOSPITAL*XX*1234567890~
+  Loop 2000 — Header Number (one per claim)
+    LX*1~
+    Loop 2100 — Claim Payment Info
+      CLP*CLAIM001*1*1500.00*1250.00*0*MC*PAY12345**11~
+      NM1*QC*1*SMITH*JOHN~        ← Patient name
+      NM1*74*1*JONES*MARY~        ← Corrected patient name (if applicable)
+      Loop 2110 — Service Payment Info
+        SVC*HC:99213*150.00*130.00*1~    ← CPT, billed, paid, units
+        DTM*472*20260515~                ← Service date
+        CAS*CO*42*20.00~                 ← Adjustment: contractual (CO), reason 42, $20
+        CAS*PR*1*5.00~                   ← Patient responsibility (PR), deductible
+SE*28*0001~
+```
+
+| Segment | Purpose               | Key Fields                                                                                                                              |
+| ------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| **BPR** | Financial Information | BPR02: payment amount; BPR04: payment method (ACH/CHK); BPR16: payment date                                                             |
+| **TRN** | Trace Number          | TRN02: check/EFT number; TRN03: payer ID                                                                                                |
+| **CLP** | Claim Payment         | CLP01: claim ID from 837; CLP02: status (1=paid, 2=adjusted, 3=denied, 4=denied); CLP03: billed; CLP04: paid; CLP08: payer claim number |
+| **SVC** | Service Payment       | SVC01: CPT code; SVC02: billed; SVC03: paid; SVC04: units                                                                               |
+| **CAS** | Claim Adjustment      | CAS01: group code; CAS02: CARC (reason code); CAS03: adjustment amount                                                                  |
+| **DTM** | Date                  | DTM01: qualifier (472=service date, 050=received date)                                                                                  |
+
+**CAS adjustment group codes** (critical for denial management):
+
+| Group Code | Meaning                | Who "Owns" This Adjustment                               |
+| ---------- | ---------------------- | -------------------------------------------------------- |
+| **CO**     | Contractual Obligation | Payer adjusts per contract — provider cannot bill member |
+| **PR**     | Patient Responsibility | Member owes this (deductible, copay, coinsurance)        |
+| **OA**     | Other Adjustment       | Catch-all (COB adjustments, capitation adjustments)      |
+| **PI**     | Payer Initiated        | Payer error correction                                   |
+| **CR**     | Correction/Reversal    | Used in adjustment transactions                          |
+
+---
+
+### Reading a Real Denial on an 835
+
+```
+CLP*CLAIM001*2*1500.00*0.00*0.00*MC*PAYERCLM456**11~
+CAS*CO*4*1500.00~
+```
+
+Translation:
+- `CLP02 = 2` → claim status = **denied**
+- `CLP03 = 1500.00` → billed amount
+- `CLP04 = 0.00` → paid amount (nothing)
+- `CAS*CO*4*1500.00` → Contractual adjustment, **CARC 4** ("Service not covered by plan"), $1,500 adjusted — provider cannot bill member for this
+
+```
+CLP*CLAIM002*1*500.00*400.00*100.00*MC*PAYERCLM789**11~
+CAS*CO*42*100.00~
+CAS*PR*1*75.00~
+CAS*PR*2*25.00~
+```
+
+Translation:
+- `CLP02 = 1` → paid
+- Billed $500, paid $400, patient responsibility $100
+- `CO*42` → contractual write-off (not medically necessary per contract — $100)
+- `PR*1` → patient deductible ($75)
+- `PR*2` → patient coinsurance ($25)
+
+---
+
+### 999 — Acknowledgement Transaction
+
+The 999 (formerly 997) is how the payer/clearinghouse acknowledges receipt and format validity:
+
+```
+ST*999*0001~
+AK1*HC*1~            ← Functional group ack: HC (claim), GS06 control number
+AK2*837*0001~        ← Transaction set ack: 837, ST02 control number
+AK5*A~               ← Transaction set accepted (A=Accepted, R=Rejected, E=Accepted with errors)
+AK9*A*1*1*1~         ← Group accepted: 1 received, 1 accepted, 1 included
+SE*6*0001~
+```
+
+AK5 values: **A** = Accepted, **E** = Accepted with errors, **R** = Rejected — **R** means the entire transaction set was rejected and must be resubmitted. This is distinct from a claim denial — a 999 rejection means the EDI format was wrong, not that the claim was denied on clinical/coverage grounds.
+
+---
+
+### Common EDI Gotchas (Real-World PM Knowledge)
+
+| Issue                           | What Happens                                                    | How to Fix                                    |
+| ------------------------------- | --------------------------------------------------------------- | --------------------------------------------- |
+| **Wrong ISA15**                 | File sent with T (test) flag to production                      | Payer ignores the file — nothing is processed |
+| **ISA13 not unique**            | Duplicate interchange control number                            | Payer may reject as duplicate file            |
+| **Loop out of order**           | Segments in wrong sequence                                      | 999 R (rejected) — must fix and resubmit      |
+| **Companion guide violation**   | Optional field payer requires is missing                        | 999 E (accepted with errors) or claim pends   |
+| **NPI not in payer system**     | Rendering provider NPI unknown to payer                         | Claim denied — "provider not credentialed"    |
+| **Stale auth number in REF*EA** | Auth expired, claim submitted after auth end date               | Medical necessity denial                      |
+| **Wrong place of service code** | CLM05 says 11 (office) but should be 22 (outpatient hospital)   | Claim denied — wrong benefit category applied |
+| **Diagnosis pointer mismatch**  | SV1 diagnosis pointer references HI position that doesn't exist | Claim rejected or pended                      |
+
+---
+
+### Is EDI Truly Interoperable?
+
+**Technically yes. Practically messy.** The standard exists, but:
+
+- Every payer publishes a **companion guide** — their own rules layered ON TOP of the standard. Aetna's requirements differ from UnitedHealth's.
+- Payers use optional loops/segments differently
+- This is why **clearinghouses exist** — they sit in the middle and handle translation
+
+```
+Provider Billing System
+        ↓ sends ONE format
+   CLEARINGHOUSE (Change Healthcare, Availity, Waystar)
+        ↓ translates, validates, routes per payer companion guide
+   Payer A       Payer B       Payer C
+```
+
+Without clearinghouses, every provider would need a custom connection to every payer.
+
+### Where Clearinghouses Are (and Aren't) Involved
+
+| Transaction          | Clearinghouse?                                |
+| -------------------- | --------------------------------------------- |
+| 837 Claim submission | Almost always — high volume, complex routing  |
+| 835 Remittance       | Sometimes direct, sometimes via clearinghouse |
+| 270/271 Eligibility  | Often DIRECT and real-time — no clearinghouse |
+| 834 Enrollment       | Often DIRECT from employer/sponsor to payer   |
+
+---
+
+## EDI vs FHIR — They Are NOT Competing, They Are Complementary
+
+Companies are absolutely still running RCM on traditional EDI workflows and are NOT using FHIR for RCM transactions. This is correct. They solve different problems.
+
+| Function                      | EDI             | FHIR                                       |
+| ----------------------------- | --------------- | ------------------------------------------ |
+| Claim submission              | 837 ✅           | Not used                                   |
+| Remittance / payment          | 835 ✅           | Not used                                   |
+| Enrollment                    | 834 ✅           | Not used                                   |
+| Eligibility inquiry           | 270/271 ✅       | Coverage resource (emerging)               |
+| Prior auth                    | Was fax/portal  | ✅ PAS — actively replacing (CMS-0057)      |
+| Member viewing claims         | ❌ Can't do this | ✅ EOB via CARIN BB                         |
+| Payer-to-payer exchange       | ❌ No standard   | ✅ PDex                                     |
+| Provider directory            | ❌               | ✅ Plan-Net                                 |
+| Clinical notes, labs, history | ❌               | ✅ Condition, Observation, DiagnosticReport |
+
+### The Mental Model
+
+> **EDI = the plumbing inside the walls. FHIR = the smart display panel on the wall. You don't rip out the plumbing to add a smart display. They coexist.**
+
+EDI answers: *"What did the provider bill, what did the payer pay, who is enrolled?"*
+FHIR answers: *"What is the member's clinical history, what needs prior auth, what does the formulary cover?"*
+
+**Payers today run BOTH**: a legacy adjudication system (Facets/QNXT) processing EDI all day, with a FHIR server on top feeding the CMS-mandated APIs.
+
+> **Which CMS-mandated APIs specifically?** There are four — all required under CMS-9115-F (2020) and CMS-0057-F (2024):
+> 1. **Patient Access API** — members can pull their own claims, clinical data, and formulary via FHIR. Implemented in your Phase 2 (MemberAccessAPI). Mandatory since July 2021.
+> 2. **Provider Directory API** — providers can query network data (who's in-network, locations, specialties) via FHIR. Your Phase 3 (ProviderDirectoryAPI). Mandatory since July 2021.
+> 3. **Payer-to-Payer API** — when a member switches payers, the old payer must send 5 years of clinical + claims data to the new payer in FHIR. Your Phase 7 (PDexAPI). Mandatory since January 2022.
+> 4. **Prior Authorization API** (CMS-0057-F) — FHIR-based prior auth: CRD + DTR + PAS. Your Phase 5 + Phase 6. Mandatory for MA, Medicaid MCOs, QHP by January 2027.
+>
+> The legacy Facets/QNXT system adjudicates claims and stores member data. A FHIR server (HAPI FHIR, Smile CDR, Azure FHIR) sits alongside it, pulls data from the legacy DB, and exposes it through these four APIs. That is literally the architecture of your Phase 1-8 workspace.
+
+The **one area where FHIR is actively replacing EDI** is prior authorization — fax/portal replaced by PAS. That's exactly your Phase 6 work and the CMS-0057 mandate.
+
+---
+
+## Where TEFCA Sits
+
+TEFCA is a completely different layer from both EDI and FHIR APIs. It is the **national governance and trust framework** — the rules of the road for who can exchange data with whom.
+
+```
+                    ┌─────────────────────────────────────┐
+                    │              TEFCA                   │
+                    │  "Who is allowed to ask for data     │
+                    │   from whom, and under what rules"   │
+                    └──────────────┬──────────────────────┘
+                                   │ Governs exchange across networks
+                    ┌──────────────▼──────────────────────┐
+                    │  QHINs (Qualified Health Information │
+                    │  Networks)                           │
+                    │  CommonWell, eHealth Exchange,       │
+                    │  Carequality, Kno2, KONZA etc.       │
+                    └──────────────┬──────────────────────┘
+                                   │ Networks use multiple protocols
+               ┌───────────────────┼───────────────────┐
+               ▼                   ▼                   ▼
+          HL7 FHIR             HL7 v2 / CDA         Direct
+       (CMS APIs, PDex,      (traditional           Messaging
+        CARIN BB)             EHR exchange)
+```
+
+- TEFCA doesn't replace EDI or FHIR — it governs **which organizations can exchange data with which others**
+- **Permitted use cases**: Treatment, Payment, Healthcare Operations, Individual Access, Public Health, Benefits Determination
+- **"Benefits Determination"** use case — this is where payers fit. A payer can query a QHIN for a member's clinical data to support care management or prior authorization
+- Before TEFCA, payers had to fax or manually request medical records. With TEFCA + FHIR, payer queries QHIN → routes to provider EHR → clinical data flows back
+- Your `TEFCA-Knowledge` repo is directly relevant here
+
+---
+
+## The Complete Four-Layer Picture
+
+```
+LAYER 1 — TRANSACTION (EDI)
+  Claims, eligibility, enrollment, remittance
+  Governs payer ↔ provider financial transactions
+  HIPAA mandated. Will not be replaced.
+
+LAYER 2 — ACCESS (FHIR APIs)
+  Member views data, payer-to-payer exchange,
+  prior auth, provider directory, formulary
+  CMS mandated. Growing rapidly.
+  Your entire workspace lives here.
+
+LAYER 3 — NETWORK (TEFCA/QHINs)
+  National trust fabric for clinical data exchange
+  ONC mandated. Connects everyone to everyone.
+  Uses FHIR as the query language underneath.
+  Your TEFCA-Knowledge repo lives here.
+
+LAYER 4 — INTELLIGENCE (AI)
+  MCP servers querying FHIR, mapping agents,
+  risk stratification, care gap identification
+  Your differentiator — fhir-mcp-suite, fhir-mapping-agent
+```
+
+---
+
+## Enrollment — The Full Landscape (Not Just Employers)
+
+**834 EDI is specifically a group/employer transaction.** Individual market, Medicare, and Medicaid each have their own enrollment mechanisms.
+
+### Three Distinct Roles in Group Insurance
+
+```
+EMPLOYER (Sponsor)      PAYER (Insurer)       MEMBER (Beneficiary)
+──────────────────      ───────────────       ──────────────────
+TCS, a hospital,        UnitedHealth,         Employee + dependents
+a union,                Aetna, BCBS,
+a government agency     Cigna, Humana
+        │                     │
+        └──── 834 EDI ────────►│
+```
+
+### When There Is No Employer
+
+| Who You Are                     | Who Sponsors                    | Enrollment Mechanism                          |
+| ------------------------------- | ------------------------------- | --------------------------------------------- |
+| Employee at a company           | Employer                        | 834 EDI from employer to payer                |
+| Self-employed                   | Yourself                        | ACA Marketplace or direct to payer            |
+| Retired, under 65               | Yourself / COBRA                | ACA Marketplace or direct to payer            |
+| Retired, 65+ Medicare FFS       | CMS                             | CMS direct enrollment                         |
+| Retired, 65+ Medicare Advantage | CMS pays, private plan delivers | CMS **MMR/TRR files** to MA plan — NOT an 834 |
+| Low income — Medicaid           | State government                | State enrollment system to MCO                |
+| Child — CHIP                    | State government                | State enrollment system                       |
+
+**Key point**: When interviewers say "834 enrollment" they are talking about the **large group employer market** — the biggest volume for commercial insurers. Medicare Advantage uses CMS-specific **Monthly Membership Reports (MMR)** and **Transaction Reply Reports (TRR)** — a completely separate operational domain.
+
+**Also note**: CMS is both a **regulator** AND a **payer** (Medicare FFS, Medicaid co-funder). A company registered with CMS as an MA plan is a **payer/insurer**, not an employer. A large hospital system can be BOTH — employer (buys coverage for its own staff) AND provider (delivers care).
+
+### Interview-Ready Answer on Enrollment
+
+*"The 834 enrollment transaction flows from the plan sponsor — typically an employer, a marketplace, or a government agency — to the payer. But 834 is specific to the group/commercial market. Medicare Advantage uses CMS-specific MMR/TRR files, and Medicaid enrollment flows through state systems. Each channel has its own mechanism, though they all ultimately result in the same thing: a member record in the payer's system that providers verify via 270/271 eligibility checks."*
+
+---
+
+## Interview-Ready Answer on EDI vs FHIR vs TEFCA
+
+*"EDI handles the financial transactions — 837 for claim submission, 835 for remittance, 834 for enrollment. These are HIPAA-mandated, batch-oriented B2B transactions that run through clearinghouses. They're not going away. FHIR operates at a completely different layer — real-time APIs for member data access, clinical data exchange, and now prior authorization via CMS-0057. The gap EDI never solved was payer-to-payer clinical exchange and member-facing access — that's what CMS mandates and Da Vinci IGs fill. TEFCA sits above both as the national trust network governing who can exchange data with whom. A payer today runs all of these: a core admin system processing EDI all day, a FHIR server on top for CMS-mandated APIs, and TEFCA connectivity for nationwide clinical data queries."*
+
+---
+
+
+---
+
+> **SECTION 3 — GAP 1: Claims Management & Adjudication Lifecycle**
+
 # GAP 1 — Claims Management & Adjudication Lifecycle
 
 ## The End-to-End Flow (Memorize)
@@ -901,11 +1775,11 @@ Provider sends 837
    "I received the claim. Here is each claim's status: Accepted / Rejected"
 ```
 
-| Acknowledgement | Who Sends It | What It Confirms |
-|---|---|---|
-| **TA1** | Clearinghouse | File envelope is readable (ISA/IEA level) |
-| **999 / 997** | Clearinghouse | Transaction format is valid (ST/SE level) |
-| **277CA** | Payer | Individual claim accepted or rejected by payer |
+| Acknowledgement | Who Sends It  | What It Confirms                               |
+| --------------- | ------------- | ---------------------------------------------- |
+| **TA1**         | Clearinghouse | File envelope is readable (ISA/IEA level)      |
+| **999 / 997**   | Clearinghouse | Transaction format is valid (ST/SE level)      |
+| **277CA**       | Payer         | Individual claim accepted or rejected by payer |
 
 ### Fallback / Error Handling
 
@@ -924,25 +1798,25 @@ The **Revenue Cycle Management (RCM) team** at the provider side. They run daily
 
 Yes — the payer is the insurance company (UnitedHealth, Aetna, BCBS, Cigna, Humana). But "payer" is often more complex than a single entity:
 
-| Scenario | Who Acts as Payer |
-|---|---|
-| Fully-insured commercial plan | Insurance company bears all risk and adjudicates |
+| Scenario                            | Who Acts as Payer                                                                                                                                  |
+| ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Fully-insured commercial plan       | Insurance company bears all risk and adjudicates                                                                                                   |
 | **Self-funded employer plan (ASO)** | **Employer bears the financial risk. Insurance company (e.g., Aetna) acts as administrator only** — processes claims, but employer money pays them |
-| Medicare Advantage | Private insurer (Humana, UHC) receives CMS capitation, adjudicates, pays providers |
-| Medicare FFS | CMS directly — through MACs (Medicare Administrative Contractors) |
-| Medicaid MCO | State contracts with MCO (Centene, Molina) — MCO adjudicates |
+| Medicare Advantage                  | Private insurer (Humana, UHC) receives CMS capitation, adjudicates, pays providers                                                                 |
+| Medicare FFS                        | CMS directly — through MACs (Medicare Administrative Contractors)                                                                                  |
+| Medicaid MCO                        | State contracts with MCO (Centene, Molina) — MCO adjudicates                                                                                       |
 
 **The most important nuance**: The majority of large employer plans in the US are **self-funded (ASO — Administrative Services Only)**. The insurer just processes and manages; the employer writes the check. This is why an employer can customize benefits — it's their money. The insurance brand name you see on the card may just be the administrator, not the financial risk bearer.
 
 ### Who Actually Writes the Check?
 
-| Plan Type | Who Bears Financial Risk | Who Physically Pays the Provider |
-|---|---|---|
-| Fully-insured commercial | Insurance company | Insurance company |
-| **Self-funded / ASO** | **Employer** | Insurance company draws from employer's account |
-| Medicare FFS | US Federal Government | MACs (Medicare Admin Contractors) on behalf of CMS |
-| Medicare Advantage | MA plan (private insurer) — within CMS capitation | MA plan pays providers |
-| Medicaid MCO | State + Federal government fund it | MCO pays providers |
+| Plan Type                | Who Bears Financial Risk                          | Who Physically Pays the Provider                   |
+| ------------------------ | ------------------------------------------------- | -------------------------------------------------- |
+| Fully-insured commercial | Insurance company                                 | Insurance company                                  |
+| **Self-funded / ASO**    | **Employer**                                      | Insurance company draws from employer's account    |
+| Medicare FFS             | US Federal Government                             | MACs (Medicare Admin Contractors) on behalf of CMS |
+| Medicare Advantage       | MA plan (private insurer) — within CMS capitation | MA plan pays providers                             |
+| Medicaid MCO             | State + Federal government fund it                | MCO pays providers                                 |
 
 > In a self-funded plan, the insurance company's name is on the card but it is acting purely as an administrator. If an employee has a $100,000 hospital claim, it comes out of the **employer's** bank account — not Aetna's. Aetna just processes the paperwork. This is why large self-funded employers have enormous leverage over plan design and benefits.
 
@@ -997,12 +1871,12 @@ The insurance company never owned the money. They are purely a processing agent.
 ### The 835 Remittance — Precise Answer
 The provider doesn't know or care which model it is — they just receive the 835 and the payment either way.
 
-| Model | Who Sends 835 to Provider | Whose Money Funds the Payment |
-|---|---|---|
-| Fully-insured | Insurance company | Insurance company's pooled funds |
-| Self-funded (ASO) | Insurance company (still processes it) | **Employer's bank account** |
-| Medicare FFS | MAC (Medicare Admin Contractor) | US Federal Government (CMS) |
-| Medicare Advantage | MA Plan | CMS capitation funds |
+| Model              | Who Sends 835 to Provider              | Whose Money Funds the Payment    |
+| ------------------ | -------------------------------------- | -------------------------------- |
+| Fully-insured      | Insurance company                      | Insurance company's pooled funds |
+| Self-funded (ASO)  | Insurance company (still processes it) | **Employer's bank account**      |
+| Medicare FFS       | MAC (Medicare Admin Contractor)        | US Federal Government (CMS)      |
+| Medicare Advantage | MA Plan                                | CMS capitation funds             |
 
 ---
 
@@ -1031,16 +1905,16 @@ Think of clearinghouses as the **postal + customs service** for healthcare claim
 
 FHIR does NOT replace EDI claim submission. But it touches several parts of the surrounding workflow:
 
-| Workflow Step | Still EDI | FHIR Role in 2026 |
-|---|---|---|
-| Claim submission | 837 — not changing | No role |
-| Remittance | 835 — not changing | No role |
-| **Prior authorization** | Was fax/portal | **FHIR PAS actively replacing** (CMS-0057 deadline 2027) |
-| Eligibility check | 270/271 dominant | FHIR Coverage resource emerging in some systems |
-| Member views their EOB | Not possible in EDI | **FHIR CARIN BB EOB — mandated, live** |
-| Claim status inquiry | 276/277 EDI | FHIR ClaimResponse emerging |
-| Payer-to-payer clinical exchange | No EDI equivalent | **FHIR PDex — mandated, live** |
-| Clinical data for prior auth docs | Fax / manual | **FHIR DTR auto-population — your Phase 5/6** |
+| Workflow Step                     | Still EDI           | FHIR Role in 2026                                        |
+| --------------------------------- | ------------------- | -------------------------------------------------------- |
+| Claim submission                  | 837 — not changing  | No role                                                  |
+| Remittance                        | 835 — not changing  | No role                                                  |
+| **Prior authorization**           | Was fax/portal      | **FHIR PAS actively replacing** (CMS-0057 deadline 2027) |
+| Eligibility check                 | 270/271 dominant    | FHIR Coverage resource emerging in some systems          |
+| Member views their EOB            | Not possible in EDI | **FHIR CARIN BB EOB — mandated, live**                   |
+| Claim status inquiry              | 276/277 EDI         | FHIR ClaimResponse emerging                              |
+| Payer-to-payer clinical exchange  | No EDI equivalent   | **FHIR PDex — mandated, live**                           |
+| Clinical data for prior auth docs | Fax / manual        | **FHIR DTR auto-population — your Phase 5/6**            |
 
 **Bottom line for 2026**: FHIR surrounds the claims transaction but doesn't replace the core 837/835. The biggest active replacement is prior authorization.
 
@@ -1143,16 +2017,16 @@ They often outsource the entire billing/RCM function to a **third-party RCM comp
 
 AI is actively being used across the claims workflow:
 
-| Area | AI Application | Status in 2026 |
-|---|---|---|
-| **Prior auth automation** | NLP extracts clinical criteria from notes, auto-populates FHIR DTR forms | Active — your `fhir-mapping-agent` is exactly this |
-| **Medical coding** | AI suggests ICD-10/CPT codes from clinical notes (ambient AI) | Active — Nuance DAX, Suki, AWS HealthScribe |
-| **Denial prediction** | ML model predicts which claims will be denied before submission, fix first | Active — Change Healthcare, Availity, Waystar |
-| **Denial appeals** | AI drafts appeal letters from clinical documentation | Active — several startups |
-| **Claim scrubbing** | AI-enhanced edits beyond rule-based — catches errors rules miss | Active |
-| **HCC risk capture** | NLP reads clinical notes to find undocumented HCC conditions | Active — Cognizant, Optum, Datavant |
-| **Fraud detection** | ML on claim patterns to detect anomalies | Active — payers invest heavily here |
-| **EOB explanation** | LLM chatbot explains member's EOB in plain language | Emerging — connects to your FHIR MCP work |
+| Area                      | AI Application                                                             | Status in 2026                                     |
+| ------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------- |
+| **Prior auth automation** | NLP extracts clinical criteria from notes, auto-populates FHIR DTR forms   | Active — your `fhir-mapping-agent` is exactly this |
+| **Medical coding**        | AI suggests ICD-10/CPT codes from clinical notes (ambient AI)              | Active — Nuance DAX, Suki, AWS HealthScribe        |
+| **Denial prediction**     | ML model predicts which claims will be denied before submission, fix first | Active — Change Healthcare, Availity, Waystar      |
+| **Denial appeals**        | AI drafts appeal letters from clinical documentation                       | Active — several startups                          |
+| **Claim scrubbing**       | AI-enhanced edits beyond rule-based — catches errors rules miss            | Active                                             |
+| **HCC risk capture**      | NLP reads clinical notes to find undocumented HCC conditions               | Active — Cognizant, Optum, Datavant                |
+| **Fraud detection**       | ML on claim patterns to detect anomalies                                   | Active — payers invest heavily here                |
+| **EOB explanation**       | LLM chatbot explains member's EOB in plain language                        | Emerging — connects to your FHIR MCP work          |
 
 **Your differentiator**: Most PM candidates know the workflow. You can speak to the AI layer on top of it, especially the FHIR-native AI tooling (`fhir-mcp-suite`, `fhir-mapping-agent`).
 
@@ -1165,26 +2039,26 @@ The main adjudication engine a payer runs. Everything flows through here.
 
 **Important clarification on naming**: TriZetto is the **company name** (owned by Cognizant). **Facets** and **QNXT** are the two **product names** under that brand — like Microsoft is the company and Word/Excel are products. When someone says "we run on Facets" they mean the TriZetto Facets product, implemented and supported by Cognizant.
 
-| Vendor | Product | Notes |
-|---|---|---|
-| **TriZetto (Cognizant)** | **Facets** (large payers), **QNXT** (mid-market) | Dominant in commercial market. Cognizant both sells the product AND implements it. |
-| **HealthEdge** | HealthRules Payor | Modern cloud-native, growing challenger to TriZetto |
-| **Plexis Healthcare Systems** | Plexis Claims | Mid-market payers |
-| **Inovalon** | ONE Platform | Cloud-based, analytics-heavy |
-| **Majesco** | Majesco Health | Smaller/regional payers |
+| Vendor                        | Product                                          | Notes                                                                              |
+| ----------------------------- | ------------------------------------------------ | ---------------------------------------------------------------------------------- |
+| **TriZetto (Cognizant)**      | **Facets** (large payers), **QNXT** (mid-market) | Dominant in commercial market. Cognizant both sells the product AND implements it. |
+| **HealthEdge**                | HealthRules Payor                                | Modern cloud-native, growing challenger to TriZetto                                |
+| **Plexis Healthcare Systems** | Plexis Claims                                    | Mid-market payers                                                                  |
+| **Inovalon**                  | ONE Platform                                     | Cloud-based, analytics-heavy                                                       |
+| **Majesco**                   | Majesco Health                                   | Smaller/regional payers                                                            |
 
 ### What Does TriZetto Facets Actually Do? (Not Just Claims)
 
 Facets is a **full Core Administrative Processing System (CAPS)** — not just a claims submission tool. It is the payer's central operational platform:
 
-| Module | What It Does |
-|---|---|
-| **Membership & Enrollment** | Stores member records, processes 834 enrollment files, manages effective dates |
-| **Benefits Configuration** | Defines plan benefits — deductibles, copays, coinsurance, coverage rules |
-| **Provider Data Management** | Provider contracts, fee schedules, network affiliations |
-| **Claims Adjudication** | Ingests 837 from clearinghouse, runs edits, prices, applies benefits, pays or denies |
-| **Premium Billing** | Bills employers for group coverage |
-| **Reporting & Analytics** | Operational reports, regulatory filings |
+| Module                       | What It Does                                                                         |
+| ---------------------------- | ------------------------------------------------------------------------------------ |
+| **Membership & Enrollment**  | Stores member records, processes 834 enrollment files, manages effective dates       |
+| **Benefits Configuration**   | Defines plan benefits — deductibles, copays, coinsurance, coverage rules             |
+| **Provider Data Management** | Provider contracts, fee schedules, network affiliations                              |
+| **Claims Adjudication**      | Ingests 837 from clearinghouse, runs edits, prices, applies benefits, pays or denies |
+| **Premium Billing**          | Bills employers for group coverage                                                   |
+| **Reporting & Analytics**    | Operational reports, regulatory filings                                              |
 
 The 837 EDI arrives from the clearinghouse and **Facets takes over from there** — the clearinghouse is the delivery mechanism, Facets is the processing engine. They are completely different systems doing different jobs.
 
@@ -1234,16 +2108,16 @@ A payer's IT landscape is NOT just one system. It is a stack of specialized plat
 
 This is the key tension every payer IT project deals with. Most large payers run on **legacy CAPS** built in the 1990s–2000s. Modernization is the dominant transformation program at every major payer right now.
 
-| Dimension | Legacy (Facets / QNXT) | Modern (HealthEdge / Cloud-native) |
-|---|---|---|
-| **Architecture** | Monolithic, on-premise | Microservices, cloud-native (AWS/Azure) |
-| **Configuration** | Complex, brittle — benefit config changes take weeks | Low-code rules engine — days |
-| **Real-time capability** | Batch-oriented — nightly processing cycles | Event-driven, real-time APIs |
-| **FHIR readiness** | Requires a FHIR facade layer bolted on | FHIR-native APIs built in |
-| **Upgrade cycles** | Major releases every 1–2 years; risky migrations | Continuous deployment |
-| **Scalability** | Fixed infrastructure, seasonal spikes = outages | Auto-scaling cloud |
-| **Total cost** | High — licensing + infrastructure + large IT teams | Lower long-term OpEx |
-| **Risk** | Mature, well-understood — payers afraid to replace it | New, less battle-tested at scale |
+| Dimension                | Legacy (Facets / QNXT)                                | Modern (HealthEdge / Cloud-native)      |
+| ------------------------ | ----------------------------------------------------- | --------------------------------------- |
+| **Architecture**         | Monolithic, on-premise                                | Microservices, cloud-native (AWS/Azure) |
+| **Configuration**        | Complex, brittle — benefit config changes take weeks  | Low-code rules engine — days            |
+| **Real-time capability** | Batch-oriented — nightly processing cycles            | Event-driven, real-time APIs            |
+| **FHIR readiness**       | Requires a FHIR facade layer bolted on                | FHIR-native APIs built in               |
+| **Upgrade cycles**       | Major releases every 1–2 years; risky migrations      | Continuous deployment                   |
+| **Scalability**          | Fixed infrastructure, seasonal spikes = outages       | Auto-scaling cloud                      |
+| **Total cost**           | High — licensing + infrastructure + large IT teams    | Lower long-term OpEx                    |
+| **Risk**                 | Mature, well-understood — payers afraid to replace it | New, less battle-tested at scale        |
 
 **The PM reality**: Most payers are NOT replacing Facets — they are wrapping it. They build FHIR APIs, event streaming (Kafka), and modern UX on top of legacy CAPS. Full replacement projects (called "core modernization") take 5–10 years and cost hundreds of millions. Your FHIR workspace is the exact pattern — building a modern API layer over legacy payer data.
 
@@ -1254,68 +2128,68 @@ This is the key tension every payer IT project deals with. Most large payers run
 #### 1. Utilization Management (UM) / Prior Authorization System
 Separate from CAPS. Handles the PA workflow — intake, clinical review, approval/denial, tracking.
 
-| Vendor | Product | Notes |
-|---|---|---|
-| **Utilization Management (payer-built or vendor)** | eviCore (Evernorth/Cigna), AIM Specialty Health (Optum) | Manage high-cost specialty PA |
-| **InterQual (Optum/CHC)** | Clinical decision support criteria | Licensed by most payers for medical necessity rules |
-| **MCG / Milliman Care Guidelines** | Clinical criteria | InterQual's main competitor |
-| **Jiva (Cognizant)** | UM platform | Integrated with Facets ecosystem |
+| Vendor                                             | Product                                                 | Notes                                               |
+| -------------------------------------------------- | ------------------------------------------------------- | --------------------------------------------------- |
+| **Utilization Management (payer-built or vendor)** | eviCore (Evernorth/Cigna), AIM Specialty Health (Optum) | Manage high-cost specialty PA                       |
+| **InterQual (Optum/CHC)**                          | Clinical decision support criteria                      | Licensed by most payers for medical necessity rules |
+| **MCG / Milliman Care Guidelines**                 | Clinical criteria                                       | InterQual's main competitor                         |
+| **Jiva (Cognizant)**                               | UM platform                                             | Integrated with Facets ecosystem                    |
 
 **FHIR connection**: Your CRD → DTR → PAS (Phases 5–6) is modernizing exactly this layer — replacing the phone/fax/portal UM workflow with FHIR APIs.
 
 #### 2. PBM (Pharmacy Benefit Manager)
 Manages prescription drug benefits — formulary management, pharmacy network, point-of-sale adjudication at the pharmacy counter. Often a separate company from the medical payer.
 
-| Payer | Owned PBM |
-|---|---|
-| UnitedHealth Group | OptumRx |
-| CVS Health / Aetna | CVS Caremark |
-| Cigna | Express Scripts (Evernorth) |
-| Humana | Humana Pharmacy / CenterWell |
+| Payer              | Owned PBM                    |
+| ------------------ | ---------------------------- |
+| UnitedHealth Group | OptumRx                      |
+| CVS Health / Aetna | CVS Caremark                 |
+| Cigna              | Express Scripts (Evernorth)  |
+| Humana             | Humana Pharmacy / CenterWell |
 
 **Key distinction**: Medical claims flow through CAPS (Facets). Pharmacy claims flow through the **PBM platform** — completely separate adjudication system using **NCPDP D.0** transactions, not X12 837. The FHIR Formulary API (your Phase 4) is the modern layer on top of PBM data.
 
 #### 3. Care Management / Population Health Platform
 Manages high-risk member programs — disease management, case management, complex case coordination, HEDIS gap closure. Reads from CAPS + clinical data sources.
 
-| Vendor | Product | Notes |
-|---|---|---|
-| **Innovaccer** | Health Cloud | Modern, FHIR-native, AI-driven |
-| **Arcadia** | Analytics platform | Strong HEDIS, risk stratification |
-| **Health Catalyst** | Data Operating System | Analytics + care management |
-| **Lightbeam Health** | Population Health | Care gap automation |
-| **Jiva (Cognizant)** | Care Management | Tight Facets integration |
-| **Payer-built** | Many large payers build internally | UHC, Anthem, BCBS have proprietary platforms |
+| Vendor               | Product                            | Notes                                        |
+| -------------------- | ---------------------------------- | -------------------------------------------- |
+| **Innovaccer**       | Health Cloud                       | Modern, FHIR-native, AI-driven               |
+| **Arcadia**          | Analytics platform                 | Strong HEDIS, risk stratification            |
+| **Health Catalyst**  | Data Operating System              | Analytics + care management                  |
+| **Lightbeam Health** | Population Health                  | Care gap automation                          |
+| **Jiva (Cognizant)** | Care Management                    | Tight Facets integration                     |
+| **Payer-built**      | Many large payers build internally | UHC, Anthem, BCBS have proprietary platforms |
 
 #### 4. Member 360 / CRM
 A unified view of the member across all payer systems — claims history, care gaps, calls to member services, enrollment history. Customer service reps use this when a member calls.
 
-| Vendor | Notes |
-|---|---|
+| Vendor                      | Notes                                             |
+| --------------------------- | ------------------------------------------------- |
 | **Salesforce Health Cloud** | Dominant in member CRM; used by Aetna, BCBS plans |
-| **Microsoft Dynamics 365** | Growing footprint in payer CRM |
-| **Pega** | Workflow + CRM; strong in payer operations |
+| **Microsoft Dynamics 365**  | Growing footprint in payer CRM                    |
+| **Pega**                    | Workflow + CRM; strong in payer operations        |
 
 **FHIR connection**: FHIR PDex (your Phase 7) feeds the Member 360 when a member switches payers — it is the mechanism that populates the new payer's view with historical data.
 
 #### 5. Data Warehouse / Analytics Platform
 Aggregates data from CAPS, PBM, care management, and external sources for reporting, risk adjustment, HEDIS, and fraud analytics.
 
-| Layer | Common Tech |
-|---|---|
-| **EDW / Data Lake** | Snowflake, Databricks, Azure Synapse, AWS Redshift |
-| **ETL / Integration** | MuleSoft, Azure Data Factory, Informatica |
-| **BI / Reporting** | Tableau, Power BI, MicroStrategy |
-| **FHIR Bulk Data** | $export (your Phase 8) feeds analytics pipelines from FHIR server |
+| Layer                 | Common Tech                                                       |
+| --------------------- | ----------------------------------------------------------------- |
+| **EDW / Data Lake**   | Snowflake, Databricks, Azure Synapse, AWS Redshift                |
+| **ETL / Integration** | MuleSoft, Azure Data Factory, Informatica                         |
+| **BI / Reporting**    | Tableau, Power BI, MicroStrategy                                  |
+| **FHIR Bulk Data**    | $export (your Phase 8) feeds analytics pipelines from FHIR server |
 
 #### 6. Risk Adjustment Engine
 Runs HCC coding and scoring for MA plans. Separate from the claims adjudication path — reads adjudicated claims after the fact.
 
-| Vendor | Notes |
-|---|---|
-| **Cognizant / TriZetto Risk Adjustment** | Integrated with Facets |
-| **Optum Risk Adjustment** | HCC prospective coding, RAPS/EDPS submission |
-| **Inovalon** | Analytics-driven risk capture |
+| Vendor                                   | Notes                                        |
+| ---------------------------------------- | -------------------------------------------- |
+| **Cognizant / TriZetto Risk Adjustment** | Integrated with Facets                       |
+| **Optum Risk Adjustment**                | HCC prospective coding, RAPS/EDPS submission |
+| **Inovalon**                             | Analytics-driven risk capture                |
 
 ---
 
@@ -1351,15 +2225,15 @@ HEDIS engine reads claims + clinical → computes quality measures → Star Rati
 
 Your 8-phase workspace is the **modern API layer on top of this entire ecosystem**. Each phase maps to a specific payer system:
 
-| Your Phase | Payer System It Surfaces | What It Replaces / Modernizes |
-|---|---|---|
-| Phase 2 — Member Access API | CAPS Membership + Claims modules | Proprietary member portal → open FHIR API |
-| Phase 3 — Provider Directory | Provider Data Management in CAPS | Internal directory lookup → FHIR Plan-Net |
-| Phase 4 — Formulary API | PBM platform formulary data | PBM proprietary API → FHIR Formulary IG |
-| Phase 5 — CRD | UM / PA intake system | Fax/phone PA initiation → CDS Hooks in EHR |
-| Phase 6 — DTR/PAS | UM criteria + CAPS authorization module | Fax/portal PA forms → FHIR DTR/PAS |
-| Phase 7 — PDex | CAPS + Care Mgmt historical data | No mechanism for member data portability → FHIR PDex |
-| Phase 8 — Bulk Data | Data Warehouse / EDW | Batch FTP exports → FHIR $export at scale |
+| Your Phase                   | Payer System It Surfaces                | What It Replaces / Modernizes                        |
+| ---------------------------- | --------------------------------------- | ---------------------------------------------------- |
+| Phase 2 — Member Access API  | CAPS Membership + Claims modules        | Proprietary member portal → open FHIR API            |
+| Phase 3 — Provider Directory | Provider Data Management in CAPS        | Internal directory lookup → FHIR Plan-Net            |
+| Phase 4 — Formulary API      | PBM platform formulary data             | PBM proprietary API → FHIR Formulary IG              |
+| Phase 5 — CRD                | UM / PA intake system                   | Fax/phone PA initiation → CDS Hooks in EHR           |
+| Phase 6 — DTR/PAS            | UM criteria + CAPS authorization module | Fax/portal PA forms → FHIR DTR/PAS                   |
+| Phase 7 — PDex               | CAPS + Care Mgmt historical data        | No mechanism for member data portability → FHIR PDex |
+| Phase 8 — Bulk Data          | Data Warehouse / EDW                    | Batch FTP exports → FHIR $export at scale            |
 
 ---
 
@@ -1374,33 +2248,33 @@ Your 8-phase workspace is the **modern API layer on top of this entire ecosystem
 ---
 
 ### Clearinghouses
-| Vendor | Notes |
-|---|---|
+| Vendor                        | Notes                                                                                          |
+| ----------------------------- | ---------------------------------------------------------------------------------------------- |
 | **Change Healthcare (Optum)** | Largest in US; acquired by UnitedHealth/Optum (after major 2024 cyberattack — know this story) |
-| **Availity** | Owned by consortium of BCBS plans; large footprint |
-| **Waystar** | Strong in hospital/health system billing |
-| **Optum EDI** | Part of UnitedHealth Group ecosystem |
+| **Availity**                  | Owned by consortium of BCBS plans; large footprint                                             |
+| **Waystar**                   | Strong in hospital/health system billing                                                       |
+| **Optum EDI**                 | Part of UnitedHealth Group ecosystem                                                           |
 
 **Know the Change Healthcare 2024 cyberattack**: A ransomware attack took down Change Healthcare for weeks, affecting billions in claims processing across the US. Massive business continuity event. Shows how concentrated and fragile clearinghouse infrastructure is. Interviewers may bring this up.
 
 ### Clinical Editing / Claims Audit Engines
 These sit inside or alongside the adjudication system and apply medical necessity, coding, and billing rules:
 
-| Vendor | Product | Notes |
-|---|---|---|
-| **Optum** | ClaimCheck / CES | Industry standard for outpatient editing |
-| **Cotiviti** | Cotiviti Claims | Payment accuracy, fraud/waste/abuse |
-| **Multiplan** | Cost management | Out-of-network repricing |
-| **Equian (nThrive)** | Payment integrity | Overpayment detection |
+| Vendor               | Product           | Notes                                    |
+| -------------------- | ----------------- | ---------------------------------------- |
+| **Optum**            | ClaimCheck / CES  | Industry standard for outpatient editing |
+| **Cotiviti**         | Cotiviti Claims   | Payment accuracy, fraud/waste/abuse      |
+| **Multiplan**        | Cost management   | Out-of-network repricing                 |
+| **Equian (nThrive)** | Payment integrity | Overpayment detection                    |
 
 ### RCM Outsourcing Companies (Provider Side)
-| Vendor | Notes |
-|---|---|
-| **R1 RCM** | Large hospital system RCM outsourcer |
-| **Optum360** | Hospital billing outsourcing |
-| **Conifer Health Solutions** (Tenet) | Hospital RCM |
-| **nThrive** | Mid-market provider RCM |
-| **Cognizant / Infosys / Wipro BPO** | IT services companies also run RCM operations as BPO — not just build software |
+| Vendor                               | Notes                                                                          |
+| ------------------------------------ | ------------------------------------------------------------------------------ |
+| **R1 RCM**                           | Large hospital system RCM outsourcer                                           |
+| **Optum360**                         | Hospital billing outsourcing                                                   |
+| **Conifer Health Solutions** (Tenet) | Hospital RCM                                                                   |
+| **nThrive**                          | Mid-market provider RCM                                                        |
+| **Cognizant / Infosys / Wipro BPO**  | IT services companies also run RCM operations as BPO — not just build software |
 
 ### How RCM Outsourcing Vendors Actually Work — They Are NOT Clearinghouses
 
@@ -1496,15 +2370,15 @@ Denial Management Team reviews reason code
 ```
 
 ### Common Denial Categories
-| Denial Type | % of Denials (approx) | Who Fixes It |
-|---|---|---|
-| Missing / invalid information | ~25% | Billing team corrects and resubmits |
-| Authorization / pre-cert missing | ~20% | Authorization coordinator gets retroactive auth |
-| Medical necessity | ~15% | Clinical team writes appeal with supporting docs |
-| Duplicate claim | ~10% | Billing team verifies and resolves |
-| Coding errors (CPT/ICD mismatch) | ~15% | Coder corrects |
-| Timely filing | ~5% | Usually written off |
-| Eligibility / coverage issues | ~10% | Patient access resolves coverage |
+| Denial Type                      | % of Denials (approx) | Who Fixes It                                     |
+| -------------------------------- | --------------------- | ------------------------------------------------ |
+| Missing / invalid information    | ~25%                  | Billing team corrects and resubmits              |
+| Authorization / pre-cert missing | ~20%                  | Authorization coordinator gets retroactive auth  |
+| Medical necessity                | ~15%                  | Clinical team writes appeal with supporting docs |
+| Duplicate claim                  | ~10%                  | Billing team verifies and resolves               |
+| Coding errors (CPT/ICD mismatch) | ~15%                  | Coder corrects                                   |
+| Timely filing                    | ~5%                   | Usually written off                              |
+| Eligibility / coverage issues    | ~10%                  | Patient access resolves coverage                 |
 
 ### Why Payers Are Also a Cost Center Here
 Payers spend money too:
@@ -1552,13 +2426,13 @@ OUTPUT: "Service X requires PA — approval criteria: ..."
 
 ### Who Controls What
 
-| Source | What They Control |
-|---|---|
-| **Payer** | Final authority — which services require PA, approval/denial decision, plan-specific rules |
-| **InterQual / MCG** | Clinical criteria the payer licenses — evidence-based benchmarks for medical necessity |
-| **CMS** | Hard floor for MA plans — payer criteria cannot be more restrictive than Traditional Medicare (2024 CMS final rule) |
-| **State law** | Some states ban or limit PA for specific services (emergency care, mental health parity, step therapy overrides) |
-| **Gold carding** | High-performing providers exempted from PA for certain services — many states now mandate this by law |
+| Source              | What They Control                                                                                                   |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| **Payer**           | Final authority — which services require PA, approval/denial decision, plan-specific rules                          |
+| **InterQual / MCG** | Clinical criteria the payer licenses — evidence-based benchmarks for medical necessity                              |
+| **CMS**             | Hard floor for MA plans — payer criteria cannot be more restrictive than Traditional Medicare (2024 CMS final rule) |
+| **State law**       | Some states ban or limit PA for specific services (emergency care, mental health parity, step therapy overrides)    |
+| **Gold carding**    | High-performing providers exempted from PA for certain services — many states now mandate this by law               |
 
 ### CQL — How Criteria Become Machine-Executable in FHIR
 
@@ -1634,24 +2508,24 @@ A **pended claim** is one that the system cannot automatically adjudicate and pu
 
 ### Why a Claim Gets Pended
 
-| Reason | Example |
-|---|---|
+| Reason                              | Example                                                               |
+| ----------------------------------- | --------------------------------------------------------------------- |
 | **Medical necessity review needed** | High-cost procedure (MRI, surgery) — system flags for clinical review |
-| **Missing clinical documentation** | Prior auth exists but clinical notes not attached |
-| **COB (Coordination of Benefits)** | Member has 2 insurances — system needs to determine primary/secondary |
-| **New provider / unknown contract** | Provider NPI not yet loaded into payer's system |
-| **Unusual billing pattern** | Unusual code combination that triggers audit flag |
-| **High dollar threshold** | Claim over $X automatically goes to review |
-| **Experimental procedure** | Procedure on investigational/exclusion list |
+| **Missing clinical documentation**  | Prior auth exists but clinical notes not attached                     |
+| **COB (Coordination of Benefits)**  | Member has 2 insurances — system needs to determine primary/secondary |
+| **New provider / unknown contract** | Provider NPI not yet loaded into payer's system                       |
+| **Unusual billing pattern**         | Unusual code combination that triggers audit flag                     |
+| **High dollar threshold**           | Claim over $X automatically goes to review                            |
+| **Experimental procedure**          | Procedure on investigational/exclusion list                           |
 
 ### Pend vs Deny — The Key Difference
 
-| | Pend | Deny |
-|---|---|---|
-| **Meaning** | Temporarily held for human review | Decisively rejected |
-| **Outcome** | Could still be paid after review | Requires appeal or resubmission to recover |
-| **Clock** | Payer has regulatory timeline to resolve (e.g., 30 days for commercial, strict for MA) |  |
-| **Provider action needed?** | Sometimes must supply more info | Must appeal or resubmit |
+|                             | Pend                                                                                   | Deny                                       |
+| --------------------------- | -------------------------------------------------------------------------------------- | ------------------------------------------ |
+| **Meaning**                 | Temporarily held for human review                                                      | Decisively rejected                        |
+| **Outcome**                 | Could still be paid after review                                                       | Requires appeal or resubmission to recover |
+| **Clock**                   | Payer has regulatory timeline to resolve (e.g., 30 days for commercial, strict for MA) |                                            |
+| **Provider action needed?** | Sometimes must supply more info                                                        | Must appeal or resubmit                    |
 
 ### Why Pend Rate Matters to a PM
 - High pend rate = high operational cost (human reviewers are expensive)
@@ -1702,25 +2576,25 @@ Claw back / recoupment:  AR that was CLOSED gets REOPENED as a liability
 
 ### AR Aging in Practice
 
-| Age Bucket | Status | RCM Action |
-|---|---|---|
-| 0–30 days | Normal — waiting for 835 | No action needed; monitor |
-| 31–60 days | Slightly aged — check claim status (276/277) | Query status if no 835 yet |
-| 61–90 days | Aging — investigate | Call payer / portal follow-up |
-| 91–120 days | High risk — timely filing approaching | Escalate; resubmit if denied |
-| 120+ days | Critical — most payers' timely filing window closing | Last chance to recover; likely write-off |
+| Age Bucket  | Status                                               | RCM Action                               |
+| ----------- | ---------------------------------------------------- | ---------------------------------------- |
+| 0–30 days   | Normal — waiting for 835                             | No action needed; monitor                |
+| 31–60 days  | Slightly aged — check claim status (276/277)         | Query status if no 835 yet               |
+| 61–90 days  | Aging — investigate                                  | Call payer / portal follow-up            |
+| 91–120 days | High risk — timely filing approaching                | Escalate; resubmit if denied             |
+| 120+ days   | Critical — most payers' timely filing window closing | Last chance to recover; likely write-off |
 
 ### How AR Connects to Everything Else in Gap 1
 
-| Claims Event | AR Impact |
-|---|---|
-| Clean claim submitted | AR opens; likely to close fast (auto-adjudicated in days) |
-| Claim pended | AR stays open longer — waiting for human reviewer |
-| Claim denied | AR stays open; must be worked or written off |
-| Timely filing expires | AR written off — 100% unrecoverable revenue loss |
-| Retroactive termination / claw back | Closed AR reopened as a liability |
-| Prior auth missing (denial) | AR stays open; auth coordinator must fix |
-| COB — secondary insurance | AR partially open after primary pays; bill secondary |
+| Claims Event                        | AR Impact                                                 |
+| ----------------------------------- | --------------------------------------------------------- |
+| Clean claim submitted               | AR opens; likely to close fast (auto-adjudicated in days) |
+| Claim pended                        | AR stays open longer — waiting for human reviewer         |
+| Claim denied                        | AR stays open; must be worked or written off              |
+| Timely filing expires               | AR written off — 100% unrecoverable revenue loss          |
+| Retroactive termination / claw back | Closed AR reopened as a liability                         |
+| Prior auth missing (denial)         | AR stays open; auth coordinator must fix                  |
+| COB — secondary insurance           | AR partially open after primary pays; bill secondary      |
 
 ### The RCM Team's Job in One Sentence
 The RCM team's entire purpose is to **minimize days in AR and maximize net collection rate** — by submitting clean claims, catching rejections fast, working denials aggressively, and ensuring nothing ages past timely filing.
@@ -1796,6 +2670,11 @@ Payers have the mirror image: **Accounts Payable (AP)** — what they owe to pro
 
 ---
 
+
+---
+
+> **SECTION 4 — GAP 2: Enrollment & Eligibility**
+
 # GAP 2 — Enrollment & Eligibility
 
 ## The Flow
@@ -1820,12 +2699,12 @@ Payers have the mirror image: **Accounts Payable (AP)** — what they owe to pro
 
 ## Enrollment Channels
 
-| Channel | Source | Standard |
-|---|---|---|
-| Group/Employer | HR system, broker | 834 EDI |
-| Individual (ACA) | Federal/State Marketplace | 834 EDI |
-| Medicare | CMS (MMR, TRR files) | CMS-specific formats |
-| Medicaid | State agency | State-specific feeds |
+| Channel          | Source                    | Standard             |
+| ---------------- | ------------------------- | -------------------- |
+| Group/Employer   | HR system, broker         | 834 EDI              |
+| Individual (ACA) | Federal/State Marketplace | 834 EDI              |
+| Medicare         | CMS (MMR, TRR files)      | CMS-specific formats |
+| Medicaid         | State agency              | State-specific feeds |
 
 ---
 
@@ -1936,34 +2815,34 @@ and whether prior auth is needed before the visit
 
 ### What 271 Returns (Key Fields)
 
-| Field | Meaning | Why It Matters |
-|---|---|---|
-| **Active/Inactive** | Is coverage in force on date of service? | Inactive = guaranteed denial |
-| **Plan name / type** | HMO, PPO, HDHP | Determines network rules |
-| **Deductible / remaining** | How much patient owes before insurance pays | Collect from patient upfront |
-| **Copay / coinsurance** | Patient's share per visit | Set patient expectations |
-| **OOP max / remaining** | When patient stops paying | High OOP remaining = collect more |
-| **Network status** | Is this provider in-network for this patient? | Out-of-network = different cost sharing |
-| **Prior auth requirements** | Which services need approval first | Triggers auth workflow |
-| **COB indicator** | Does patient have other insurance? | Determine primary/secondary |
+| Field                       | Meaning                                       | Why It Matters                          |
+| --------------------------- | --------------------------------------------- | --------------------------------------- |
+| **Active/Inactive**         | Is coverage in force on date of service?      | Inactive = guaranteed denial            |
+| **Plan name / type**        | HMO, PPO, HDHP                                | Determines network rules                |
+| **Deductible / remaining**  | How much patient owes before insurance pays   | Collect from patient upfront            |
+| **Copay / coinsurance**     | Patient's share per visit                     | Set patient expectations                |
+| **OOP max / remaining**     | When patient stops paying                     | High OOP remaining = collect more       |
+| **Network status**          | Is this provider in-network for this patient? | Out-of-network = different cost sharing |
+| **Prior auth requirements** | Which services need approval first            | Triggers auth workflow                  |
+| **COB indicator**           | Does patient have other insurance?            | Determine primary/secondary             |
 
 ### Real-Time vs Batch Eligibility
 
-| Mode | When Used | How |
-|---|---|---|
-| **Real-time** | Point of scheduling, point of service | Single 270 sent, 271 back in seconds |
-| **Batch** | Night before, for next day's full schedule | Hospital sends file of all tomorrow's patients, gets back file of all 271 responses |
-| **Automated inline** | EHR checks eligibility automatically at check-in | EHR integrated with clearinghouse eligibility service |
+| Mode                 | When Used                                        | How                                                                                 |
+| -------------------- | ------------------------------------------------ | ----------------------------------------------------------------------------------- |
+| **Real-time**        | Point of scheduling, point of service            | Single 270 sent, 271 back in seconds                                                |
+| **Batch**            | Night before, for next day's full schedule       | Hospital sends file of all tomorrow's patients, gets back file of all 271 responses |
+| **Automated inline** | EHR checks eligibility automatically at check-in | EHR integrated with clearinghouse eligibility service                               |
 
 ### Who Actually Performs the Eligibility Check?
 
 This is a common confusion — it is NOT exclusively the clearinghouse.
 
-| Path | Who Does It | When Used |
-|---|---|---|
-| **Direct to payer** | Provider system connects directly to payer's eligibility endpoint | Large EHRs (Epic, Cerner) have direct real-time connections to major payers |
-| **Via clearinghouse** | Clearinghouse acts as pass-through — provider sends 270 to clearinghouse, clearinghouse routes to payer, returns 271 | Smaller providers, or when using clearinghouse for claims anyway |
-| **PBM separately** | Pharmacy Benefit Manager handles pharmacy eligibility independently from the medical payer | At the pharmacy counter — completely separate system |
+| Path                  | Who Does It                                                                                                          | When Used                                                                   |
+| --------------------- | -------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| **Direct to payer**   | Provider system connects directly to payer's eligibility endpoint                                                    | Large EHRs (Epic, Cerner) have direct real-time connections to major payers |
+| **Via clearinghouse** | Clearinghouse acts as pass-through — provider sends 270 to clearinghouse, clearinghouse routes to payer, returns 271 | Smaller providers, or when using clearinghouse for claims anyway            |
+| **PBM separately**    | Pharmacy Benefit Manager handles pharmacy eligibility independently from the medical payer                           | At the pharmacy counter — completely separate system                        |
 
 **Key point**: Clearinghouses offer eligibility as a **value-add service**, not a requirement. A provider with a large volume and direct payer relationships (like a major hospital system) often connects directly. The clearinghouse is mandatory for claims (837/835) but optional for eligibility (270/271).
 
@@ -2021,13 +2900,13 @@ Pharmacist tells patient → patient calls doctor
 
 EDI still dominates this space, but FHIR is making inroads:
 
-| Function | Still EDI | FHIR Role in 2026 |
-|---|---|---|
-| 834 Enrollment | Dominant — not changing | No FHIR standard for enrollment transactions |
-| 270/271 Eligibility | Dominant | **Coverage resource** — FHIR equivalent, emerging in some payer APIs |
-| Member views own coverage | Not possible in EDI | **FHIR Coverage resource via Patient Access API — mandated, live** |
-| Provider checks patient coverage | 270/271 | **CRD uses Coverage + prior auth data in real-time** — your Phase 5 |
-| Benefit details for prior auth | Fax/portal | **CRD returns coverage requirements including auth needs** |
+| Function                         | Still EDI               | FHIR Role in 2026                                                    |
+| -------------------------------- | ----------------------- | -------------------------------------------------------------------- |
+| 834 Enrollment                   | Dominant — not changing | No FHIR standard for enrollment transactions                         |
+| 270/271 Eligibility              | Dominant                | **Coverage resource** — FHIR equivalent, emerging in some payer APIs |
+| Member views own coverage        | Not possible in EDI     | **FHIR Coverage resource via Patient Access API — mandated, live**   |
+| Provider checks patient coverage | 270/271                 | **CRD uses Coverage + prior auth data in real-time** — your Phase 5  |
+| Benefit details for prior auth   | Fax/portal              | **CRD returns coverage requirements including auth needs**           |
 
 **Key FHIR connection to your work**: Your Phase 5 (CRD) uses the FHIR Coverage resource to check in real-time whether a service needs prior authorization — this is FHIR replacing the eligibility + prior auth inquiry that used to require a 270/271 plus a phone call.
 
@@ -2037,15 +2916,15 @@ EDI still dominates this space, but FHIR is making inroads:
 
 ## AI Role in 2026 for Enrollment & Eligibility
 
-| Area | AI Application | Status in 2026 |
-|---|---|---|
-| **834 reconciliation** | ML detects patterns in discrepancies between employer file and payer system, flags likely errors before they cause denials | Active — several payer ops platforms |
-| **Dependent eligibility audit** | AI reviews dependent eligibility (are dependents still actually dependents?) — major cost savings | Active — Conduent, Businessolver |
-| **Enrollment fraud detection** | ML detects fraudulent enrollment patterns (fake dependents, ghost employees) | Active |
-| **Eligibility prediction** | Predict which members are likely to have eligibility issues at point of service before they arrive | Emerging |
-| **Benefits chatbot** | LLM-powered member chatbot answers "what's my deductible?" "is this doctor in-network?" — reads from FHIR Coverage resource | Active — many payer portals, connects directly to your FHIR MCP work |
-| **Automated eligibility workflow** | AI orchestrates real-time 270/271 checks integrated into EHR scheduling workflow without human touchpoint | Active — Epic/Cerner integrations |
-| **Retroactive term detection** | AI flags when a claim payment may be at risk due to pending retroactive termination | Emerging |
+| Area                               | AI Application                                                                                                              | Status in 2026                                                       |
+| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| **834 reconciliation**             | ML detects patterns in discrepancies between employer file and payer system, flags likely errors before they cause denials  | Active — several payer ops platforms                                 |
+| **Dependent eligibility audit**    | AI reviews dependent eligibility (are dependents still actually dependents?) — major cost savings                           | Active — Conduent, Businessolver                                     |
+| **Enrollment fraud detection**     | ML detects fraudulent enrollment patterns (fake dependents, ghost employees)                                                | Active                                                               |
+| **Eligibility prediction**         | Predict which members are likely to have eligibility issues at point of service before they arrive                          | Emerging                                                             |
+| **Benefits chatbot**               | LLM-powered member chatbot answers "what's my deductible?" "is this doctor in-network?" — reads from FHIR Coverage resource | Active — many payer portals, connects directly to your FHIR MCP work |
+| **Automated eligibility workflow** | AI orchestrates real-time 270/271 checks integrated into EHR scheduling workflow without human touchpoint                   | Active — Epic/Cerner integrations                                    |
+| **Retroactive term detection**     | AI flags when a claim payment may be at risk due to pending retroactive termination                                         | Emerging                                                             |
 
 ---
 
@@ -2072,6 +2951,11 @@ EDI still dominates this space, but FHIR is making inroads:
 > "Retroactive enrollment means the member's coverage is backdated to a date in the past — for example, a baby is born on June 1 but the parents don't notify HR until June 20. The payer creates coverage retroactive to June 1. The problem is that claims may have already been submitted and adjudicated during that gap — the newborn's hospital stay was billed to self-pay. Now the payer must reprocess those claims, and providers need to rebill. Retroactive terminations are even more painful — the payer has already paid claims for a member who should have been terminated weeks ago, and must claw those payments back from providers. Both scenarios create significant administrative rework, provider abrasion, and member dissatisfaction."
 
 ---
+
+
+---
+
+> **SECTION 5 — GAP 3: Medicare / Medicaid (Medicare Advantage Focus)**
 
 # GAP 3 — Medicare / Medicaid (especially Medicare Advantage)
 
@@ -2185,13 +3069,13 @@ Payment comes from state + federal capitation funds held by the MCO
 
 ### Summary Table — Remittance Differences
 
-| Program | Who Sends 835 | Money Source | Timely Filing | Key Nuance |
-|---|---|---|---|---|
-| **Commercial** | Insurance company or clearinghouse | Insurer pool or employer account | 90-180 days | Companion guides vary by payer |
-| **Medicare FFS** | MAC (12 regional contractors) | CMS trust funds | **1 year** (strict) | PECOS enrollment required |
-| **Medicare Advantage** | MA Plan (private insurer) | CMS capitation at plan level | 90-180 days (plan-set) | Plan has own prior auth, network, formulary |
-| **Medicaid MCO** | MCO (Centene, Molina, etc.) | State + federal capitation | Varies by state | State-specific rules — not uniform |
-| **Medicaid FFS** | State MMIS | State + federal general funds | Varies by state | State system, not private payer |
+| Program                | Who Sends 835                      | Money Source                     | Timely Filing          | Key Nuance                                  |
+| ---------------------- | ---------------------------------- | -------------------------------- | ---------------------- | ------------------------------------------- |
+| **Commercial**         | Insurance company or clearinghouse | Insurer pool or employer account | 90-180 days            | Companion guides vary by payer              |
+| **Medicare FFS**       | MAC (12 regional contractors)      | CMS trust funds                  | **1 year** (strict)    | PECOS enrollment required                   |
+| **Medicare Advantage** | MA Plan (private insurer)          | CMS capitation at plan level     | 90-180 days (plan-set) | Plan has own prior auth, network, formulary |
+| **Medicaid MCO**       | MCO (Centene, Molina, etc.)        | State + federal capitation       | Varies by state        | State-specific rules — not uniform          |
+| **Medicaid FFS**       | State MMIS                         | State + federal general funds    | Varies by state        | State system, not private payer             |
 
 ---
 
@@ -2199,15 +3083,15 @@ Payment comes from state + federal capitation funds held by the MCO
 
 This is where your workspace directly connects. FHIR mandates in this space are **government-driven**, not just commercial payer-driven.
 
-| Function | Legacy | FHIR Role in 2026 | Your Work |
-|---|---|---|---|
-| **Member accesses their Medicare claims data** | Paper EOB, MyMedicare.gov | **BCDA (Blue Button 2.0 API)** — CMS's own FHIR API for MA plan members | Your Phase 8 Bulk Data API mirrors the BCDA pattern |
-| **MA plan receives encounter data from CMS** | EDPS/RAPS files | FHIR Bulk Data export (CMS moving toward FHIR-based encounter exchange) | Your Phase 8 BulkDataAPI |
-| **Prior auth for MA members** | Fax / portal | **CMS-0057 mandates FHIR PAS by 2027** — MA plans are in scope | Your Phase 6 PriorAuthAPI |
-| **Payer-to-payer when member switches MA plan** | Phone / fax / nothing | **FHIR PDex mandated** — when member moves between MA plans, clinical data must transfer | Your Phase 7 PDexAPI |
-| **Provider checks MA member eligibility** | 270/271 | FHIR Coverage resource via CRD — your Phase 5 | Your Phase 5 CRDService |
-| **Medicaid member accesses their data** | Nothing | **CMS-9115-F extends to Medicaid MCOs** — they must expose FHIR Patient Access API | Your Phase 2 MemberAccessAPI pattern |
-| **Risk adjustment / HCC capture from clinical data** | Chart review programs, EDPS | FHIR-based clinical data feeds (diagnostic codes in FHIR Condition resource) | Emerging — not yet mandated |
+| Function                                             | Legacy                      | FHIR Role in 2026                                                                        | Your Work                                           |
+| ---------------------------------------------------- | --------------------------- | ---------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| **Member accesses their Medicare claims data**       | Paper EOB, MyMedicare.gov   | **BCDA (Blue Button 2.0 API)** — CMS's own FHIR API for MA plan members                  | Your Phase 8 Bulk Data API mirrors the BCDA pattern |
+| **MA plan receives encounter data from CMS**         | EDPS/RAPS files             | FHIR Bulk Data export (CMS moving toward FHIR-based encounter exchange)                  | Your Phase 8 BulkDataAPI                            |
+| **Prior auth for MA members**                        | Fax / portal                | **CMS-0057 mandates FHIR PAS by 2027** — MA plans are in scope                           | Your Phase 6 PriorAuthAPI                           |
+| **Payer-to-payer when member switches MA plan**      | Phone / fax / nothing       | **FHIR PDex mandated** — when member moves between MA plans, clinical data must transfer | Your Phase 7 PDexAPI                                |
+| **Provider checks MA member eligibility**            | 270/271                     | FHIR Coverage resource via CRD — your Phase 5                                            | Your Phase 5 CRDService                             |
+| **Medicaid member accesses their data**              | Nothing                     | **CMS-9115-F extends to Medicaid MCOs** — they must expose FHIR Patient Access API       | Your Phase 2 MemberAccessAPI pattern                |
+| **Risk adjustment / HCC capture from clinical data** | Chart review programs, EDPS | FHIR-based clinical data feeds (diagnostic codes in FHIR Condition resource)             | Emerging — not yet mandated                         |
 
 ### CDS Hooks — Your CRDService Directly Serves This
 
@@ -2242,16 +3126,16 @@ Your Phase 8 BulkDataAPI implements the same FHIR Bulk Data IG (`$export` operat
 
 ## AI Role in 2026 — Medicare/Medicaid
 
-| Area | AI Application | Status in 2026 |
-|---|---|---|
-| **HCC risk capture** | NLP reads clinical notes to find undocumented or under-coded HCC conditions — massive revenue impact for MA plans | Active — Cognizant, Optum, Datavant, Inovalon |
-| **Star Ratings prediction** | ML models predict which HEDIS measures an MA plan is at risk of dropping, trigger interventions early | Active — most large MA plans |
-| **Care gap closure** | AI identifies members overdue for screenings (mammograms, A1c checks) and triggers automated outreach | Active — connects to FHIR Bulk Data + population health |
-| **Prior auth automation (MA)** | LLM extracts clinical criteria from EHR notes, auto-populates PAS requests — your CRDService + DTR workflow | Active — CMS-0057 driving adoption |
-| **RADV audit defense** | AI assists in chart review to identify documentation gaps before CMS audits | Active — payer compliance teams |
-| **Dual eligible coordination** | AI surfaces relevant clinical history from both Medicare and Medicaid records to care coordinators | Emerging — requires PDex / TEFCA data sharing |
-| **Fraud detection** | ML detects aberrant billing in Medicaid (high fraud rate vs commercial) | Active — OIG, state Medicaid agencies, MCOs |
-| **Member chatbot for MA** | LLM-powered chatbot answers "what's my plan cover?" "who's in my network?" using FHIR Coverage resource | Active — directly connects to your MemberAccessAPI + FHIR MCP work |
+| Area                           | AI Application                                                                                                    | Status in 2026                                                     |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| **HCC risk capture**           | NLP reads clinical notes to find undocumented or under-coded HCC conditions — massive revenue impact for MA plans | Active — Cognizant, Optum, Datavant, Inovalon                      |
+| **Star Ratings prediction**    | ML models predict which HEDIS measures an MA plan is at risk of dropping, trigger interventions early             | Active — most large MA plans                                       |
+| **Care gap closure**           | AI identifies members overdue for screenings (mammograms, A1c checks) and triggers automated outreach             | Active — connects to FHIR Bulk Data + population health            |
+| **Prior auth automation (MA)** | LLM extracts clinical criteria from EHR notes, auto-populates PAS requests — your CRDService + DTR workflow       | Active — CMS-0057 driving adoption                                 |
+| **RADV audit defense**         | AI assists in chart review to identify documentation gaps before CMS audits                                       | Active — payer compliance teams                                    |
+| **Dual eligible coordination** | AI surfaces relevant clinical history from both Medicare and Medicaid records to care coordinators                | Emerging — requires PDex / TEFCA data sharing                      |
+| **Fraud detection**            | ML detects aberrant billing in Medicaid (high fraud rate vs commercial)                                           | Active — OIG, state Medicaid agencies, MCOs                        |
+| **Member chatbot for MA**      | LLM-powered chatbot answers "what's my plan cover?" "who's in my network?" using FHIR Coverage resource           | Active — directly connects to your MemberAccessAPI + FHIR MCP work |
 
 **Your CDS Hooks differentiator**: Most PM candidates don't know what CDS Hooks is. You built it. When the question is "how does AI fit into care management or prior auth in an MA plan?" you can say: *"I've implemented a CDS Hooks service that fires inside the EHR workflow — the doctor writes an order, our service returns coverage determination in real time, eliminating the administrative back-and-forth that costs MA plans and providers millions."*
 
@@ -2287,21 +3171,21 @@ Your Phase 8 BulkDataAPI implements the same FHIR Bulk Data IG (`$export` operat
 
 > "Medicare and Medicaid are both government health programs administered by CMS, but they serve completely different populations, are funded differently, and operate through different mechanisms. Medicare is a federal program for people 65 and older, or younger people with certain disabilities or end-stage renal disease. It doesn't consider income — you qualify based on age or disability, not how much money you have. Medicaid is income-based — it covers people below certain income thresholds, primarily low-income adults, children, pregnant women, and people with disabilities. The funding difference is equally important: Medicare is funded entirely by the federal government through payroll taxes and premiums. Medicaid is jointly funded — the federal government pays a percentage called FMAP (Federal Medical Assistance Percentage), which varies by state, and states fund the rest. That shared funding means states have significant flexibility in how they run Medicaid — eligibility rules, covered services, and payment rates all vary by state. Medicare is much more nationally uniform. On the delivery side, traditional Medicare is administered directly by CMS through regional MACs — Medicare Administrative Contractors — and has a national fee schedule. Medicaid is administered by each state, most of which contract with private managed care organizations — Centene, Molina, Anthem — to run Managed Medicaid. From a payer IT perspective, Medicare Advantage works like a commercial payer: prior auth, network management, HEDIS, Star Ratings. Medicaid MCOs also work like commercial payers but with state-specific rules, lower reimbursement rates, and populations that tend to have more social determinants of health complexity."
 
-| Dimension | Medicare | Medicaid |
-|---|---|---|
-| **Who qualifies** | Age 65+, or disabled under 65, or ESRD | Low income — adults, children, pregnant women, disabled |
-| **Income test** | No — age/disability based | Yes — income and asset limits |
-| **Funded by** | Federal government (payroll tax + premiums) | Federal (FMAP) + state (shared funding) |
-| **Administered by** | CMS (FFS via MACs) or private MA plans | Each state — most use MCOs (Managed Medicaid) |
-| **Uniformity** | National standard (FFS) | State-by-state variation |
-| **Private plan option** | Part C = Medicare Advantage | Managed Medicaid MCOs (Centene, Molina, Anthem) |
-| **Drug coverage** | Part D (separate) | Included in Medicaid benefit (state-managed) |
-| **Prior auth (payer)** | FFS: limited / MA: full prior auth | MCO: full prior auth, state-specific rules |
-| **Timely filing** | FFS: 1 year (strict) / MA: plan-set | MCO: varies by state |
-| **Claims system** | MACs (FFS) / MA plan CAPS | State MMIS (FFS) / MCO CAPS |
-| **FHIR mandate scope** | MA plans — CMS-9115-F and CMS-0057-F | Medicaid MCOs — same mandates apply |
-| **Star Ratings** | Yes — drives QBP bonuses | No (HEDIS tracked but no Star/QBP equivalent) |
-| **Dual eligible** | Primary payer | Secondary — fills in Medicare gaps |
+| Dimension               | Medicare                                    | Medicaid                                                |
+| ----------------------- | ------------------------------------------- | ------------------------------------------------------- |
+| **Who qualifies**       | Age 65+, or disabled under 65, or ESRD      | Low income — adults, children, pregnant women, disabled |
+| **Income test**         | No — age/disability based                   | Yes — income and asset limits                           |
+| **Funded by**           | Federal government (payroll tax + premiums) | Federal (FMAP) + state (shared funding)                 |
+| **Administered by**     | CMS (FFS via MACs) or private MA plans      | Each state — most use MCOs (Managed Medicaid)           |
+| **Uniformity**          | National standard (FFS)                     | State-by-state variation                                |
+| **Private plan option** | Part C = Medicare Advantage                 | Managed Medicaid MCOs (Centene, Molina, Anthem)         |
+| **Drug coverage**       | Part D (separate)                           | Included in Medicaid benefit (state-managed)            |
+| **Prior auth (payer)**  | FFS: limited / MA: full prior auth          | MCO: full prior auth, state-specific rules              |
+| **Timely filing**       | FFS: 1 year (strict) / MA: plan-set         | MCO: varies by state                                    |
+| **Claims system**       | MACs (FFS) / MA plan CAPS                   | State MMIS (FFS) / MCO CAPS                             |
+| **FHIR mandate scope**  | MA plans — CMS-9115-F and CMS-0057-F        | Medicaid MCOs — same mandates apply                     |
+| **Star Ratings**        | Yes — drives QBP bonuses                    | No (HEDIS tracked but no Star/QBP equivalent)           |
+| **Dual eligible**       | Primary payer                               | Secondary — fills in Medicare gaps                      |
 
 **8. "Can you explain what Medicare and Medicaid are?"**
 
@@ -2315,13 +3199,13 @@ Your Phase 8 BulkDataAPI implements the same FHIR Bulk Data IG (`$export` operat
 
 ### Medicare Eligibility — Detail
 
-| Qualifying Path | Who | How |
-|---|---|---|
-| **Age 65+, standard** | Anyone who paid Medicare payroll taxes 40+ quarters (10 years) | Part A free; Part B ~$185/month premium |
-| **Age 65+, fewer quarters** | Fewer than 40 quarters paid | Can buy into Part A ($278–$506/month in 2026) |
-| **Disability under 65** | Receives SSDI (Social Security Disability Insurance) | Must receive SSDI for **24 months** before Medicare activates — the coverage gap |
-| **ESRD (any age)** | End-Stage Renal Disease requiring dialysis or transplant | Eligible immediately — no waiting period |
-| **ALS (any age)** | Amyotrophic Lateral Sclerosis (Lou Gehrig's disease) | Eligible immediately — no 24-month wait, unique exception |
+| Qualifying Path             | Who                                                            | How                                                                              |
+| --------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| **Age 65+, standard**       | Anyone who paid Medicare payroll taxes 40+ quarters (10 years) | Part A free; Part B ~$185/month premium                                          |
+| **Age 65+, fewer quarters** | Fewer than 40 quarters paid                                    | Can buy into Part A ($278–$506/month in 2026)                                    |
+| **Disability under 65**     | Receives SSDI (Social Security Disability Insurance)           | Must receive SSDI for **24 months** before Medicare activates — the coverage gap |
+| **ESRD (any age)**          | End-Stage Renal Disease requiring dialysis or transplant       | Eligible immediately — no waiting period                                         |
+| **ALS (any age)**           | Amyotrophic Lateral Sclerosis (Lou Gehrig's disease)           | Eligible immediately — no 24-month wait, unique exception                        |
 
 **The 24-month SSDI wait** is one of the most criticized gaps in US healthcare — someone becomes permanently disabled at 40 and has to wait 2 years for Medicare coverage. They often fall back on Medicaid during that gap if income-eligible.
 
@@ -2329,14 +3213,14 @@ Your Phase 8 BulkDataAPI implements the same FHIR Bulk Data IG (`$export` operat
 
 Medicaid uses **FPL (Federal Poverty Level)** as the threshold. In 2026: ~$15,060/year for an individual, ~$31,200 for a family of 4.
 
-| Population Group | Income Threshold | Notes |
-|---|---|---|
-| **Adults (ACA expansion states)** | Up to **138% FPL** (~$20,780/year individual) | Expanded by ACA 2010 — ~40 states |
-| **Adults (non-expansion states)** | Very narrow — often only parents with dependent children | TX, FL, and ~8 others have not expanded |
-| **Children** | Up to 133–200% FPL (varies by state) | CHIP extends to higher income in some states (up to 300% FPL) |
-| **Pregnant women** | Up to 133–200% FPL | Coverage extends 12 months postpartum (ARP 2021) |
-| **Elderly / disabled (SSI recipients)** | SSI income limits (~$967/month individual in 2026) | SSI recipients are **automatically** enrolled in Medicaid in most states |
-| **Medically needy / spend-down** | Higher income but high medical bills | Some states allow "spending down" to qualify |
+| Population Group                        | Income Threshold                                         | Notes                                                                    |
+| --------------------------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------ |
+| **Adults (ACA expansion states)**       | Up to **138% FPL** (~$20,780/year individual)            | Expanded by ACA 2010 — ~40 states                                        |
+| **Adults (non-expansion states)**       | Very narrow — often only parents with dependent children | TX, FL, and ~8 others have not expanded                                  |
+| **Children**                            | Up to 133–200% FPL (varies by state)                     | CHIP extends to higher income in some states (up to 300% FPL)            |
+| **Pregnant women**                      | Up to 133–200% FPL                                       | Coverage extends 12 months postpartum (ARP 2021)                         |
+| **Elderly / disabled (SSI recipients)** | SSI income limits (~$967/month individual in 2026)       | SSI recipients are **automatically** enrolled in Medicaid in most states |
+| **Medically needy / spend-down**        | Higher income but high medical bills                     | Some states allow "spending down" to qualify                             |
 
 **ACA Medicaid expansion** (2010): The single biggest change to Medicaid — extended coverage to non-disabled, non-pregnant, childless adults for the first time. States that didn't expand have a **coverage gap**: people earning too much for pre-ACA Medicaid but too little for ACA marketplace subsidies (subsidies start at 100% FPL).
 
@@ -2351,12 +3235,12 @@ Medicaid uses **FPL (Federal Poverty Level)** as the threshold. In 2026: ~$15,06
 
 Every Medicare interview question eventually touches the four parts. Know them cold.
 
-| Part | Name | What It Covers | Premium | Who Administers |
-|---|---|---|---|---|
-| **Part A** | Hospital Insurance | Inpatient hospital, skilled nursing facility (SNF), hospice, some home health | **$0** for most (need 40 quarters payroll tax) | CMS / Traditional Medicare |
-| **Part B** | Medical Insurance | Doctor visits, outpatient services, preventive care, durable medical equipment (DME), some home health | **~$185/month** (2026, income-adjusted via IRMAA for high earners) | CMS / Traditional Medicare |
+| Part       | Name                    | What It Covers                                                                                                               | Premium                                                                | Who Administers                                                    |
+| ---------- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| **Part A** | Hospital Insurance      | Inpatient hospital, skilled nursing facility (SNF), hospice, some home health                                                | **$0** for most (need 40 quarters payroll tax)                         | CMS / Traditional Medicare                                         |
+| **Part B** | Medical Insurance       | Doctor visits, outpatient services, preventive care, durable medical equipment (DME), some home health                       | **~$185/month** (2026, income-adjusted via IRMAA for high earners)     | CMS / Traditional Medicare                                         |
 | **Part C** | Medicare Advantage (MA) | **Replaces** A + B + usually D. Private plan manages all care. Must cover all A/B benefits, often adds dental/vision/hearing | Varies — often $0 premium plans (payer subsidizes from CMS capitation) | **Private insurers** (Humana, UHC, Aetna, BCBS) under CMS contract |
-| **Part D** | Prescription Drug | Outpatient prescription drugs | Varies — standalone PDP or included in MA-PD plan | **Private PDPs** contracted with CMS |
+| **Part D** | Prescription Drug       | Outpatient prescription drugs                                                                                                | Varies — standalone PDP or included in MA-PD plan                      | **Private PDPs** contracted with CMS                               |
 
 **The A+B vs C distinction** — this is a common interview confusion:
 - **Traditional Medicare (FFS)**: Parts A + B + standalone Part D. CMS pays providers directly on a fee-for-service basis. No prior auth. Member pays 20% coinsurance with no cap (hence Medigap).
@@ -2372,19 +3256,24 @@ Every Medicare interview question eventually touches the four parts. Know them c
 
 Medicaid is not one program — it is a **collection of state programs** that share federal matching funds (FMAP). States choose how to deliver it.
 
-| Delivery Model | How It Works | States Using It | PM Relevance |
-|---|---|---|---|
-| **Fee-for-Service (FFS)** | State pays providers directly per service, like traditional Medicare. No managed care middleman. | Rare now — mostly rural areas or legacy states | Legacy EDI flows direct to state; no MCO layer |
-| **Managed Care Organization (MCO)** | State contracts with private MCOs (Centene, Molina, Anthem, UHC Community Plan) and pays capitated PMPM. MCO manages the member. | ~75% of all Medicaid members are in MCOs | Your FHIR mandates apply here — CMS-9115-F + CMS-0057-F cover Medicaid MCOs |
-| **Primary Care Case Management (PCCM)** | FFS but PCPs are assigned as gatekeepers and paid a small per-member-per-month care coordination fee | Some rural states as transition model | Hybrid — not full managed care |
-| **1115 Waiver** | CMS grants a state waiver to run a demonstration program with different rules (work requirements, expansion conditions, special populations) | Many states — e.g., Indiana, Arkansas, Tennessee | High regulatory complexity — rules differ significantly from standard Medicaid |
-| **HCBS Waiver (1915c)** | Home- and Community-Based Services — alternative to nursing home placement for elderly/disabled | All states have some form | LTC population, very complex care coordination, FHIR CarePlan is highly relevant |
+| Delivery Model                          | How It Works                                                                                                                                 | States Using It                                  | PM Relevance                                                                     |
+| --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ | -------------------------------------------------------------------------------- |
+| **Fee-for-Service (FFS)**               | State pays providers directly per service, like traditional Medicare. No managed care middleman.                                             | Rare now — mostly rural areas or legacy states   | Legacy EDI flows direct to state; no MCO layer                                   |
+| **Managed Care Organization (MCO)**     | State contracts with private MCOs (Centene, Molina, Anthem, UHC Community Plan) and pays capitated PMPM. MCO manages the member.             | ~75% of all Medicaid members are in MCOs         | Your FHIR mandates apply here — CMS-9115-F + CMS-0057-F cover Medicaid MCOs      |
+| **Primary Care Case Management (PCCM)** | FFS but PCPs are assigned as gatekeepers and paid a small per-member-per-month care coordination fee                                         | Some rural states as transition model            | Hybrid — not full managed care                                                   |
+| **1115 Waiver**                         | CMS grants a state waiver to run a demonstration program with different rules (work requirements, expansion conditions, special populations) | Many states — e.g., Indiana, Arkansas, Tennessee | High regulatory complexity — rules differ significantly from standard Medicaid   |
+| **HCBS Waiver (1915c)**                 | Home- and Community-Based Services — alternative to nursing home placement for elderly/disabled                                              | All states have some form                        | LTC population, very complex care coordination, FHIR CarePlan is highly relevant |
 
 **Why MCO structure matters for your FHIR work**: When CMS-9115-F says "Medicaid payers must expose a Patient Access API," it means the **MCOs** (Centene's Sunshine Health, Molina Healthcare, Anthem's Medicaid plans, etc.) — not the state itself. The state operates the eligibility determination system; the MCO operates the claims and care management. Your Phase 2–7 work would be built and sold to these MCOs, not to state Medicaid agencies directly.
 
 **FMAP (Federal Medical Assistance Percentage)**: CMS reimburses states a percentage of their Medicaid costs. Ranges from 50% (wealthier states like CT, NJ) to ~83% (poorer states like MS, WV). ACA expansion states get a special 90% FMAP for the expansion population — this is what makes expansion financially attractive despite state politics.
 
 ---
+
+
+---
+
+> **SECTION 6 — GAP 4: HEDIS, CAHPS, Care Management & Utilization Management**
 
 # GAP 4 — HEDIS, CAHPS, Care Management, Utilization Management
 
@@ -2421,12 +3310,12 @@ Medicaid is not one program — it is a **collection of state programs** that sh
 
 > **Why it matters**: Care management is how a payer justifies its existence beyond just paying claims. For Medicare Advantage, care management quality directly drives Star Ratings, capitation bonuses, and member retention. Every bucket below has a financial return model behind it.
 
-| Bucket | What It Does | Who Does It | Platform / Tool | Financial Return |
-|---|---|---|---|---|
-| **Utilization Management (UM)** | Prior auth, concurrent review, retrospective review | UM nurses, Medical Directors | eviCore, AIM, InterQual/MCG rules | Prevents medically unnecessary spend |
-| **Case Management (CM)** | Intensive coordination for high-cost complex members | RN Case Managers (1:1 caseloads) | Jiva, Guiding Care, QNXT CM module | Prevents readmissions, reduces catastrophic episodes |
-| **Disease Management (DM)** | Structured programs for chronic conditions | DM coaches, pharmacists, nurses (telephonic) | Hinge Health, Omada, Livongo (now Teladoc) | Improves HEDIS measures, prevents complications |
-| **Population Health** | Risk stratification, proactive outreach, gap closure | Analytics team + care coordinators | Innovaccer, Arcadia, Health Catalyst | Star Ratings improvement, risk adjustment accuracy |
+| Bucket                          | What It Does                                         | Who Does It                                  | Platform / Tool                            | Financial Return                                     |
+| ------------------------------- | ---------------------------------------------------- | -------------------------------------------- | ------------------------------------------ | ---------------------------------------------------- |
+| **Utilization Management (UM)** | Prior auth, concurrent review, retrospective review  | UM nurses, Medical Directors                 | eviCore, AIM, InterQual/MCG rules          | Prevents medically unnecessary spend                 |
+| **Case Management (CM)**        | Intensive coordination for high-cost complex members | RN Case Managers (1:1 caseloads)             | Jiva, Guiding Care, QNXT CM module         | Prevents readmissions, reduces catastrophic episodes |
+| **Disease Management (DM)**     | Structured programs for chronic conditions           | DM coaches, pharmacists, nurses (telephonic) | Hinge Health, Omada, Livongo (now Teladoc) | Improves HEDIS measures, prevents complications      |
+| **Population Health**           | Risk stratification, proactive outreach, gap closure | Analytics team + care coordinators           | Innovaccer, Arcadia, Health Catalyst       | Star Ratings improvement, risk adjustment accuracy   |
 
 ---
 
@@ -2436,11 +3325,11 @@ Medicaid is not one program — it is a **collection of state programs** that sh
 
 **Three review types**:
 
-| Review Type | When It Happens | Who Initiates | Decision |
-|---|---|---|---|
-| **Pre-authorization (Pre-auth)** | Before service is rendered | Provider submits PA request | Approve / Deny / Pend for clinical review |
-| **Concurrent review** | During an inpatient stay (ongoing) | Payer UM nurse reviews daily | Approve continued days / Initiate discharge planning |
-| **Retrospective review** | After service is rendered | Triggered by claim submission | Pay / Deny / Downcode |
+| Review Type                      | When It Happens                    | Who Initiates                 | Decision                                             |
+| -------------------------------- | ---------------------------------- | ----------------------------- | ---------------------------------------------------- |
+| **Pre-authorization (Pre-auth)** | Before service is rendered         | Provider submits PA request   | Approve / Deny / Pend for clinical review            |
+| **Concurrent review**            | During an inpatient stay (ongoing) | Payer UM nurse reviews daily  | Approve continued days / Initiate discharge planning |
+| **Retrospective review**         | After service is rendered          | Triggered by claim submission | Pay / Deny / Downcode                                |
 
 **Medical necessity criteria engines**:
 - **InterQual** (Change Healthcare / Optum): evidence-based criteria sets used for inpatient admission, continued stay, procedure authorization. Widely used by commercial and MA plans.
@@ -2467,12 +3356,12 @@ Medicaid is not one program — it is a **collection of state programs** that sh
 
 **Who gets case management**:
 
-| Trigger | Example | Why CM Activates |
-|---|---|---|
-| **High-cost diagnosis** | Organ transplant, cancer, NICU admission | These cases can run $500K–$2M+ — intensive coordination prevents complications |
-| **Multiple comorbidities** | CHF + CKD + Diabetes + Depression | Fragmented care → preventable hospitalizations |
-| **Frequent ER/inpatient** | 3+ ER visits in 6 months, 2+ hospitalizations/year | "Frequent flier" pattern signals unmanaged condition |
-| **Transition of care** | Discharged from SNF/hospital | 30-day post-discharge window has highest readmission risk |
+| Trigger                        | Example                                                | Why CM Activates                                                                   |
+| ------------------------------ | ------------------------------------------------------ | ---------------------------------------------------------------------------------- |
+| **High-cost diagnosis**        | Organ transplant, cancer, NICU admission               | These cases can run $500K–$2M+ — intensive coordination prevents complications     |
+| **Multiple comorbidities**     | CHF + CKD + Diabetes + Depression                      | Fragmented care → preventable hospitalizations                                     |
+| **Frequent ER/inpatient**      | 3+ ER visits in 6 months, 2+ hospitalizations/year     | "Frequent flier" pattern signals unmanaged condition                               |
+| **Transition of care**         | Discharged from SNF/hospital                           | 30-day post-discharge window has highest readmission risk                          |
 | **Social determinants (SDOH)** | Housing insecurity, food insecurity, no transportation | SDOH drives 30–40% of health outcomes — CM connects members to community resources |
 
 **What a case manager actually does**:
@@ -2495,14 +3384,14 @@ Medicaid is not one program — it is a **collection of state programs** that sh
 
 **Primary target conditions**:
 
-| Condition | Why DM Focus | Typical DM Interventions | HEDIS Measure Connection |
-|---|---|---|---|
-| **Diabetes (Type 2)** | Highest cost chronic condition — $16K+ per member/year | A1C monitoring coaching, foot care education, medication adherence | HbA1c Control (< 8%), Diabetes Eye Exam |
-| **Congestive Heart Failure (CHF)** | #1 cause of hospital readmissions | Daily weight monitoring, medication adherence, sodium restriction education | — |
-| **COPD / Asthma** | Preventable ER visits, medication non-adherence | Inhaler technique, trigger avoidance, action plan | — |
-| **Hypertension** | Silent — poor adherence leads to stroke, CKD | Blood pressure monitoring, medication education | Controlling High Blood Pressure (CBP) |
-| **Depression / Behavioral Health** | Comorbidity amplifier — worsens all other conditions | PHQ-9 screening, therapy referral, medication follow-up | Antidepressant Medication Management |
-| **Obesity** | Root driver of diabetes, CHF, hypertension | Weight loss programs, behavioral coaching | BMI assessment, weight counseling |
+| Condition                          | Why DM Focus                                           | Typical DM Interventions                                                    | HEDIS Measure Connection                |
+| ---------------------------------- | ------------------------------------------------------ | --------------------------------------------------------------------------- | --------------------------------------- |
+| **Diabetes (Type 2)**              | Highest cost chronic condition — $16K+ per member/year | A1C monitoring coaching, foot care education, medication adherence          | HbA1c Control (< 8%), Diabetes Eye Exam |
+| **Congestive Heart Failure (CHF)** | #1 cause of hospital readmissions                      | Daily weight monitoring, medication adherence, sodium restriction education | —                                       |
+| **COPD / Asthma**                  | Preventable ER visits, medication non-adherence        | Inhaler technique, trigger avoidance, action plan                           | —                                       |
+| **Hypertension**                   | Silent — poor adherence leads to stroke, CKD           | Blood pressure monitoring, medication education                             | Controlling High Blood Pressure (CBP)   |
+| **Depression / Behavioral Health** | Comorbidity amplifier — worsens all other conditions   | PHQ-9 screening, therapy referral, medication follow-up                     | Antidepressant Medication Management    |
+| **Obesity**                        | Root driver of diabetes, CHF, hypertension             | Weight loss programs, behavioral coaching                                   | BMI assessment, weight counseling       |
 
 **Digital health integration** (the modern DM landscape):
 - **Livongo (now Teladoc Health)**: connected glucose meters + real-time coaching for diabetes — sends data directly to DM platform
@@ -2603,13 +3492,13 @@ Care Mgmt Savings decomposed:
 
 ### Grievance vs Appeal — The Core Distinction
 
-| | Grievance | Appeal |
-|---|---|---|
-| **What triggers it** | Complaint about experience, service quality, or access | Challenge to a coverage or payment decision |
-| **Examples** | Rude staff, long wait time, provider not returning calls, can't get an appointment | Claim denied, service not authorized, drug not covered, prior auth denied |
-| **Is a clinical decision being reversed?** | No | Yes — you're asking the payer to reverse their determination |
-| **CMS timeline (MA)** | 30 days to resolve | Standard: 30 days / Expedited: 72 hours |
-| **Who reviews** | Member services / quality team | Medical director or independent reviewer |
+|                                            | Grievance                                                                          | Appeal                                                                    |
+| ------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| **What triggers it**                       | Complaint about experience, service quality, or access                             | Challenge to a coverage or payment decision                               |
+| **Examples**                               | Rude staff, long wait time, provider not returning calls, can't get an appointment | Claim denied, service not authorized, drug not covered, prior auth denied |
+| **Is a clinical decision being reversed?** | No                                                                                 | Yes — you're asking the payer to reverse their determination              |
+| **CMS timeline (MA)**                      | 30 days to resolve                                                                 | Standard: 30 days / Expedited: 72 hours                                   |
+| **Who reviews**                            | Member services / quality team                                                     | Medical director or independent reviewer                                  |
 
 ### Grievance Workflow
 
@@ -2658,12 +3547,12 @@ Payer's own medical director reviews
 
 ### Key Timelines (Memorize for MA)
 
-| Type | Standard Decision | Expedited Decision |
-|---|---|---|
-| Prior auth request | 14 days | 72 hours (if delay = risk to health) |
-| Appeal (Level 1) | 30 days | 72 hours |
-| Grievance | 30 days | 24 hours (urgent) |
-| Organization determination | 14 days | 72 hours |
+| Type                       | Standard Decision | Expedited Decision                   |
+| -------------------------- | ----------------- | ------------------------------------ |
+| Prior auth request         | 14 days           | 72 hours (if delay = risk to health) |
+| Appeal (Level 1)           | 30 days           | 72 hours                             |
+| Grievance                  | 30 days           | 24 hours (urgent)                    |
+| Organization determination | 14 days           | 72 hours                             |
 
 **Expedited** = member or provider certifies that standard timeline would seriously jeopardize member's health. Payer must grant expedited review if they agree.
 
@@ -2671,16 +3560,16 @@ Payer's own medical director reviews
 
 ## FHIR Role in 2026 — HEDIS / Care Management / UM
 
-| Function | Legacy | FHIR Role in 2026 | Your Work |
-|---|---|---|---|
-| **Prior authorization (UM)** | Fax, portal, phone | **FHIR PAS (CMS-0057 mandate 2027)** — PA request/response in FHIR | Your Phase 6 PriorAuthAPI |
-| **Coverage determination at point of care** | None (provider had to call) | **CDS Hooks + CRD** — payer rules fire inside EHR at order entry | Your Phase 5 CRDService |
-| **DTR — populate prior auth forms** | Manual fax / PDF forms | **FHIR DTR auto-populates** from EHR data, no manual entry | Your Phase 5 DTR capability |
-| **Population health / care gap closure** | Claims data batch extract | **FHIR Bulk Data ($export)** — payer pulls clinical data at scale | Your Phase 8 BulkDataAPI |
-| **HEDIS ECDS measures** | Claims + hybrid chart pull | **FHIR-based ECDS measures** — structured clinical data directly from EHR via FHIR | Emerging — NCQA roadmap |
-| **Member accesses care management plan** | Paper, phone call | FHIR CarePlan resource via Patient Access API | Your Phase 2 MemberAccessAPI |
-| **Provider gets clinical data for concurrent review** | Phone / fax | FHIR DocumentReference / clinical notes via PDex | Your Phase 7 PDexAPI |
-| **Appeals — clinical evidence submission** | Fax clinical notes | FHIR DocumentReference / DiagnosticReport attached to appeal | Emerging |
+| Function                                              | Legacy                      | FHIR Role in 2026                                                                  | Your Work                    |
+| ----------------------------------------------------- | --------------------------- | ---------------------------------------------------------------------------------- | ---------------------------- |
+| **Prior authorization (UM)**                          | Fax, portal, phone          | **FHIR PAS (CMS-0057 mandate 2027)** — PA request/response in FHIR                 | Your Phase 6 PriorAuthAPI    |
+| **Coverage determination at point of care**           | None (provider had to call) | **CDS Hooks + CRD** — payer rules fire inside EHR at order entry                   | Your Phase 5 CRDService      |
+| **DTR — populate prior auth forms**                   | Manual fax / PDF forms      | **FHIR DTR auto-populates** from EHR data, no manual entry                         | Your Phase 5 DTR capability  |
+| **Population health / care gap closure**              | Claims data batch extract   | **FHIR Bulk Data ($export)** — payer pulls clinical data at scale                  | Your Phase 8 BulkDataAPI     |
+| **HEDIS ECDS measures**                               | Claims + hybrid chart pull  | **FHIR-based ECDS measures** — structured clinical data directly from EHR via FHIR | Emerging — NCQA roadmap      |
+| **Member accesses care management plan**              | Paper, phone call           | FHIR CarePlan resource via Patient Access API                                      | Your Phase 2 MemberAccessAPI |
+| **Provider gets clinical data for concurrent review** | Phone / fax                 | FHIR DocumentReference / clinical notes via PDex                                   | Your Phase 7 PDexAPI         |
+| **Appeals — clinical evidence submission**            | Fax clinical notes          | FHIR DocumentReference / DiagnosticReport attached to appeal                       | Emerging                     |
 
 ### The CRD → DTR → PAS Chain — Your Full UM Workflow
 
@@ -2717,17 +3606,17 @@ With this workflow: real-time or near-real-time, fully within EHR, no separate p
 
 ## AI Role in 2026 — HEDIS / Care Management / UM
 
-| Area | AI Application | Status in 2026 |
-|---|---|---|
-| **Care gap closure** | AI identifies members overdue for preventive care (mammogram, A1c, colorectal screening), auto-generates outreach (phone, SMS, mail) | Active — Arcadia, Innovaccer, Health Catalyst |
-| **Prior auth auto-approval** | ML model predicts approval probability from clinical data — high-confidence cases auto-approved without human review | Active — several MA plans and Medicaid MCOs |
-| **UM denial prediction** | Predicts which prior auth requests are likely to be denied → prompts clinician to add supporting documentation before submission | Active — |
-| **Concurrent review assistance** | AI monitors inpatient stays and flags when clinical criteria for continued stay are no longer met | Active — reduces inappropriate inpatient days |
-| **HEDIS measure tracking** | AI tracks each member's HEDIS measure status in real-time from claims + FHIR clinical data, flags who is at risk of becoming a care gap | Active — major MA plans |
-| **Grievance NLP classification** | NLP classifies incoming member complaints by category and urgency, routes to the right team | Active — reduces triage time |
-| **Appeal letter drafting** | LLM generates clinical appeal letters from medical record data, clinical criteria sources (InterQual), and denial reason | Active — several RCM vendors and startups |
-| **Disease management outreach** | AI generates personalized care plans and outreach messages for CHF, diabetes, COPD members | Active — connects to FHIR Bulk Data + CDS Hooks |
-| **Population risk stratification** | ML scores each member on likelihood of high-cost event (hospitalization, ER), prioritizes case management outreach | Active — your BulkDataAPI enables this |
+| Area                               | AI Application                                                                                                                          | Status in 2026                                  |
+| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
+| **Care gap closure**               | AI identifies members overdue for preventive care (mammogram, A1c, colorectal screening), auto-generates outreach (phone, SMS, mail)    | Active — Arcadia, Innovaccer, Health Catalyst   |
+| **Prior auth auto-approval**       | ML model predicts approval probability from clinical data — high-confidence cases auto-approved without human review                    | Active — several MA plans and Medicaid MCOs     |
+| **UM denial prediction**           | Predicts which prior auth requests are likely to be denied → prompts clinician to add supporting documentation before submission        | Active —                                        |
+| **Concurrent review assistance**   | AI monitors inpatient stays and flags when clinical criteria for continued stay are no longer met                                       | Active — reduces inappropriate inpatient days   |
+| **HEDIS measure tracking**         | AI tracks each member's HEDIS measure status in real-time from claims + FHIR clinical data, flags who is at risk of becoming a care gap | Active — major MA plans                         |
+| **Grievance NLP classification**   | NLP classifies incoming member complaints by category and urgency, routes to the right team                                             | Active — reduces triage time                    |
+| **Appeal letter drafting**         | LLM generates clinical appeal letters from medical record data, clinical criteria sources (InterQual), and denial reason                | Active — several RCM vendors and startups       |
+| **Disease management outreach**    | AI generates personalized care plans and outreach messages for CHF, diabetes, COPD members                                              | Active — connects to FHIR Bulk Data + CDS Hooks |
+| **Population risk stratification** | ML scores each member on likelihood of high-cost event (hospitalization, ER), prioritizes case management outreach                      | Active — your BulkDataAPI enables this          |
 
 **Your differentiator**: When asked about AI in UM, you can say: *"I've implemented the infrastructure layer that makes AI-assisted UM possible — CDS Hooks for real-time decision support at the point of care, PAS for structured prior auth data exchange, and Bulk Data export for population-level analytics. The AI models plug into this infrastructure."*
 
@@ -2761,6 +3650,11 @@ With this workflow: real-time or near-real-time, fully within EHR, no separate p
 
 ---
 
+
+---
+
+> **SECTION 7 — Cross-Cutting: Regulatory Awareness**
+
 # CROSS-CUTTING: Regulatory Awareness (Quick Reference)
 
 The interviewer may test if you understand *why* the FHIR mandates you've built to even exist.
@@ -2783,591 +3677,10 @@ The interviewer may test if you understand *why* the FHIR mandates you've built 
 
 ---
 
-# FOUNDATIONAL CONCEPTS — EDI, FHIR, TEFCA, EOB & Enrollment
 
 ---
 
-## Adjudication — A Ground-Level Explanation
-
-Adjudication is one of those words that sounds complex but describes something very logical. Here is the simplest possible version:
-
-> **Adjudication = the process of deciding whether to pay a claim, how much to pay, and why.**
-
-That's it. Everything else is detail about HOW that decision is made.
-
-### The Analogy
-
-Imagine you submit an expense report at work. Your finance team:
-1. Checks that you're actually an employee (eligibility)
-2. Checks that the expense is within policy (clinical/coding edits)
-3. Checks the amount is reasonable (pricing/fee schedule)
-4. Applies your reimbursement cap (benefit application)
-5. Approves, partially approves, or rejects (adjudication decision)
-6. Sends you the money with a breakdown (remittance/835)
-
-A health insurance claim is exactly this — just with 1,000 policy rules running simultaneously, automated.
-
-### The Five Stages of Adjudication (In Plain English)
-
-```
-Stage 1 — INTAKE
-"Did we receive this claim correctly? Is it a valid format?"
-Clearinghouse already ran format checks; now payer ingests it.
-        ↓
-Stage 2 — ELIGIBILITY
-"Was this member actually covered on the date of service?"
-Payer queries enrollment system. If not active → deny immediately.
-        ↓
-Stage 3 — EDITS (Clinical + Coding)
-"Are the codes valid? Do they make medical sense together?"
-Does ICD-10 diagnosis support the CPT procedure? Is this a covered service?
-National Correct Coding Initiative (NCCI) bundling rules applied.
-        ↓
-Stage 4 — PRICING
-"What is the correct payment amount?"
-Apply contracted fee schedule for this provider.
-For inpatient: use DRG (one flat payment for the whole stay).
-        ↓
-Stage 5 — BENEFIT APPLICATION
-"What does the member owe vs what do we pay?"
-Apply deductible (how much member has left), copay, coinsurance.
-Paid amount = Allowed amount minus member cost-sharing.
-        ↓
-DECISION → Pay / Deny / Pend
-835 remittance sent to provider with decision + CARC codes
-```
-
-### Why "Auto-Adjudication" Is the Goal
-
-All 5 stages above can run **fully automatically for a clean claim** — no human involved. That is auto-adjudication. The target is 85%+ of claims processed this way.
-
-The 15% that fall out go into a **pend queue** — a human reviewer looks at them. This is expensive. The entire IT agenda for payer claims operations is: reduce that 15% by making the rules smarter, the data cleaner, and the edge cases fewer.
-
-### Where Your FHIR Work Connects
-- **Before adjudication**: CRD/DTR/PAS ensures prior auth is in place so claims don't fail at Stage 3
-- **After adjudication**: CARIN BB EOB exposes the adjudicated result to the member via FHIR
-- **During data prep for adjudication**: FHIR Coverage resource ensures eligibility data is accurate for Stage 2
-
----
-
-## EOB — Where Your Workspace Fits in the Claims World
-
-Your Phase 2 EOB work is the **read-only, member-facing display** of a claim that was already adjudicated by a legacy system. It is NOT the claims processing system itself.
-
-```
-837 (Provider submits) → [Adjudication Engine: Facets/QNXT] → 835 (Remittance to Provider)
-                                        ↓
-                              Adjudicated claim data stored
-                                        ↓
-                              FHIR EOB Resource  ← This is what you built in Phase 2
-                                        ↓
-                         Member reads it via CARIN BB Member Access API
-```
-
-**Key distinction**: Your EOB shows the member what happened AFTER adjudication was done by the legacy system. The 837/835 EDI transactions happen completely upstream of your FHIR layer.
-
----
-
-## EDI — What It Is and How It Actually Works
-
-EDI (Electronic Data Interchange) is a **standardized message format** defined by X12 (ANSI-accredited standards body). It is a strict positional/delimited text format — not XML, not JSON, not REST. Completely human-unreadable without a parser.
-
-HIPAA mandated specific X12 versions for each transaction type. Every payer and clearinghouse in the US is legally required to accept them.
-
----
-
-### EDI Syntax — Reading a Raw File
-
-**Three delimiters** control the entire format. They are defined in the ISA header itself (positions 104, 105, 106):
-
-| Delimiter | Character (typical) | Purpose |
-|---|---|---|
-| **Element separator** | `*` (asterisk) | Separates fields within a segment |
-| **Sub-element separator** | `:` (colon) | Separates components within a field |
-| **Segment terminator** | `~` (tilde) | Ends a segment (like a newline) |
-
-These are not fixed characters — the sender defines them in the ISA segment, and the receiver must read them from there. Most implementations use `*`, `:`, `~` but any character can be used.
-
-**Segment structure**:
-```
-SEGMENT_ID * ELEMENT1 * ELEMENT2 * ELEMENT3 ~ 
-```
-Every segment starts with a 2–3 character identifier and ends with `~`.
-
----
-
-### The Three-Layer Envelope Structure
-
-Every X12 EDI file has three nested envelope layers:
-
-```
-ISA ... IEA          ← Interchange Envelope (outermost)
-  GS ... GE          ← Functional Group (groups transactions by type)
-    ST ... SE        ← Transaction Set (the actual document — one 837, one 835, etc.)
-    ST ... SE        ← (another transaction set)
-  GE
-  GS ... GE          ← (another functional group if needed)
-ISA ... IEA
-```
-
-One ISA/IEA file can contain multiple GS/GE groups, each containing multiple ST/SE transaction sets. A batch clearinghouse file may have hundreds of 837 claims in one ISA envelope.
-
----
-
-### ISA Segment — The Interchange Envelope Header
-
-The ISA segment is always exactly 106 characters (fixed-width, not delimited for positions 1–103). It identifies sender, receiver, and the file itself.
-
-```
-ISA*00*          *00*          *ZZ*SENDER123456789*ZZ*RECEIVER12345*260521*1430*^*00501*000000001*0*P*:~
-```
-
-| Position | Field | Example Value | Meaning |
-|---|---|---|---|
-| ISA01 | Auth info qualifier | `00` | No auth info (00 = not used) |
-| ISA02 | Auth info | 10 spaces | Filler when 00 |
-| ISA03 | Security info qualifier | `00` | No security info |
-| ISA04 | Security info | 10 spaces | Filler |
-| ISA05 | Sender ID qualifier | `ZZ` | Mutually defined (most common) |
-| ISA06 | Sender ID | `SENDER123456789` | Sender's ID (15 chars, right-padded) |
-| ISA07 | Receiver ID qualifier | `ZZ` | Mutually defined |
-| ISA08 | Receiver ID | `RECEIVER12345` | Payer or clearinghouse ID |
-| ISA09 | Date | `260521` | YYMMDD — date the file was created |
-| ISA10 | Time | `1430` | HHMM |
-| ISA11 | Repetition separator | `^` | Character used for repeating elements |
-| ISA12 | Version | `00501` | X12 version 5010 |
-| ISA13 | Interchange control number | `000000001` | Unique file ID — must match IEA |
-| ISA14 | Ack requested | `0` | 0=no TA1 requested, 1=TA1 requested |
-| ISA15 | Usage indicator | `P` | P=Production, T=Test |
-| ISA16 | Sub-element separator | `:` | Defines the sub-element delimiter |
-
-**IEA** closes the envelope:
-```
-IEA*1*000000001~
-```
-- IEA01 = number of functional groups in this interchange (must match actual count)
-- IEA02 = must match ISA13
-
----
-
-### GS/GE — Functional Group
-
-Groups transactions of the same type. One GS/GE per transaction type per file (or multiple if different versions).
-
-```
-GS*HC*SENDERID*RECEIVERID*20260521*1430*1*X*005010X222A2~
-```
-
-| Field | Example | Meaning |
-|---|---|---|
-| GS01 | `HC` | Functional ID — HC = Health Care Claim (837) |
-| GS02 | `SENDERID` | Application sender ID |
-| GS03 | `RECEIVERID` | Application receiver ID |
-| GS04 | `20260521` | Date — CCYYMMDD |
-| GS05 | `1430` | Time — HHMM |
-| GS06 | `1` | Group control number |
-| GS07 | `X` | Responsible agency — X = ANSI X12 |
-| GS08 | `005010X222A2` | Version/release + implementation guide ID |
-
-**Common GS01 functional IDs**:
-
-| GS01 | Transaction Type |
-|---|---|
-| `HC` | Health Care Claim (837) |
-| `HB` | Health Care Eligibility (270/271) |
-| `HR` | Health Care Claim Payment (835) |
-| `BE` | Benefit Enrollment (834) |
-| `FA` | Functional Acknowledgement (999) |
-
-**GE** closes the group:
-```
-GE*1*1~
-```
-GE01 = number of transaction sets, GE02 = must match GS06.
-
----
-
-### ST/SE — Transaction Set
-
-The actual document. Starts with ST, ends with SE.
-
-```
-ST*837*0001*005010X222A2~
-...claim data...
-SE*47*0001~
-```
-
-| Field | Example | Meaning |
-|---|---|---|
-| ST01 | `837` | Transaction set identifier code |
-| ST02 | `0001` | Transaction set control number (unique within group) |
-| ST03 | `005010X222A2` | Implementation guide version |
-
-SE01 = number of segments in the transaction set (including ST and SE)  
-SE02 = must match ST02
-
-**Transaction set IDs**:
-
-| ST01 | Document |
-|---|---|
-| `837` | Health Care Claim |
-| `835` | Health Care Claim Payment/Advice |
-| `270` | Eligibility/Benefit Inquiry |
-| `271` | Eligibility/Benefit Response |
-| `834` | Benefit Enrollment |
-| `276` | Claim Status Request |
-| `277` | Claim Status Response |
-| `999` | Implementation Acknowledgement |
-
----
-
-### Loops — How EDI Organizes Repeating Data
-
-EDI uses **loops** to group related segments that repeat. A loop is just a named group of segments — it has no opening/closing tag (unlike XML). You know a loop starts when you see its first segment appear.
-
-**837 loop structure (simplified)**:
-
-```
-ST*837...                          ← Transaction start
-BHT*...                            ← Beginning of Hierarchical Transaction
-  Loop 1000A — Submitter
-    NM1*41*...                     ← Submitter name (provider billing system)
-    PER*IC*...                     ← Contact info
-  Loop 1000B — Receiver
-    NM1*40*...                     ← Receiver name (payer)
-  Loop 2000A — Billing Provider Hierarchical Level
-    HL*1**20*1~                    ← Hierarchical Level
-    PRV*BI*PXC*207Q00000X~         ← Provider info
-    Loop 2010AA — Billing Provider Name
-      NM1*85*2*GENERAL HOSPITAL*...*XX*1234567890~
-      N3*123 MAIN ST~
-      N4*BOSTON*MA*02101~
-      REF*EI*123456789~            ← Tax ID
-  Loop 2000B — Subscriber Hierarchical Level
-    HL*2*1*22*1~
-    SBR*P*18*...                   ← Subscriber info (P=primary)
-    Loop 2010BA — Subscriber Name
-      NM1*IL*1*SMITH*JOHN***MI*ABC123456~   ← Member ID
-      N3, N4...                    ← Address
-    Loop 2010BB — Payer Name
-      NM1*PR*2*AETNA...            ← Payer
-  Loop 2000C — Patient Hierarchical Level (if different from subscriber)
-    HL*3*2*23*0~
-    PAT*19~                        ← Patient relationship code
-  Loop 2300 — Claim Information
-    CLM*CLAIM001*1500.00**11:B:1*Y*A*Y*I~   ← Claim details
-    DTP*434*RD8*20260515-20260515~  ← Service date
-    REF*EA*AUTH12345~               ← Prior auth number
-    HI*ABK:Z8711~                   ← Diagnosis codes (ICD-10)
-    Loop 2310B — Rendering Provider
-      NM1*82*1*JONES*MARY***XX*9876543210~
-    Loop 2400 — Service Line
-      LX*1~                         ← Line counter
-      SV1*HC:99213*150.00*UN*1***1~ ← Procedure (CPT 99213), $150, 1 unit
-      DTP*472*D8*20260515~          ← Service date
-      Loop 2430 — Line Adjudication (if secondary)
-SE*47*0001~
-```
-
----
-
-### Key Segments — 837 Professional (837P)
-
-| Segment | Purpose | Key Fields |
-|---|---|---|
-| **BHT** | Beginning of Hierarchical Transaction | BHT06: 00 (original claim) or 18 (resubmission) |
-| **NM1** | Name | NM101: entity code; NM108: ID qualifier; NM109: ID |
-| **HL** | Hierarchical Level | HL03: level code (20=billing, 22=subscriber, 23=patient) |
-| **SBR** | Subscriber Info | SBR01: P=primary, S=secondary; SBR09: claim filing indicator |
-| **CLM** | Claim Information | CLM01: claim ID; CLM02: total billed amount; CLM05: place of service; CLM11: release of info |
-| **DTP** | Date/Time | DTP01: qualifier (434=service, 431=onset); DTP02: format; DTP03: date |
-| **HI** | Health Care Information Codes | HI01-1: code qualifier (ABK=principal ICD-10); HI01-2: diagnosis code |
-| **SV1** | Professional Service | SV101: CPT/HCPCS code; SV102: charge amount; SV104: units |
-| **REF** | Reference ID | REF01: qualifier (EA=auth number, 9F=referral, D9=claim number) |
-| **PRV** | Provider Info | PRV01: role (BI=billing, RF=referring, PE=performing); PRV03: taxonomy code |
-| **NM1 *85*** | Billing Provider | Entity code 85 |
-| **NM1 *82*** | Rendering Provider | Entity code 82 |
-| **NM1 *IL*** | Insured/Subscriber | Entity code IL |
-| **NM1 *PR*** | Payer | Entity code PR |
-
----
-
-### Key Segments — 835 Remittance
-
-```
-ST*835*0001*005010X221A1~
-BPR*I*1250.00*C*ACH*CCP*01*021000021*DA*123456789*...*20260522~
-TRN*1*835000001*1234567890~
-  Loop 1000A — Payer
-    N1*PR*AETNA HEALTH PLANS~
-  Loop 1000B — Payee (Provider)
-    N1*PE*GENERAL HOSPITAL*XX*1234567890~
-  Loop 2000 — Header Number (one per claim)
-    LX*1~
-    Loop 2100 — Claim Payment Info
-      CLP*CLAIM001*1*1500.00*1250.00*0*MC*PAY12345**11~
-      NM1*QC*1*SMITH*JOHN~        ← Patient name
-      NM1*74*1*JONES*MARY~        ← Corrected patient name (if applicable)
-      Loop 2110 — Service Payment Info
-        SVC*HC:99213*150.00*130.00*1~    ← CPT, billed, paid, units
-        DTM*472*20260515~                ← Service date
-        CAS*CO*42*20.00~                 ← Adjustment: contractual (CO), reason 42, $20
-        CAS*PR*1*5.00~                   ← Patient responsibility (PR), deductible
-SE*28*0001~
-```
-
-| Segment | Purpose | Key Fields |
-|---|---|---|
-| **BPR** | Financial Information | BPR02: payment amount; BPR04: payment method (ACH/CHK); BPR16: payment date |
-| **TRN** | Trace Number | TRN02: check/EFT number; TRN03: payer ID |
-| **CLP** | Claim Payment | CLP01: claim ID from 837; CLP02: status (1=paid, 2=adjusted, 3=denied, 4=denied); CLP03: billed; CLP04: paid; CLP08: payer claim number |
-| **SVC** | Service Payment | SVC01: CPT code; SVC02: billed; SVC03: paid; SVC04: units |
-| **CAS** | Claim Adjustment | CAS01: group code; CAS02: CARC (reason code); CAS03: adjustment amount |
-| **DTM** | Date | DTM01: qualifier (472=service date, 050=received date) |
-
-**CAS adjustment group codes** (critical for denial management):
-
-| Group Code | Meaning | Who "Owns" This Adjustment |
-|---|---|---|
-| **CO** | Contractual Obligation | Payer adjusts per contract — provider cannot bill member |
-| **PR** | Patient Responsibility | Member owes this (deductible, copay, coinsurance) |
-| **OA** | Other Adjustment | Catch-all (COB adjustments, capitation adjustments) |
-| **PI** | Payer Initiated | Payer error correction |
-| **CR** | Correction/Reversal | Used in adjustment transactions |
-
----
-
-### Reading a Real Denial on an 835
-
-```
-CLP*CLAIM001*2*1500.00*0.00*0.00*MC*PAYERCLM456**11~
-CAS*CO*4*1500.00~
-```
-
-Translation:
-- `CLP02 = 2` → claim status = **denied**
-- `CLP03 = 1500.00` → billed amount
-- `CLP04 = 0.00` → paid amount (nothing)
-- `CAS*CO*4*1500.00` → Contractual adjustment, **CARC 4** ("Service not covered by plan"), $1,500 adjusted — provider cannot bill member for this
-
-```
-CLP*CLAIM002*1*500.00*400.00*100.00*MC*PAYERCLM789**11~
-CAS*CO*42*100.00~
-CAS*PR*1*75.00~
-CAS*PR*2*25.00~
-```
-
-Translation:
-- `CLP02 = 1` → paid
-- Billed $500, paid $400, patient responsibility $100
-- `CO*42` → contractual write-off (not medically necessary per contract — $100)
-- `PR*1` → patient deductible ($75)
-- `PR*2` → patient coinsurance ($25)
-
----
-
-### 999 — Acknowledgement Transaction
-
-The 999 (formerly 997) is how the payer/clearinghouse acknowledges receipt and format validity:
-
-```
-ST*999*0001~
-AK1*HC*1~            ← Functional group ack: HC (claim), GS06 control number
-AK2*837*0001~        ← Transaction set ack: 837, ST02 control number
-AK5*A~               ← Transaction set accepted (A=Accepted, R=Rejected, E=Accepted with errors)
-AK9*A*1*1*1~         ← Group accepted: 1 received, 1 accepted, 1 included
-SE*6*0001~
-```
-
-AK5 values: **A** = Accepted, **E** = Accepted with errors, **R** = Rejected — **R** means the entire transaction set was rejected and must be resubmitted. This is distinct from a claim denial — a 999 rejection means the EDI format was wrong, not that the claim was denied on clinical/coverage grounds.
-
----
-
-### Common EDI Gotchas (Real-World PM Knowledge)
-
-| Issue | What Happens | How to Fix |
-|---|---|---|
-| **Wrong ISA15** | File sent with T (test) flag to production | Payer ignores the file — nothing is processed |
-| **ISA13 not unique** | Duplicate interchange control number | Payer may reject as duplicate file |
-| **Loop out of order** | Segments in wrong sequence | 999 R (rejected) — must fix and resubmit |
-| **Companion guide violation** | Optional field payer requires is missing | 999 E (accepted with errors) or claim pends |
-| **NPI not in payer system** | Rendering provider NPI unknown to payer | Claim denied — "provider not credentialed" |
-| **Stale auth number in REF*EA** | Auth expired, claim submitted after auth end date | Medical necessity denial |
-| **Wrong place of service code** | CLM05 says 11 (office) but should be 22 (outpatient hospital) | Claim denied — wrong benefit category applied |
-| **Diagnosis pointer mismatch** | SV1 diagnosis pointer references HI position that doesn't exist | Claim rejected or pended |
-
----
-
-### Is EDI Truly Interoperable?
-
-**Technically yes. Practically messy.** The standard exists, but:
-
-- Every payer publishes a **companion guide** — their own rules layered ON TOP of the standard. Aetna's requirements differ from UnitedHealth's.
-- Payers use optional loops/segments differently
-- This is why **clearinghouses exist** — they sit in the middle and handle translation
-
-```
-Provider Billing System
-        ↓ sends ONE format
-   CLEARINGHOUSE (Change Healthcare, Availity, Waystar)
-        ↓ translates, validates, routes per payer companion guide
-   Payer A       Payer B       Payer C
-```
-
-Without clearinghouses, every provider would need a custom connection to every payer.
-
-### Where Clearinghouses Are (and Aren't) Involved
-
-| Transaction | Clearinghouse? |
-|---|---|
-| 837 Claim submission | Almost always — high volume, complex routing |
-| 835 Remittance | Sometimes direct, sometimes via clearinghouse |
-| 270/271 Eligibility | Often DIRECT and real-time — no clearinghouse |
-| 834 Enrollment | Often DIRECT from employer/sponsor to payer |
-
----
-
-## EDI vs FHIR — They Are NOT Competing, They Are Complementary
-
-Companies are absolutely still running RCM on traditional EDI workflows and are NOT using FHIR for RCM transactions. This is correct. They solve different problems.
-
-| Function | EDI | FHIR |
-|---|---|---|
-| Claim submission | 837 ✅ | Not used |
-| Remittance / payment | 835 ✅ | Not used |
-| Enrollment | 834 ✅ | Not used |
-| Eligibility inquiry | 270/271 ✅ | Coverage resource (emerging) |
-| Prior auth | Was fax/portal | ✅ PAS — actively replacing (CMS-0057) |
-| Member viewing claims | ❌ Can't do this | ✅ EOB via CARIN BB |
-| Payer-to-payer exchange | ❌ No standard | ✅ PDex |
-| Provider directory | ❌ | ✅ Plan-Net |
-| Clinical notes, labs, history | ❌ | ✅ Condition, Observation, DiagnosticReport |
-
-### The Mental Model
-
-> **EDI = the plumbing inside the walls. FHIR = the smart display panel on the wall. You don't rip out the plumbing to add a smart display. They coexist.**
-
-EDI answers: *"What did the provider bill, what did the payer pay, who is enrolled?"*
-FHIR answers: *"What is the member's clinical history, what needs prior auth, what does the formulary cover?"*
-
-**Payers today run BOTH**: a legacy adjudication system (Facets/QNXT) processing EDI all day, with a FHIR server on top feeding the CMS-mandated APIs.
-
-> **Which CMS-mandated APIs specifically?** There are four — all required under CMS-9115-F (2020) and CMS-0057-F (2024):
-> 1. **Patient Access API** — members can pull their own claims, clinical data, and formulary via FHIR. Implemented in your Phase 2 (MemberAccessAPI). Mandatory since July 2021.
-> 2. **Provider Directory API** — providers can query network data (who's in-network, locations, specialties) via FHIR. Your Phase 3 (ProviderDirectoryAPI). Mandatory since July 2021.
-> 3. **Payer-to-Payer API** — when a member switches payers, the old payer must send 5 years of clinical + claims data to the new payer in FHIR. Your Phase 7 (PDexAPI). Mandatory since January 2022.
-> 4. **Prior Authorization API** (CMS-0057-F) — FHIR-based prior auth: CRD + DTR + PAS. Your Phase 5 + Phase 6. Mandatory for MA, Medicaid MCOs, QHP by January 2027.
->
-> The legacy Facets/QNXT system adjudicates claims and stores member data. A FHIR server (HAPI FHIR, Smile CDR, Azure FHIR) sits alongside it, pulls data from the legacy DB, and exposes it through these four APIs. That is literally the architecture of your Phase 1-8 workspace.
-
-The **one area where FHIR is actively replacing EDI** is prior authorization — fax/portal replaced by PAS. That's exactly your Phase 6 work and the CMS-0057 mandate.
-
----
-
-## Where TEFCA Sits
-
-TEFCA is a completely different layer from both EDI and FHIR APIs. It is the **national governance and trust framework** — the rules of the road for who can exchange data with whom.
-
-```
-                    ┌─────────────────────────────────────┐
-                    │              TEFCA                   │
-                    │  "Who is allowed to ask for data     │
-                    │   from whom, and under what rules"   │
-                    └──────────────┬──────────────────────┘
-                                   │ Governs exchange across networks
-                    ┌──────────────▼──────────────────────┐
-                    │  QHINs (Qualified Health Information │
-                    │  Networks)                           │
-                    │  CommonWell, eHealth Exchange,       │
-                    │  Carequality, Kno2, KONZA etc.       │
-                    └──────────────┬──────────────────────┘
-                                   │ Networks use multiple protocols
-               ┌───────────────────┼───────────────────┐
-               ▼                   ▼                   ▼
-          HL7 FHIR             HL7 v2 / CDA         Direct
-       (CMS APIs, PDex,      (traditional           Messaging
-        CARIN BB)             EHR exchange)
-```
-
-- TEFCA doesn't replace EDI or FHIR — it governs **which organizations can exchange data with which others**
-- **Permitted use cases**: Treatment, Payment, Healthcare Operations, Individual Access, Public Health, Benefits Determination
-- **"Benefits Determination"** use case — this is where payers fit. A payer can query a QHIN for a member's clinical data to support care management or prior authorization
-- Before TEFCA, payers had to fax or manually request medical records. With TEFCA + FHIR, payer queries QHIN → routes to provider EHR → clinical data flows back
-- Your `TEFCA-Knowledge` repo is directly relevant here
-
----
-
-## The Complete Four-Layer Picture
-
-```
-LAYER 1 — TRANSACTION (EDI)
-  Claims, eligibility, enrollment, remittance
-  Governs payer ↔ provider financial transactions
-  HIPAA mandated. Will not be replaced.
-
-LAYER 2 — ACCESS (FHIR APIs)
-  Member views data, payer-to-payer exchange,
-  prior auth, provider directory, formulary
-  CMS mandated. Growing rapidly.
-  Your entire workspace lives here.
-
-LAYER 3 — NETWORK (TEFCA/QHINs)
-  National trust fabric for clinical data exchange
-  ONC mandated. Connects everyone to everyone.
-  Uses FHIR as the query language underneath.
-  Your TEFCA-Knowledge repo lives here.
-
-LAYER 4 — INTELLIGENCE (AI)
-  MCP servers querying FHIR, mapping agents,
-  risk stratification, care gap identification
-  Your differentiator — fhir-mcp-suite, fhir-mapping-agent
-```
-
----
-
-## Enrollment — The Full Landscape (Not Just Employers)
-
-**834 EDI is specifically a group/employer transaction.** Individual market, Medicare, and Medicaid each have their own enrollment mechanisms.
-
-### Three Distinct Roles in Group Insurance
-
-```
-EMPLOYER (Sponsor)      PAYER (Insurer)       MEMBER (Beneficiary)
-──────────────────      ───────────────       ──────────────────
-TCS, a hospital,        UnitedHealth,         Employee + dependents
-a union,                Aetna, BCBS,
-a government agency     Cigna, Humana
-        │                     │
-        └──── 834 EDI ────────►│
-```
-
-### When There Is No Employer
-
-| Who You Are | Who Sponsors | Enrollment Mechanism |
-|---|---|---|
-| Employee at a company | Employer | 834 EDI from employer to payer |
-| Self-employed | Yourself | ACA Marketplace or direct to payer |
-| Retired, under 65 | Yourself / COBRA | ACA Marketplace or direct to payer |
-| Retired, 65+ Medicare FFS | CMS | CMS direct enrollment |
-| Retired, 65+ Medicare Advantage | CMS pays, private plan delivers | CMS **MMR/TRR files** to MA plan — NOT an 834 |
-| Low income — Medicaid | State government | State enrollment system to MCO |
-| Child — CHIP | State government | State enrollment system |
-
-**Key point**: When interviewers say "834 enrollment" they are talking about the **large group employer market** — the biggest volume for commercial insurers. Medicare Advantage uses CMS-specific **Monthly Membership Reports (MMR)** and **Transaction Reply Reports (TRR)** — a completely separate operational domain.
-
-**Also note**: CMS is both a **regulator** AND a **payer** (Medicare FFS, Medicaid co-funder). A company registered with CMS as an MA plan is a **payer/insurer**, not an employer. A large hospital system can be BOTH — employer (buys coverage for its own staff) AND provider (delivers care).
-
-### Interview-Ready Answer on Enrollment
-
-*"The 834 enrollment transaction flows from the plan sponsor — typically an employer, a marketplace, or a government agency — to the payer. But 834 is specific to the group/commercial market. Medicare Advantage uses CMS-specific MMR/TRR files, and Medicaid enrollment flows through state systems. Each channel has its own mechanism, though they all ultimately result in the same thing: a member record in the payer's system that providers verify via 270/271 eligibility checks."*
-
----
-
-## Interview-Ready Answer on EDI vs FHIR vs TEFCA
-
-*"EDI handles the financial transactions — 837 for claim submission, 835 for remittance, 834 for enrollment. These are HIPAA-mandated, batch-oriented B2B transactions that run through clearinghouses. They're not going away. FHIR operates at a completely different layer — real-time APIs for member data access, clinical data exchange, and now prior authorization via CMS-0057. The gap EDI never solved was payer-to-payer clinical exchange and member-facing access — that's what CMS mandates and Da Vinci IGs fill. TEFCA sits above both as the national trust network governing who can exchange data with whom. A payer today runs all of these: a core admin system processing EDI all day, a FHIR server on top for CMS-mandated APIs, and TEFCA connectivity for nationwide clinical data queries."*
-
----
+> **SECTION 8 — Technical Architecture & Systems (PM Deep Dive)**
 
 # TECHNICAL ARCHITECTURE & SYSTEMS — PM Deep Dive
 
@@ -3428,12 +3741,12 @@ CRD Service (your Phase 5 CRDService)
 
 ### The Four Engines You Will Encounter
 
-| Engine | Type | Who Owns It | Open Source? | FHIR-Native? | Typical Payer Use |
-|---|---|---|---|---|---|
-| **Drools** | General-purpose BRMS | Red Hat / JBoss | ✅ Yes | ❌ No | Benefit rules, CRD cache, coding edits |
-| **IBM ODM** | Enterprise BRMS | IBM | ❌ No (licensed) | ❌ No | PA criteria, compliance rules, complex benefit config |
-| **Optum ClaimCheck / CES** | Clinical editing product | Optum (UHG) | ❌ No (licensed) | ❌ No | Claims editing — NCCI, MUE, LCD/NCD |
-| **CQL** | Clinical query language | HL7 (standard) | ✅ Yes | ✅ Yes | CRD/CDS Hooks rules, quality measures, clinical criteria |
+| Engine                     | Type                     | Who Owns It     | Open Source?    | FHIR-Native? | Typical Payer Use                                        |
+| -------------------------- | ------------------------ | --------------- | --------------- | ------------ | -------------------------------------------------------- |
+| **Drools**                 | General-purpose BRMS     | Red Hat / JBoss | ✅ Yes           | ❌ No         | Benefit rules, CRD cache, coding edits                   |
+| **IBM ODM**                | Enterprise BRMS          | IBM             | ❌ No (licensed) | ❌ No         | PA criteria, compliance rules, complex benefit config    |
+| **Optum ClaimCheck / CES** | Clinical editing product | Optum (UHG)     | ❌ No (licensed) | ❌ No         | Claims editing — NCCI, MUE, LCD/NCD                      |
+| **CQL**                    | Clinical query language  | HL7 (standard)  | ✅ Yes           | ✅ Yes        | CRD/CDS Hooks rules, quality measures, clinical criteria |
 
 ---
 
@@ -3526,12 +3839,12 @@ end
 
 **Rule authoring formats** (business users choose):
 
-| Format | Best For | Looks Like |
-|---|---|---|
-| **Decision Table** | PA criteria matrices ("if diagnosis + procedure + plan type → PA required") | Excel spreadsheet |
-| **Decision Tree** | Step-by-step branching logic | Flowchart |
-| **Rule Flow** | Orchestrating multiple rule sets in sequence | Process diagram |
-| **BAL (Business Action Language)** | Complex conditions, readable English-like syntax | "If the member's age is greater than 65 and the service code is on the PA list then set PA required to true" |
+| Format                             | Best For                                                                    | Looks Like                                                                                                   |
+| ---------------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| **Decision Table**                 | PA criteria matrices ("if diagnosis + procedure + plan type → PA required") | Excel spreadsheet                                                                                            |
+| **Decision Tree**                  | Step-by-step branching logic                                                | Flowchart                                                                                                    |
+| **Rule Flow**                      | Orchestrating multiple rule sets in sequence                                | Process diagram                                                                                              |
+| **BAL (Business Action Language)** | Complex conditions, readable English-like syntax                            | "If the member's age is greater than 65 and the service code is on the PA list then set PA required to true" |
 
 **BOM (Business Object Model)**: ODM requires a formal object model — a structured definition of every fact the rules can reference (Member, Claim, BenefitPlan, ServiceRequest). The BOM bridges the Java/technical object model and the business-readable vocabulary used in Decision Center.
 
@@ -3556,14 +3869,14 @@ end
 
 **What it contains** (the actual content):
 
-| Edit Type | What It Does | Source |
-|---|---|---|
-| **NCCI (National Correct Coding Initiative)** | Prevents billing of procedure pairs that should not be billed together (e.g., unbundling) | CMS — updates quarterly |
-| **MUE (Medically Unlikely Edits)** | Caps units per claim line (e.g., max 2 units for a bilateral procedure) | CMS |
-| **LCD (Local Coverage Determinations)** | Medicare contractor coverage policies by geographic region | MACs (Medicare Administrative Contractors) |
-| **NCD (National Coverage Determinations)** | CMS-level national coverage policies | CMS |
-| **Optum proprietary edits** | Additional clinical edits developed by Optum's clinical team | Optum |
-| **Payer-specific custom edits** | Each payer can add their own custom edits on top | Payer IT |
+| Edit Type                                     | What It Does                                                                              | Source                                     |
+| --------------------------------------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------ |
+| **NCCI (National Correct Coding Initiative)** | Prevents billing of procedure pairs that should not be billed together (e.g., unbundling) | CMS — updates quarterly                    |
+| **MUE (Medically Unlikely Edits)**            | Caps units per claim line (e.g., max 2 units for a bilateral procedure)                   | CMS                                        |
+| **LCD (Local Coverage Determinations)**       | Medicare contractor coverage policies by geographic region                                | MACs (Medicare Administrative Contractors) |
+| **NCD (National Coverage Determinations)**    | CMS-level national coverage policies                                                      | CMS                                        |
+| **Optum proprietary edits**                   | Additional clinical edits developed by Optum's clinical team                              | Optum                                      |
+| **Payer-specific custom edits**               | Each payer can add their own custom edits on top                                          | Payer IT                                   |
 
 **How it plugs into the adjudication pipeline**:
 
@@ -3627,14 +3940,14 @@ define "PARequired":
 
 **How CQL differs from Drools / ODM**:
 
-| Dimension | Drools | IBM ODM | CQL |
-|---|---|---|---|
-| **Data model** | Java objects | BOM (custom) | FHIR resources (native) |
-| **Execution trigger** | Java API call | REST API call | CDS Hooks / FHIR $evaluate |
-| **Author** | Java developer | Business analyst (Decision Center) | Clinical informaticist |
-| **Use case** | General business rules | Enterprise governance | Clinical criteria, quality measures |
-| **Interoperability** | Payer-specific | Payer-specific | Shareable across payers (standard) |
-| **CMS/ONC relevance** | Low | Low | **High** — CMS requires CQL for quality reporting |
+| Dimension             | Drools                 | IBM ODM                            | CQL                                               |
+| --------------------- | ---------------------- | ---------------------------------- | ------------------------------------------------- |
+| **Data model**        | Java objects           | BOM (custom)                       | FHIR resources (native)                           |
+| **Execution trigger** | Java API call          | REST API call                      | CDS Hooks / FHIR $evaluate                        |
+| **Author**            | Java developer         | Business analyst (Decision Center) | Clinical informaticist                            |
+| **Use case**          | General business rules | Enterprise governance              | Clinical criteria, quality measures               |
+| **Interoperability**  | Payer-specific         | Payer-specific                     | Shareable across payers (standard)                |
+| **CMS/ONC relevance** | Low                    | Low                                | **High** — CMS requires CQL for quality reporting |
 
 **CQL execution engines**: CQL is a language spec — you need an execution engine. Common engines:
 - **CQL Engine (open source)** — reference implementation from HL7
@@ -3647,20 +3960,20 @@ define "PARequired":
 
 ### Comparison Table — All Four Side by Side
 
-| Dimension | Drools | IBM ODM | Optum ClaimCheck | CQL |
-|---|---|---|---|---|
-| **Category** | General BRMS | Enterprise BRMS | Clinical editing product | Clinical rules language |
-| **Cost** | Free / open source | $$$$ licensed | $$ per claim volume | Free (standard) |
-| **Who authors rules** | Java developer | Business analyst | Optum + payer config | Clinical informaticist |
-| **FHIR-native** | No | No | No | Yes |
-| **Business user UI** | No (KIE Workbench — technical) | Yes (Decision Center) | Configuration UI | No |
-| **Audit trail** | Manual / custom | Built-in (Decision Center) | Optum-managed | Depends on engine |
-| **Update cycle** | Developer sprint | Business analyst + approval | Quarterly (NCCI/MUE) | Library versioning |
-| **Governance** | Weak (code-based) | Strong (built-in workflow) | Vendor-managed | Version-controlled |
-| **Horizontal scaling** | Yes (stateless KIE Server) | Yes (Decision Server) | Yes (API-based) | Yes |
-| **CMS compliance use** | Internal only | Internal only | CCI/NCCI edits | Quality measures, CRD |
-| **Payer adoption** | Very High | High (large Blues, nationals) | Very High | Growing (Da Vinci mandate) |
-| **Typical location in stack** | CRD cache, benefit rules | PA criteria, compliance | Pre-adjudication editing | CDS Hooks, quality |
+| Dimension                     | Drools                         | IBM ODM                       | Optum ClaimCheck         | CQL                        |
+| ----------------------------- | ------------------------------ | ----------------------------- | ------------------------ | -------------------------- |
+| **Category**                  | General BRMS                   | Enterprise BRMS               | Clinical editing product | Clinical rules language    |
+| **Cost**                      | Free / open source             | $$$$ licensed                 | $$ per claim volume      | Free (standard)            |
+| **Who authors rules**         | Java developer                 | Business analyst              | Optum + payer config     | Clinical informaticist     |
+| **FHIR-native**               | No                             | No                            | No                       | Yes                        |
+| **Business user UI**          | No (KIE Workbench — technical) | Yes (Decision Center)         | Configuration UI         | No                         |
+| **Audit trail**               | Manual / custom                | Built-in (Decision Center)    | Optum-managed            | Depends on engine          |
+| **Update cycle**              | Developer sprint               | Business analyst + approval   | Quarterly (NCCI/MUE)     | Library versioning         |
+| **Governance**                | Weak (code-based)              | Strong (built-in workflow)    | Vendor-managed           | Version-controlled         |
+| **Horizontal scaling**        | Yes (stateless KIE Server)     | Yes (Decision Server)         | Yes (API-based)          | Yes                        |
+| **CMS compliance use**        | Internal only                  | Internal only                 | CCI/NCCI edits           | Quality measures, CRD      |
+| **Payer adoption**            | Very High                      | High (large Blues, nationals) | Very High                | Growing (Da Vinci mandate) |
+| **Typical location in stack** | CRD cache, benefit rules       | PA criteria, compliance       | Pre-adjudication editing | CDS Hooks, quality         |
 
 ---
 
@@ -3682,13 +3995,13 @@ Coverage rule = a microservice with versioned configuration
 
 **Trade-offs**:
 
-| Dimension | Drools / ODM | Microservice + Config |
-|---|---|---|
-| Business user authorship | ODM yes, Drools no | No |
-| Change velocity | ODM fast, Drools slow | Fast (config change or feature flag) |
-| Regulatory audit trail | ODM excellent, Drools manual | Depends on logging discipline |
-| Complexity at scale | High (rule chain debugging) | High (distributed logic, no single view) |
-| CMS interoperability | Low | Low unless CQL adapter is added |
+| Dimension                | Drools / ODM                 | Microservice + Config                    |
+| ------------------------ | ---------------------------- | ---------------------------------------- |
+| Business user authorship | ODM yes, Drools no           | No                                       |
+| Change velocity          | ODM fast, Drools slow        | Fast (config change or feature flag)     |
+| Regulatory audit trail   | ODM excellent, Drools manual | Depends on logging discipline            |
+| Complexity at scale      | High (rule chain debugging)  | High (distributed logic, no single view) |
+| CMS interoperability     | Low                          | Low unless CQL adapter is added          |
 
 **PM implication**: Greenfield payers move faster on rule changes but often struggle to document which rules apply to which claims for audit purposes — a gap that becomes critical when CMS conducts a program integrity audit.
 
@@ -3789,16 +4102,16 @@ MuleSoft also handles **EDI ↔ FHIR translation** — takes 270/271 EDI and tra
 
 This is the correct nuance to have: the MuleSoft/Facets facade is NOT the only pattern, and it won't be the pattern for new builds.
 
-| Dimension | Legacy Payer (Modernization) | New / Greenfield Payer |
-|---|---|---|
-| **Starting point** | Facets/QNXT already running, can't stop | Blank slate |
-| **FHIR strategy** | Facade layer — MuleSoft translates, HAPI FHIR or Azure FHIR sits in front | FHIR-native from day one — HealthEdge, Innovaccer, or custom microservices |
-| **EDI processing** | Legacy CAPS still adjudicates; EDI goes to Facets as always | Modern cloud-native adjudication engine with EDI adapter (not the core) |
-| **Typical timeline** | 5–10 years of incremental modernization | 18–36 months for full launch |
-| **Example companies** | UnitedHealth, Aetna, BCBS plans | Bright Health (before collapse), Oscar Health, Devoted Health, Clover Health |
-| **Main risk** | Change management, data migration, keeping the legacy running | Scalability at volume, regulatory approvals, provider network build |
-| **API Gateway** | MuleSoft / Apigee as mandatory middleware | May be built natively — AWS API Gateway, Azure APIM, or service mesh (Istio) |
-| **Adjudication engine** | Facets/QNXT — monolith, on-premise or hosted | HealthEdge HealthRules, cloud-native microservices, or custom-built |
+| Dimension               | Legacy Payer (Modernization)                                              | New / Greenfield Payer                                                       |
+| ----------------------- | ------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| **Starting point**      | Facets/QNXT already running, can't stop                                   | Blank slate                                                                  |
+| **FHIR strategy**       | Facade layer — MuleSoft translates, HAPI FHIR or Azure FHIR sits in front | FHIR-native from day one — HealthEdge, Innovaccer, or custom microservices   |
+| **EDI processing**      | Legacy CAPS still adjudicates; EDI goes to Facets as always               | Modern cloud-native adjudication engine with EDI adapter (not the core)      |
+| **Typical timeline**    | 5–10 years of incremental modernization                                   | 18–36 months for full launch                                                 |
+| **Example companies**   | UnitedHealth, Aetna, BCBS plans                                           | Bright Health (before collapse), Oscar Health, Devoted Health, Clover Health |
+| **Main risk**           | Change management, data migration, keeping the legacy running             | Scalability at volume, regulatory approvals, provider network build          |
+| **API Gateway**         | MuleSoft / Apigee as mandatory middleware                                 | May be built natively — AWS API Gateway, Azure APIM, or service mesh (Istio) |
+| **Adjudication engine** | Facets/QNXT — monolith, on-premise or hosted                              | HealthEdge HealthRules, cloud-native microservices, or custom-built          |
 
 ### Greenfield / Cloud-Native Stack (What New Payers Actually Build)
 
@@ -3879,12 +4192,12 @@ Pharmacy claims and e-prescribing use a completely different standard from the 8
 
 **The routing identifiers** (what's on the back of every insurance card):
 
-| Field | What It Is | Example |
-|---|---|---|
-| **BIN** (Bank Identification Number) | 6-digit number that routes the claim to the right PBM's network | 610591 = OptumRx |
-| **PCN** (Processor Control Number) | Sub-routes within the PBM to the right plan/program | ADJADJ, 9999, varies |
-| **Group** | Identifies the employer group or health plan within the PBM | ACMECORP01 |
-| **Member ID** | Member's ID within the PBM — may differ from the medical plan ID | Same or different |
+| Field                                | What It Is                                                       | Example              |
+| ------------------------------------ | ---------------------------------------------------------------- | -------------------- |
+| **BIN** (Bank Identification Number) | 6-digit number that routes the claim to the right PBM's network  | 610591 = OptumRx     |
+| **PCN** (Processor Control Number)   | Sub-routes within the PBM to the right plan/program              | ADJADJ, 9999, varies |
+| **Group**                            | Identifies the employer group or health plan within the PBM      | ACMECORP01           |
+| **Member ID**                        | Member's ID within the PBM — may differ from the medical plan ID | Same or different    |
 
 When a pharmacist types these into their dispensing system (e.g., QS/1, PioneerRx, Rx30), the claim routes through the **pharmacy switch** (Relay Health / Change Healthcare, Emdeon, SureScripts) to the correct PBM.
 
@@ -3937,20 +4250,20 @@ If REJECTED: Pharmacist counsels member on next steps
 
 ### Key NCPDP D.0 Fields (What Goes in the Claim)
 
-| Field | Description | Example |
-|---|---|---|
-| **NDC** | National Drug Code — 11 digits (5-4-2): manufacturer + product + package | 00071-0155-23 (Lipitor 10mg 90-count) |
-| **Quantity Dispensed** | Units dispensed (tablets, mL, grams) | 90 (tablets) |
-| **Days Supply** | How many days the dispensed quantity covers | 30 |
-| **DAW Code** | Dispense As Written — 0=no brand required, 1=prescriber specifies brand, 7=brand dispensed per member request | 0 |
-| **Compound Code** | 1=not compound, 2=compound | 1 |
-| **Fill Number** | 0=new prescription, 1–99=refill number | 0 |
-| **Prescriber NPI** | NPI of the prescribing physician | 1234567890 |
-| **Pharmacy NPI** | NPI of the dispensing pharmacy | 0987654321 |
-| **Date of Service** | Date drug was dispensed | 20260521 |
-| **Ingredient Cost Submitted** | What pharmacy is charging for the drug | $45.00 |
-| **Dispensing Fee Submitted** | Pharmacy's dispensing fee | $2.00 |
-| **Usual and Customary (U&C)** | Pharmacy's cash price — PBM pays lesser of calculated amount or U&C | $38.00 |
+| Field                         | Description                                                                                                   | Example                               |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------- |
+| **NDC**                       | National Drug Code — 11 digits (5-4-2): manufacturer + product + package                                      | 00071-0155-23 (Lipitor 10mg 90-count) |
+| **Quantity Dispensed**        | Units dispensed (tablets, mL, grams)                                                                          | 90 (tablets)                          |
+| **Days Supply**               | How many days the dispensed quantity covers                                                                   | 30                                    |
+| **DAW Code**                  | Dispense As Written — 0=no brand required, 1=prescriber specifies brand, 7=brand dispensed per member request | 0                                     |
+| **Compound Code**             | 1=not compound, 2=compound                                                                                    | 1                                     |
+| **Fill Number**               | 0=new prescription, 1–99=refill number                                                                        | 0                                     |
+| **Prescriber NPI**            | NPI of the prescribing physician                                                                              | 1234567890                            |
+| **Pharmacy NPI**              | NPI of the dispensing pharmacy                                                                                | 0987654321                            |
+| **Date of Service**           | Date drug was dispensed                                                                                       | 20260521                              |
+| **Ingredient Cost Submitted** | What pharmacy is charging for the drug                                                                        | $45.00                                |
+| **Dispensing Fee Submitted**  | Pharmacy's dispensing fee                                                                                     | $2.00                                 |
+| **Usual and Customary (U&C)** | Pharmacy's cash price — PBM pays lesser of calculated amount or U&C                                           | $38.00                                |
 
 ---
 
@@ -3958,12 +4271,12 @@ If REJECTED: Pharmacist counsels member on next steps
 
 **Pricing formulas** (pharmacies are reimbursed based on one of these):
 
-| Pricing Method | Formula | Who Uses It |
-|---|---|---|
-| **AWP-based** | AWP (Average Wholesale Price) minus a discount % | Legacy — most common in commercial |
-| **WAC-based** | Wholesale Acquisition Cost (manufacturer list price) ± % | Specialty drugs |
-| **MAC pricing** | Maximum Allowable Cost — PBM sets its own price for generics, below AWP | Generics — very common |
-| **Usual and Customary** | Pharmacy's own cash price — PBM pays the lesser of MAC or U&C | Ties to price transparency |
+| Pricing Method          | Formula                                                                 | Who Uses It                        |
+| ----------------------- | ----------------------------------------------------------------------- | ---------------------------------- |
+| **AWP-based**           | AWP (Average Wholesale Price) minus a discount %                        | Legacy — most common in commercial |
+| **WAC-based**           | Wholesale Acquisition Cost (manufacturer list price) ± %                | Specialty drugs                    |
+| **MAC pricing**         | Maximum Allowable Cost — PBM sets its own price for generics, below AWP | Generics — very common             |
+| **Usual and Customary** | Pharmacy's own cash price — PBM pays the lesser of MAC or U&C           | Ties to price transparency         |
 
 **AWP** is a published benchmark price — NOT the actual acquisition cost. It's an industry fiction that serves as a starting point for negotiations. A pharmacy that buys generic metformin for $0.02/tablet may be reimbursed at $0.15/tablet (AWP minus 80%) — or be subject to a MAC of $0.05/tablet.
 
@@ -3973,18 +4286,18 @@ If REJECTED: Pharmacist counsels member on next steps
 
 ### Reject Codes — What Happens When a Claim Fails
 
-| Reject Code | Meaning | Resolution |
-|---|---|---|
-| **07** | M/I (Missing/Invalid) member ID | Pharmacist verifies ID, re-submits |
-| **14** | M/I date of birth | Eligibility mismatch |
-| **25** | Missing or invalid prescriber ID | NPI not on file with PBM |
-| **40** | Inactive/invalid member | Not enrolled, or benefit not yet active |
-| **41** | No coverage for this drug | Drug not on formulary |
-| **70** | NDC not covered | Non-formulary drug |
-| **75** | Prior authorization required | Pharmacist calls doctor to initiate PA |
-| **76** | Plan limitations exceeded | Quantity limit or days supply limit reached |
-| **79** | Refill too soon | Days supply not used up (adherence enforcement) |
-| **88** | DUR (Drug Utilization Review) reject | Drug interaction, age edit, dose limit |
+| Reject Code | Meaning                              | Resolution                                      |
+| ----------- | ------------------------------------ | ----------------------------------------------- |
+| **07**      | M/I (Missing/Invalid) member ID      | Pharmacist verifies ID, re-submits              |
+| **14**      | M/I date of birth                    | Eligibility mismatch                            |
+| **25**      | Missing or invalid prescriber ID     | NPI not on file with PBM                        |
+| **40**      | Inactive/invalid member              | Not enrolled, or benefit not yet active         |
+| **41**      | No coverage for this drug            | Drug not on formulary                           |
+| **70**      | NDC not covered                      | Non-formulary drug                              |
+| **75**      | Prior authorization required         | Pharmacist calls doctor to initiate PA          |
+| **76**      | Plan limitations exceeded            | Quantity limit or days supply limit reached     |
+| **79**      | Refill too soon                      | Days supply not used up (adherence enforcement) |
+| **88**      | DUR (Drug Utilization Review) reject | Drug interaction, age edit, dose limit          |
 
 ---
 
@@ -4108,15 +4421,15 @@ Health plan uses rebate revenue to offset drug spend
 
 Used for electronic prescriptions — a completely different transaction from point-of-sale D.0 claims:
 
-| Message Type | Direction | Purpose |
-|---|---|---|
-| **NewRx** | Prescriber → Pharmacy | New prescription sent electronically |
-| **RxChangeRequest** | Pharmacy → Prescriber | Request to change drug (PA needed, substitution, clarification) |
-| **RxChangeResponse** | Prescriber → Pharmacy | Approve or deny the change request |
-| **CancelRx** | Prescriber → Pharmacy | Cancel a prescription before dispensing |
-| **CancelRxResponse** | Pharmacy → Prescriber | Confirm cancellation (or reject if already dispensed) |
-| **RxFill** | Pharmacy → Prescriber | Notify prescriber that Rx was filled (for controlled substances) |
-| **RefillRequest** | Pharmacy → Prescriber | Request a new prescription for a refill |
+| Message Type         | Direction             | Purpose                                                          |
+| -------------------- | --------------------- | ---------------------------------------------------------------- |
+| **NewRx**            | Prescriber → Pharmacy | New prescription sent electronically                             |
+| **RxChangeRequest**  | Pharmacy → Prescriber | Request to change drug (PA needed, substitution, clarification)  |
+| **RxChangeResponse** | Prescriber → Pharmacy | Approve or deny the change request                               |
+| **CancelRx**         | Prescriber → Pharmacy | Cancel a prescription before dispensing                          |
+| **CancelRxResponse** | Pharmacy → Prescriber | Confirm cancellation (or reject if already dispensed)            |
+| **RxFill**           | Pharmacy → Prescriber | Notify prescriber that Rx was filled (for controlled substances) |
+| **RefillRequest**    | Pharmacy → Prescriber | Request a new prescription for a refill                          |
 
 **Mandated by CMS** for all Medicare Part D controlled substance prescriptions. Most states also mandate electronic prescribing for controlled substances (EPCS) under state law.
 
@@ -4128,11 +4441,11 @@ Used for electronic prescriptions — a completely different transaction from po
 
 **11-digit structure**: `NNNNN-NNNN-NN` (5-4-2 format)
 
-| Segment | Digits | Identifies |
-|---|---|---|
-| **Labeler code** | 5 | Manufacturer or distributor (FDA-assigned) |
-| **Product code** | 4 | Drug, strength, and dosage form |
-| **Package code** | 2 | Package size and type |
+| Segment          | Digits | Identifies                                 |
+| ---------------- | ------ | ------------------------------------------ |
+| **Labeler code** | 5      | Manufacturer or distributor (FDA-assigned) |
+| **Product code** | 4      | Drug, strength, and dosage form            |
+| **Package code** | 2      | Package size and type                      |
 
 **Example**: `00071-0155-23` = Pfizer (00071) / Lipitor 10mg tablet (0155) / 90-count bottle (23)
 
@@ -4430,6 +4743,11 @@ Beyond APIs, a lot of healthcare data still moves via older methods:
 
 ---
 
+
+---
+
+> **SECTION 9 — PM Framing Talking Points**
+
 # PM-FRAMING TALKING POINTS (Practice Saying These Out Loud)
 
 1. **Bridge story**: *"17 years in healthcare IT, focused the last year on the payer-provider FHIR ecosystem. I bridge clinicians, engineering, and product — and I've built working prototypes on top of the same CMS mandates that drive payer roadmaps."*
@@ -4442,6 +4760,11 @@ Beyond APIs, a lot of healthcare data still moves via older methods:
 
 ---
 
+
+---
+
+> **SECTION 10 — Quiz Mode**
+
 # QUIZ MODE — How to Use Me
 
 Ask any of these in the chat:
@@ -4453,6 +4776,11 @@ Ask any of these in the chat:
 - *"Pretend you're the hiring manager and ask me 5 questions about my workspace"*
 
 ---
+
+
+---
+
+> **SECTION 11 — 48-Hour Prep Schedule**
 
 # 48-HOUR PREP SCHEDULE
 
